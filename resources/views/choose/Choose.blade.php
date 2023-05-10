@@ -17,7 +17,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -41,16 +43,23 @@
 
 <style>
 
-    @font-face { font-family: Shabnam; src: url('landing_assets/fonts/Shabnam.ttf'); }
-    @font-face { font-family: Shabnam; font-weight: bold; src: url('landing_assets/fonts/Shabnam.ttf');}
+    @font-face {
+        font-family: Shabnam;
+        src: url('landing_assets/fonts/Shabnam.ttf');
+    }
+    @font-face {
+        font-family: Shabnam;
+        font-weight: bold;
+        src: url('landing_assets/fonts/Shabnam.ttf');
+    }
 
-    .h1,h2,h3,h4,h5,div {
-        font-family: Shabnam,serif;
+    .h1, h2, h3, h4, h5, div {
+        font-family: Shabnam, serif;
     }
 
 </style>
 
-<body style="background: white" >
+<body style="background: white">
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center" dir="rtl">
@@ -77,16 +86,25 @@
                 <div class="col-lg-8 text-center" dir="rtl">
 
                     <div class="alert" role="alert">
-                    <br>
-                        <img  src="{{ asset('images/logo.png') }} " data-aos="fade-up"  width="20%" >
+                        <br>
+                        <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="20%">
                         <br><br>
-                    <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>
+                        <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>
                         <br>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}" class="btn-get-started" style="font-family: Shabnam">فردی</a>
-                        <br>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}" class="btn-get-started" style="font-family: Shabnam">گروهی</a>
-                        <br>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}" class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
+                        @if($deactive_item1 == 0)
+                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
+                               class="btn-get-started" style="font-family: Shabnam">فردی</a>
+                            <br>
+                        @endif
+                        @if($deactive_item2 == 0)
+                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"
+                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>
+                            <br>
+                        @endif
+                        @if($deactive_item3 == 0)
+                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"
+                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
+                        @endif
                     </div>
                 </div>
             </div>

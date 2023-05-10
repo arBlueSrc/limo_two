@@ -8,7 +8,7 @@ class chooseController extends Controller
 {
      public function catgory(){
 
-         return view('Choose a category.Choose')->with('page','choose');
+         return view('choose.Choose')->with('page','choose');
 
 
      }
