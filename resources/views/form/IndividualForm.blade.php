@@ -188,7 +188,7 @@
 
                             <div><h5 class="text-info">زمان دقیق آزمون به شما اطلاع رسانی خواهد شد </h5></div>
                             <div><h5 class="text-info">توجه: لطفا قبل از ذخیره اطلاعات و ثبت نام حتما <a
-                                        class="text-danger" href=""> آیین نامه بخش فردی</a> را مطالعه کنید </h5></div>
+                                        class="text-danger" href="{{ url('/files/single_rule.pdf') }}"> آیین نامه بخش فردی</a> را مطالعه کنید </h5></div>
                             <br>
                             <button type="submit" class="btn btn-success btn-lg mb-1">ذخیره</button>
 
