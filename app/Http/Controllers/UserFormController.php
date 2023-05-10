@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\CalendarUtils;
 use Morilog\Jalali\Jalalian;
+use App\Models\FamilyResultChildren;
+
 
 class UserFormController extends Controller
 {
@@ -24,6 +26,7 @@ class UserFormController extends Controller
             return redirect(route('choose'));
         }else{
             Auth::logout();
+
             return view('form.registerBefore');
         }
 
@@ -141,7 +144,7 @@ class UserFormController extends Controller
         ]);
 //        dd($data);
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 //        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'].' 00:00';
         $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
@@ -204,7 +207,7 @@ rubika.ir/quranbsj_ir",
         ]);
 
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
         $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
@@ -266,19 +269,33 @@ rubika.ir/quranbsj_ir",
             'father_phone' => 'required',
             'mother_name' => 'required',
             'mother_phone' => 'required',
-            'child_count' => 'required',
             'mosque' => 'required',
-//            'user_id' => Auth::user()->id,
+            'child_name1' => '',
+            'child_name2' => '',
+            'child_name3' => '',
+            'child_name4' => '',
+            'child_day1' => '',
+            'child_day2' => '',
+            'child_day3' => '',
+            'child_day4' => '',
+            'child_month1' => '',
+            'child_month2' => '',
+            'child_month3' => '',
+            'child_month4' => '',
+            'child_year1' => '',
+            'child_year2' => '',
+            'child_year3' => '',
+            'child_year4' => '',
         ]);
-
+//dd($data);
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
         $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
         $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
 
-        FamilyResult::create([
+        $f=FamilyResult::create([
             'name'=>$data['family_name'],
             'ostan_id'=>$data['ostan_id'],
             'shahrestan_id'=>$data['shahrestan_id'],
@@ -287,11 +304,73 @@ rubika.ir/quranbsj_ir",
             'father_phone'=>$data['father_phone'],
             'mother_name'=>$data['mother_name'],
             'mother_phone'=>$data['mother_phone'],
-            'child_count'=>$data['child_count'],
+//            'child_count'=>$data['child_count'],
             'birthdate'=>$birth_date,
             'mosque_id'=>$data['mosque'],
             'user_id'=>Auth::user()->id
         ]);
+
+        // inserting child info
+        if ($data['child_name1']){
+            if ($data['child_year1']){
+                $data['child_month1'] =  str_pad($data['child_month1'], 2, '0', STR_PAD_LEFT);
+                $data['child_day1'] =  str_pad($data['child_day1'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date=$data['child_year1'].'/'.$data['child_month1'].'/'.$data['child_day1'];
+
+                $child_birth_date1=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+        FamilyResultChildren::create([
+            'family_result_id'=>$f->id,
+            'name'=>$data['child_name1'],
+            'birthdate'=>$child_birth_date1,
+        ]);
+        }
+        if ($data['child_name2']){
+            if ($data['child_year2']){
+                $data['child_month2'] =  str_pad($data['child_month2'], 2, '0', STR_PAD_LEFT);
+                $data['child_day2'] =  str_pad($data['child_day2'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date=$data['child_year2'].'/'.$data['child_month2'].'/'.$data['child_day2'];
+
+                $child_birth_date2=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name2'],
+                'birthdate'=>$child_birth_date2,
+            ]);
+        }
+        if ($data['child_name3']){
+            if ($data['child_year3']){
+                $data['child_month3'] =  str_pad($data['child_month3'], 2, '0', STR_PAD_LEFT);
+                $data['child_day3'] =  str_pad($data['child_day3'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date=$data['child_year3'].'/'.$data['child_month3'].'/'.$data['child_day3'];
+
+                $child_birth_date3=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name3'],
+                'birthdate'=>$child_birth_date3,
+            ]);
+        }
+        if ($data['child_name4']){
+            if ($data['child_year4']){
+                $data['child_month4'] =  str_pad($data['child_month4'], 2, '0', STR_PAD_LEFT);
+                $data['child_day4'] =  str_pad($data['child_day4'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date=$data['child_year4'].'/'.$data['child_month4'].'/'.$data['child_day4'];
+
+                $child_birth_date4=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name4'],
+                'birthdate'=>$child_birth_date4,
+            ]);
+        }
 // send sms to user
         //API Url
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';

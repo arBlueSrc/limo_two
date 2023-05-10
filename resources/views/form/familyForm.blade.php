@@ -200,16 +200,15 @@
                                 <label class="form-label" for="Mname">شماره تماس مادر خانواده*</label>
                                 <input type="text" id="mPhone number" name="mother_phone" class="form-control"/>
                             </div>
-                            <div class="form-outline mb-4">
+                            {{--<div class="form-outline mb-4">
                                 <label class="form-label" for="mosque">انتخاب مسجد محل آزمون*</label>
                                 <div class="form-outline mb-4">
 
                                     <select  name="mosque" id="mosque" class="form-control">
                                     </select>
                                 </div>
-                            </div>
+                            </div>--}}
 
-{{--
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="number_of_chaild">نام فرزتد اول*</label>
@@ -221,7 +220,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select class="form-control" name="day" id="Day">
+                                        <select class="form-control" name="child_day1" id="Day">
                                             <option value="" class="form-control" selected>روز</option>
                                             @for($i=1; $i<=31;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -232,7 +231,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="month" class="form-control" id="Month">
+                                        <select name="child_month1" class="form-control" id="Month">
                                             <option value="" class="form-control" selected>ماه</option>
                                             @for($i=1; $i<=12;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -243,7 +242,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" class="form-control">
+                                        <select name="child_year1" class="form-control">
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1399; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -265,7 +264,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select class="form-control" name="day" id="Day">
+                                        <select class="form-control" name="child_day2" id="Day">
                                             <option value="" class="form-control" selected>روز</option>
                                             @for($i=1; $i<=31;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -276,7 +275,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="month" class="form-control" id="Month">
+                                        <select name="child_month2" class="form-control" id="Month">
                                             <option value="" class="form-control" selected>ماه</option>
                                             @for($i=1; $i<=12;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -287,7 +286,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" class="form-control">
+                                        <select name="child_year2" class="form-control">
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1399; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -308,7 +307,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select class="form-control" name="day" id="Day">
+                                        <select class="form-control" name="child_day3" id="Day">
                                             <option value="" class="form-control" selected>روز</option>
                                             @for($i=1; $i<=31;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -319,7 +318,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="month" class="form-control" id="Month">
+                                        <select name="child_month3" class="form-control" id="Month">
                                             <option value="" class="form-control" selected>ماه</option>
                                             @for($i=1; $i<=12;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -330,7 +329,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" class="form-control">
+                                        <select name="child_year3" class="form-control">
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1399; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -351,7 +350,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select class="form-control" name="day" id="Day">
+                                        <select class="form-control" name="child_day4" id="Day">
                                             <option value="" class="form-control" selected>روز</option>
                                             @for($i=1; $i<=31;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -362,7 +361,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="month" class="form-control" id="Month">
+                                        <select name="child_month4" class="form-control" id="Month">
                                             <option value="" class="form-control" selected>ماه</option>
                                             @for($i=1; $i<=12;$i++)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -373,7 +372,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" class="form-control">
+                                        <select name="child_year4" class="form-control">
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1399; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -383,9 +382,6 @@
                                 </div>
                             </div>
 
-
-
---}}
 
 
 
