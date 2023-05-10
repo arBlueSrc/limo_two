@@ -6,8 +6,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>سامانه مسابقات</title>
-    <meta content="سامانه مسابقات" name="description">
-    <meta content="سامانه مسابقات" name="keywords">
+    <meta content="ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج" name="description">
+    <meta content="سامانه مسابقات,مسابقات قرآن بسیج,مسابقات قرآن,قرآن بسیج" name="keywords">
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
