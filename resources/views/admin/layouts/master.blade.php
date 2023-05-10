@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Footer -->
   <footer class="main-footer" style="text-align: center">
     <!-- To the right -->
-    توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.
+     - تمامی حقوق محفوظ می باشد.
     <!-- Default to the left -->
   </footer>
 
