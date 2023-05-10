@@ -215,7 +215,9 @@ rubika.ir/quranbsj_ir",
             'second_person_phone' => 'required',
             'third_person_name' => 'required',
             'third_persons_phone' => 'required',
+            'type' => 'required',
         ]);
+//        dd($data);
 
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
@@ -240,7 +242,7 @@ rubika.ir/quranbsj_ir",
             'third_phone' => $data['third_persons_phone'],
             'birthday' => $birth_date,
             'user_id' => Auth::user()->id,
-
+            'type' => $data['type'],
         ]);
 
         // send sms to user

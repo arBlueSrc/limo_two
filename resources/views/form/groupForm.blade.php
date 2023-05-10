@@ -114,7 +114,13 @@
                                 <label class="form-label" for="NameOfGroup">نام گروه*</label>
                                 <input type="text" id="namesGroup" name="group_name" class="form-control"/>
                             </div>
-
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="Township">انتخاب مدل شرکت گروه*</label>
+                                <select name="type" id="" class="form-control">
+                                    <option value="1" {{--selected=selected--}}>شرکت به صورت مدل اول (هر فرد یک تکلیف)</option>
+                                    <option value="2">شرکت به صورت مدل دوم (حفظ گروهی سوره مبارکه الرحمن)</option>
+                                </select>
+                            </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="City">استان*</label>
                                 <select name="ostan_id" id="ostans" class="form-control">
@@ -139,6 +145,8 @@
                                 </select>
 {{--                                <input type="text" id="mosque" name="mosque" class="form-control"/>--}}
                             </div>
+
+
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="LeadersLFname">نام و نام خانوادگی سرگروه*</label>
                                 <input type="text" id="leaders_name" name="head_name" class="form-control"
