@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="">
     <!-- Brand Logo -->
     <a href="{{url('admin')}}" class="brand-link">
-      <span class="brand-text" style="color: white; font-size: 15px; margin-right: 15px">سامانه مسابقات</span>
+      <span class="brand-text" style="color: white; font-size: 15px; margin-right: 15px">مسابقات قرآن</span>
     </a>
 
     <!-- Sidebar -->

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class masjed extends Model
 {
     use HasFactory;
+
+    protected $fillable = ["ostan"];
 }

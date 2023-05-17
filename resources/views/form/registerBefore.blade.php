@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>سامانه مسابقات</title>
-    <meta content="سامانه مسابقات" name="description">
+    <title>مسابقات قرآن</title>
+    <meta content="مسابقات قرآن" name="description">
     <meta content="مسابقات" name="keywords">
 
     <!-- Favicons -->

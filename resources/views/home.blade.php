@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>سامانه مسابقات</title>
+    <title>مسابقات قرآن</title>
     <meta content="ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج" name="description">
-    <meta content="سامانه مسابقات,مسابقات قرآن بسیج,مسابقات قرآن,قرآن بسیج" name="keywords">
+    <meta content="مسابقات قرآن,مسابقات قرآن بسیج,مسابقات قرآن,قرآن بسیج" name="keywords">
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -61,7 +61,7 @@
 
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 style="font-family: Shabnam">سامانه مسابقات<span>.</span></h1>
+            <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
          </a>
 
 
