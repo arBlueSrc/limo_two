@@ -12,12 +12,10 @@ use Morilog\Jalali\CalendarUtils;
 use Morilog\Jalali\Jalalian;
 use App\Models\FamilyResultChildren;
 
-
 class UserFormController extends Controller
 {
     public function showForm()
     {
-
         $single = SingleResult::where('user_id',Auth()->user()->id)->get();
         $group = GroupResult::where('user_id',Auth()->user()->id)->get();
         $family = FamilyResult::where('user_id',Auth()->user()->id)->get();
@@ -42,7 +40,6 @@ class UserFormController extends Controller
         }
 
     }
-
     public function edit(Request $request)
     {
         $user = User::find($request->user);
@@ -51,7 +48,6 @@ class UserFormController extends Controller
 
     public function update(Request $request)
     {
-
         $data = $request->validate([
             'name' => 'required',
             'lname' => 'required',
@@ -144,14 +140,15 @@ class UserFormController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'national_code' => 'required',
-//            'Phone_number' => 'required',
+            'mobile' => 'required',
             'day' => 'required',
             'month' => 'required',
             'year' => 'required',
             'ostan_id' => 'required',
             'shahrestan_id' => 'required',
             'mosque' => 'required',
-            'major' => 'required'
+            'major' => 'required',
+            'moaref_mobile' => '',
         ]);
 //        dd($data);
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
@@ -160,9 +157,7 @@ class UserFormController extends Controller
         $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
         $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
-
-
-        SingleResult::create([
+        $single_result=SingleResult::create([
 //            'type' => 1,
             'name' => $data['name'],
             'national_code' => $data['national_code'],
@@ -171,9 +166,15 @@ class UserFormController extends Controller
             'birthday' => $birth_date,
             'major' => $data['major'],
             'mosque_id' => $data['mosque'],
-            'phone' => Auth::user()->mobile,
+            'phone' => $data['mobile'],
             'user_id' => Auth::user()->id,
         ]);
+        // add moref if exists
+        if ($data['moaref_mobile']){
+            $single_result->moarefs()->create([
+               'moaref_mobile'=>$data['moaref_mobile']
+            ]);
+        }
 
         // send sms to user
             //API Url
@@ -216,6 +217,7 @@ rubika.ir/quranbsj_ir",
             'third_person_name' => 'required',
             'third_persons_phone' => 'required',
             'type' => 'required',
+            'moaref_mobile' => '',
         ]);
 //        dd($data);
 
@@ -227,7 +229,7 @@ rubika.ir/quranbsj_ir",
         $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
 //        dd($birth_date);
 
-        GroupResult::create([
+        $group_result=GroupResult::create([
             'name_group' => $data['group_name'],
             'ostan_id' => $data['ostan_id'],
             'shahrestan_id' => $data['shahrestan_id'],
@@ -244,7 +246,11 @@ rubika.ir/quranbsj_ir",
             'user_id' => Auth::user()->id,
             'type' => $data['type'],
         ]);
-
+        if ($data['moaref_mobile']){
+            $group_result->moarefs()->create([
+               'moaref_mobile'=>$data['moaref_mobile']
+            ]);
+        }
         // send sms to user
         //API Url
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
@@ -299,6 +305,7 @@ rubika.ir/quranbsj_ir",
             'child_year2' => '',
             'child_year3' => '',
             'child_year4' => '',
+            'moaref_mobile' => '',
         ]);
 //dd($data);
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
@@ -322,6 +329,12 @@ rubika.ir/quranbsj_ir",
             'mosque_id'=>$data['mosque'],
             'user_id'=>Auth::user()->id
         ]);
+
+        if ($data['moaref_mobile']){
+            $f->moarefs()->create([
+               'moaref_mobile'=>$data['moaref_mobile']
+            ]);
+        }
 
         // inserting child info
         if ($data['child_name1']){

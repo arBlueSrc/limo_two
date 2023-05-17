@@ -11,4 +11,7 @@ class SingleResult extends Model
     use HasFactory;
     protected $table='single_result';
     protected $guarded=[];
+    public function moarefs(){
+        return $this->morphMany(Moaref::class,'moarefable');
+    }
 }

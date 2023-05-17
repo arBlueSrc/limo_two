@@ -113,6 +113,10 @@
                                 <input type="text" id="fname" name="family_name" class="form-control"/>
                             </div>
                             <div class="form-outline mb-4">
+                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این فیلد را خالی بگذارید)</label>
+                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
+                            </div>
+                            <div class="form-outline mb-4">
                                 <label class="form-label" for="City">استان*</label>
 
                                 <select name="ostan_id" id="ostans" class="form-control">

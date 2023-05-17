@@ -108,11 +108,14 @@
                                 <input type="text" id="National" name="national_code" class="form-control"/>
                             </div>
 
-                            {{--<div class="form-outline mb-4">
-                                <label class="form-label" for="Phone_number">شماره تماس*</label>
-                                <input type="text" id="Phone number" name="Phone number" class="form-control"/>
-                            </div>--}}
-
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="mobile">شماره تماس*</label>
+                                <input type="text" id="mobile" name="mobile" class="form-control"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این فیلد را خالی بگذارید)</label>
+                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
+                            </div>
                             <div class="row">
                                 <label class="form-label" for="Date_of_birth">تاریخ تولد*</label>
                                 <div class="col-sm-4">
@@ -184,6 +187,7 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <br>
 
                             <div><h5 class="text-info">زمان دقیق آزمون به شما اطلاع رسانی خواهد شد </h5></div>

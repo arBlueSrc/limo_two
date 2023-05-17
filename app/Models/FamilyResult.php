@@ -10,4 +10,7 @@ class FamilyResult extends Model
     use HasFactory;
     protected $table='family_result';
     protected $guarded=[];
+    public function moarefs(){
+        return $this->morphMany(Moaref::class,'moarefable');
+    }
 }
