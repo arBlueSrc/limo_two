@@ -31,6 +31,31 @@
                   </a>
               </li>
 
+
+
+              <li class="nav-item has-treeview {{ isActive(["user.index","darolghorans.index"],'menu-open') }}">
+                  <a href="#" class="nav-link {{ isActive(["user.index","darolghorans.index"]) }}">
+                      <p>
+                          کاربران
+                          <i class="right fa fa-angle-left"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{ route('user.index') }}" class="nav-link {{ isActive("user.index") }}">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>لیست کاربران ثبت نام شده</p>
+                          </a>
+                      </li>
+                      {{--<li class="nav-item">
+                          <a href="{{ route('darolghorans.create') }}" class="nav-link {{isActive("darolghorans.create") }}">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>افزودن دارالقرآن</p>
+                          </a>
+                      </li>--}}
+                  </ul>
+              </li>
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

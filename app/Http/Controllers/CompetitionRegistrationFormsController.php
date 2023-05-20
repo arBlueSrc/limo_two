@@ -64,4 +64,5 @@ class CompetitionRegistrationFormsController extends Controller
         return $masjeds;
     }
 
+
 }

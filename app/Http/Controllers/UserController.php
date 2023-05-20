@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ostan;
+use App\Models\Shahrestan;
+use App\Models\SingleResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::paginate(15);
-        return view('admin.user.index',compact('users'));
+        $users=SingleResult::paginate(10);
+        $ostans=Ostan::all();
+        $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
+//        dd($shahrestans);
+//        $users = User::paginate(15);
+        return view('admin.user.index',compact('users','ostans','shahrestans'));
     }
 
     public function show(User $user){
         return view('admin.user.show', compact('user'));
     }
-
     public function destroy($id, Request $request)
     {
         User::destroy($request->input('delete_id'));
@@ -141,4 +147,40 @@ class UserController extends Controller
         exit();
     }
 
+    public function filterUsers(Request $request)
+    {
+//        dd($request->all());
+        if ($request->ostan){
+            $users=SingleResult::where('ostan_id',$request->ostan);
+            $selected[]=[
+              'ostan'=>$request->ostan
+            ];
+            if ($request->shahrestan){
+                $users=$users->where('shahrestan_id',$request->shahrestan);
+                $selected[]=[
+                    'shahrestan'=>$request->shahrestan
+                ];
+        }
+            if ($request->mosque){
+                $selected[]=[
+                  'mosque'=>$request->mosque
+                ];
+                $users=$users->where('mosque_id',$request->mosque);
+            }
+        }
+
+        else{
+            $users=SingleResult::query();
+        }
+        $users=$users->paginate(10);
+        $ostans=Ostan::all();
+        $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
+//        dd($shahrestans);
+//        $users = User::paginate(15);
+//        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
+       return view('admin.user.index',compact('users','ostans','shahrestans'));
+    }
+    /*public function filterUsersShow(){
+        return view('admin.user.index',compact('users','ostans','shahrestans'));
+    }*/
 }

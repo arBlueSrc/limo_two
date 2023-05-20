@@ -43,10 +43,11 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
 
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');
+    Route::post('users/search',[UserController::class,'filterUsers'])->name('users.search');
+//    Route::get('users/search',[UserController::class,'filterUsersShow'])->name('users.search.show');
     Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
     Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
     Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
-
 });
 
 
