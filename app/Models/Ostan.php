@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ostan extends Model
 {
     use HasFactory;
+    public static function ostanById($id){
+        return Ostan::find($id);
+    }
 }

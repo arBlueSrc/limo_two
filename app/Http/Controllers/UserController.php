@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
@@ -18,8 +19,7 @@ class UserController extends Controller
 //        $users = User::paginate(15);
         return view('admin.user.index',compact('users','ostans','shahrestans'));
     }
-
-    public function show(User $user){
+    public function show(SingleResult $user){
         return view('admin.user.show', compact('user'));
     }
     public function destroy($id, Request $request)
@@ -27,8 +27,6 @@ class UserController extends Controller
         User::destroy($request->input('delete_id'));
         return back();
     }
-
-
 
     public function exportExcel()
     {
@@ -64,13 +62,10 @@ class UserController extends Controller
 
 
         foreach ($results as $result) {
-
             $gender = "مرد";
             if ($result->gender == 0){
                 $gender = "زن";
             }
-
-
             $edu = "";
             switch ($result->edu){
                 case 0:
@@ -138,47 +133,51 @@ class UserController extends Controller
                 $data11,
                 $data12
             ];
-
             echo implode(",", array_values($rows)) . "\n";
-
         }
-
         mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
         exit();
     }
-
     public function filterUsers(Request $request)
     {
+        $selected=[];
+        $masjeds=null;
 //        dd($request->all());
         if ($request->ostan){
             $users=SingleResult::where('ostan_id',$request->ostan);
-            $selected[]=[
-              'ostan'=>$request->ostan
-            ];
+            $selected['ostan']=$request->ostan;
+
             if ($request->shahrestan){
                 $users=$users->where('shahrestan_id',$request->shahrestan);
-                $selected[]=[
-                    'shahrestan'=>$request->shahrestan
-                ];
+                $selected['shahrestan']=$request->shahrestan;
         }
             if ($request->mosque){
-                $selected[]=[
-                  'mosque'=>$request->mosque
-                ];
+                $selected['mosque']=$request->mosque;
                 $users=$users->where('mosque_id',$request->mosque);
             }
         }
-
         else{
             $users=SingleResult::query();
         }
         $users=$users->paginate(10);
         $ostans=Ostan::all();
-        $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
-//        dd($shahrestans);
+//        dd(isset($selected['shahrestan']));
+        if ( isset( $selected['ostan']) ){
+            $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
+//            dd($shahrestans);
+        }
+        else {
+            $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+//            dd($shahrestans);
+        }
+        if (isset($selected['shahrestan'])){
+            $shahrestan_name=Shahrestan::where('id',$selected['shahrestan'])->first()->name;
+            $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
+        }
+        //        dd($shahrestans);
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
-       return view('admin.user.index',compact('users','ostans','shahrestans'));
+       return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds'));
     }
     /*public function filterUsersShow(){
         return view('admin.user.index',compact('users','ostans','shahrestans'));

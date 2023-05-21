@@ -11,4 +11,9 @@ class Shahrestan extends Model
 
     protected $fillable = ["name","ostan","amar_code"];
     public $timestamps = false;
+
+    public function shahrestanById()
+    {
+        return Shahrestan::find($id);
+    }
 }

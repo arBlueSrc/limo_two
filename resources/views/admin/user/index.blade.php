@@ -1,7 +1,14 @@
 @extends('admin.layouts.master')
+@push('styles')
+    <style>
+        .filter-result-container span.text-bold{
+            font-size: 1rem;
+        }
+    </style>
+@endpush
 @push('scripts')
-    <script>
 
+    <script>
         function setDelete(user) {
             document.getElementById("delete_id").value = user['id'];
         }
@@ -148,7 +155,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
 
@@ -168,9 +174,8 @@
                             <select name="ostan" id="ostans" class="form-control">
                                 <option value="">همه</option>
                                 @foreach($ostans as $ostan)
-                                    <option value="{{ $ostan->id }}">{{ $ostan->name }}</option>
+                                    <option value="{{ $ostan->id }}" @if( isset($selected['ostan']) && $selected['ostan'] == $ostan->id ) selected @endif >{{ $ostan->name }}</option>
                                 @endforeach
-
                             </select>
                         </div>
                         <div class="form-group col-md-3">
@@ -178,7 +183,7 @@
                             <select name="shahrestan" id="child_shahrestans" class="form-control">
                                 <option value="">همه</option>
                                 @foreach($shahrestans as $shahrestan)
-                                    <option value="{{ $shahrestan->id }}">{{ $shahrestan->name }}</option>
+                                    <option value="{{ $shahrestan->id }}" @if( isset($selected['shahrestan']) && ($selected['shahrestan']== $shahrestan->id) ) selected @endif >{{ $shahrestan->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -186,11 +191,37 @@
                             <label>مسجد</label>
                             <select name="mosque" id="mosque" class="form-control">
                                 <option value="">همه</option>
+                                @isset($masjeds)
+                                @foreach($masjeds as $masjed)
+                                    <option value="{{ $masjed->id }}" @if( isset($selected['mosque']) && ($selected['mosque']== $masjed->id) ) selected @endif >{{ 'حوزه :'. $masjed->hoze .' - مسجد : '. $masjed->masjed }}</option>
+                                @endforeach
+                                @endisset
                             </select>
                         </div>
+                        <div class="form-group d-flex align-items-end mr-2">
+                            <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
+                        </div>
+
                     </div>
-                        <button type="submit">جستجو</button>
+
                     </form>
+                    <div class="filter-result-container py-3">
+                    @isset($selected['ostan'])
+                    <span>کلید جستجو : </span>
+                        استان :
+                    <span class="text-bold badge badge-primary font-"> {{ \App\Models\Ostan::find($selected['ostan'])->name }}</span>
+                    @endisset
+                    @isset($selected['shahrestan'])
+                        - شهرستان :
+                        <span class="text-bold badge badge-warning"> {{ \App\Models\Shahrestan::find($selected['shahrestan'])->name  }}</span>
+                    @endisset
+                    @isset($selected['mosque'])
+                        - حوزه :
+                        <span class="text-bold badge badge-danger"> {{ \App\Models\masjed::find($selected['mosque'])->hoze  }}</span>
+                        - مسجد :
+                        <span class="text-bold badge badge-success"> {{ \App\Models\masjed::find($selected['mosque'])->masjed  }}</span>
+                    @endisset
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-bordered table-responsive p-0">
@@ -200,34 +231,33 @@
                             <th style="width: 5%; alignment: center">ردیف</th>
                             <th>نام و خانوادگی</th>
                             <th>شماره تماس</th>
+                            <th>استان</th>
+                            <th>شهرستان</th>
                             <th style="width: 20%; alignment: center">عملیات</th>
                         </tr>
                         @foreach ($users as $key => $user)
                             <tr>
-
                                 <td style="width: 5%; alignment: center" class="text-center">{{ $users->firstItem()+$key }}</td>
-                                <td>{{ $user->name . " " . $user->family }}</td>
-                                <td>{{ $user->mobile }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->ostan()->first()->name }}</td>
+                                <td>{{ $user->shahrestan()->first()->name }}</td>
                                 <td>
                                     <a style="margin: 5px" href="{{ route('user.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>
                                     </a>
-                                    <a style="margin: 5px" href="{{ route('form.edit', ['user' => $user->id]) }}">
+                                    {{--<a style="margin: 5px" href="{{ route('form.edit', ['user' => $user->id]) }}">
                                         <ion-icon name="create"></ion-icon>
-                                    </a>
-                                    <a style="margin: 5px; color: red" href="#" onclick="setDelete({{$user}})"
+                                    </a>--}}
+                                    {{--<a style="margin: 5px; color: red" href="#" onclick="setDelete({{$user}})"
                                        data-target="#deleteModal" id="open" data-toggle="modal">
                                         <ion-icon name="trash"></ion-icon>
-                                    </a>
+                                    </a>--}}
                                 </td>
-
                             </tr>
                         @endforeach
-
                         </tbody>
-
                     </table>
-
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -237,14 +267,6 @@
             <!-- /.card -->
         </div>
     </div>
-
-
-
-
-
-
-
-
     @if(sizeof($users) != 0)
         <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}" id="form">
             @csrf

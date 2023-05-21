@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">اطلاعات دانش آموز</h3>
+                    <h3 class="card-title">اطلاعات کاربر</h3>
 
                 </div>
                 <!-- /.card-header -->
@@ -16,101 +16,39 @@
                             <td>{{ $user->id }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">نام</td>
+                            <td class="font-weight-bold">نام و نام خانوادگی</td>
                             <td>{{ $user->name }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">نام خانوادگی</td>
-                            <td>{{ $user->lname }}</td>
+                            <td class="font-weight-bold">کد ملی</td>
+                            <td>{{ $user->national_code }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">سن</td>
-                            <td>{{ $user->age }}</td>
+                            <td class="font-weight-bold">موبایل</td>
+                            <td>{{ $user->phone }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">تحصیلات</td>
-                            <td>@php
-                                    switch ($user->edu){
-                                        case 0:
-                                            echo "دانش آموز";
-                                            break;
-                                        case 1:
-                                            echo "سیکل";
-                                        break;
-                                        case 2:
-                                            echo "دیپلم";
-                                        break;
-                                        case 3:
-                                            echo "فوق دیپلم";
-                                        break;
-                                        case 4:
-                                            echo "کارشناسی";
-                                        break;
-                                        case 5:
-                                            echo "کارشناسی ارشد";
-                                        break;
-                                        case 6:
-                                            echo "دکتری";
-                                        break;
-                                        case 7:
-                                            echo "حوزوی سطح 1";
-                                        break;
-                                        case 8:
-                                            echo "حوزوی سطح 2";
-                                        break;
-                                        case 9:
-                                            echo "حوزوی سطح 3";
-                                        break;
-                                        case 10:
-                                            echo "حوزوی سطح 4";
-                                        break;
-                                        default:
-                                            echo "نامشخص";
-                                            break;
-                                    }
-                                @endphp</td>
+                            <td class="font-weight-bold">استان</td>
+                            <td>{{ $user->ostan()->first()->name }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">جنسیت</td>
-                            <td>
-                                @php
-                                    if ($user->gender == 1){
-                                        echo "مرد";
-                                    }else{
-                                        echo "زن";
-                                    }
-                                @endphp
-                            </td>
+                            <td class="font-weight-bold">شهرستان</td>
+                            <td>{{ $user->shahrestan()->first()->name }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">شماره موبایل ثبت نامی</td>
-                            <td>{{ $user->mobile }}</td>
+                            <td class="font-weight-bold">مسجد</td>
+                            <td>{{ $user->mosque()->first()->hoze . " - " . $user->mosque()->first()->masjed  }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">شماره موبایل مجازی</td>
-                            <td>{{ $user->social_mobile }}</td>
+                            <td class="font-weight-bold">رشته</td>
+                            <td>{{ $user->major()->first()->name }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">پلتفرم های داخلی</td>
-                            <td>{{ $user->internal_socials }}</td>
+                            <td class="font-weight-bold">تاریخ تولد</td>
+                            <td>{{ jdate($user->birthday)->format('Y-m-d') }}</td>
                         </tr>
-                        <tr>
-                            <td class="font-weight-bold">پلتفرم های خارجی</td>
-                            <td>{{ $user->external_social }}</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">اکانت توئیتر</td>
-                            <td>{{ $user->twitter_account }}</td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">اکانت اینستاگرام</td>
-                            <td>{{ $user->instagram_account  }}</td>
-                        </tr>
-
                         </tbody>
-
                     </table>
-
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -118,7 +56,6 @@
                 </div>
             </div>
             <!-- /.card -->
-
         </div>
     </div>
 @endsection
