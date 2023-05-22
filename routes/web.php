@@ -42,7 +42,8 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
     Route::get('/', function () {return view('admin.index');})->name('admin');
 
     //group routes
-    Route::get('/group/',[]);
+    Route::get('/group/',[\App\Http\Controllers\GroupController::class,'index'])->name('group.index');
+    Route::post('group/search',[\App\Http\Controllers\GroupController::class,'filterUsers'])->name('group.search');
 
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');

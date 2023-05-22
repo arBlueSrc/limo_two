@@ -22,8 +22,8 @@
                 with font-awesome or any other icon font library -->
 
 
-              <li class="nav-item has-treeview {{ isActive(["user.create","user.index"],'menu-open') }}">
-                  <a href="{{ route('user.index') }}" class="nav-link {{ isActive(["user.create","user.index"],'menu-open') }}">
+              <li class="nav-item has-treeview {{ isActive(["group.index","user.index"],'menu-open') }}">
+                  <a href="{{ route('user.index') }}" class="nav-link {{ isActive(["group.index","user.index"],'menu-open') }}">
                       <p>
                           لیست کاربران
                           <i class="right fa fa-angle-left"></i>
@@ -33,7 +33,7 @@
 
 
 
-              <li class="nav-item has-treeview {{ isActive(["user.index",],'menu-open') }}">
+              <li class="nav-item has-treeview {{ isActive(["user.index","group.index"],'menu-open') }}">
                   {{--<a href="#" class="nav-link {{ isActive(["user.index","darolghorans.index"]) }}">
                       <p>
                           کاربران
@@ -45,6 +45,12 @@
                           <a href="{{ route('user.index') }}" class="nav-link {{ isActive("user.index") }}">
                               <i class="fa fa-circle-o nav-icon"></i>
                               <p>لیست کاربران ثبت نام شده</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="{{ route('group.index') }}" class="nav-link {{ isActive("group.index") }}">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>لیست کاربران گروهی</p>
                           </a>
                       </li>
                       {{--<li class="nav-item">
