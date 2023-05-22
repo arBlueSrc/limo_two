@@ -41,6 +41,9 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
 
     Route::get('/', function () {return view('admin.index');})->name('admin');
 
+    //group routes
+    Route::get('/group/',[]);
+
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');
     Route::post('users/search',[UserController::class,'filterUsers'])->name('users.search');
@@ -53,6 +56,9 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
+    Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
+
     //forms_Competition
     Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->name('single');
     Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->name("group");
@@ -62,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->name('checkResponseSingle');
     Route::post('checkResponseGroup', [UserFormController::class, 'checkResponseGroup'])->name('checkResponseGroup');
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
+
 
 });
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);

@@ -33,13 +33,13 @@
 
 
 
-              <li class="nav-item has-treeview {{ isActive(["user.index","darolghorans.index"],'menu-open') }}">
-                  <a href="#" class="nav-link {{ isActive(["user.index","darolghorans.index"]) }}">
+              <li class="nav-item has-treeview {{ isActive(["user.index",],'menu-open') }}">
+                  {{--<a href="#" class="nav-link {{ isActive(["user.index","darolghorans.index"]) }}">
                       <p>
                           کاربران
                           <i class="right fa fa-angle-left"></i>
                       </p>
-                  </a>
+                  </a>--}}
                   <ul class="nav nav-treeview">
                       <li class="nav-item">
                           <a href="{{ route('user.index') }}" class="nav-link {{ isActive("user.index") }}">

@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SingleResultExport;
 use App\Models\masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
+    public $excel_data;
+
     public function index(){
         $users=SingleResult::paginate(10);
+        $excel_data=SingleResult::all();
         $ostans=Ostan::all();
         $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
 //        dd($shahrestans);
 //        $users = User::paginate(15);
-        return view('admin.user.index',compact('users','ostans','shahrestans'));
+        return view('admin.user.index',compact('users','ostans','shahrestans','excel_data'));
     }
     public function show(SingleResult $user){
         return view('admin.user.show', compact('user'));
@@ -159,9 +164,16 @@ class UserController extends Controller
         else{
             $users=SingleResult::query();
         }
+//        UserController::$excel_data=$users->get();
+        $excel_data=$users->get();
+        session()->flash('excel',$excel_data);
+//        dd($excel_data);
         $users=$users->paginate(10);
+
+
         $ostans=Ostan::all();
 //        dd(isset($selected['shahrestan']));
+
         if ( isset( $selected['ostan']) ){
             $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
 //            dd($shahrestans);
@@ -174,12 +186,36 @@ class UserController extends Controller
             $shahrestan_name=Shahrestan::where('id',$selected['shahrestan'])->first()->name;
             $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
         }
+
         //        dd($shahrestans);
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
-       return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds'));
+       return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
     }
+
+    public function export()
+    {
+//        dd(session()->get('excel'));
+        $excel_data=session()->get('excel');
+//        dd(UserController::$excel_data);
+   /* $aaa=new UserController();
+
+   $aaa->excel_data=1;
+//        dd($aaa::excel_data);
+        dd($aaa->excel_data);*/
+//        $obj=new SingleResultExport();
+        return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
+//        return Excel::download($obj->collection(), 'users.xlsx');
+    }
+
     /*public function filterUsersShow(){
         return view('admin.user.index',compact('users','ostans','shahrestans'));
     }*/
+    public function exportAllUsers()
+    {
+        $excel_data=SingleResult::all();
+        return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
+
+    }
 }
+

@@ -157,8 +157,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
-
-                        <form action="{{ route('users.exportExcel') }}" method="get" id="excel_form">
+                        <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allusers.download' : 'excel.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
                             <div class="row">
                                 <a  href="#" onclick="document.getElementById('excel_form').submit()"  class="btn btn-outline-success" style="border-radius: 25px"
                                 > خروجی اکسل <i class="fa fa-file-excel-o" ></i></a>
