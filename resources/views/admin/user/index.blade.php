@@ -164,9 +164,9 @@
                             </div>
                         </form>
                     </div>
-                    <form action="{{ route('users.search') }}" method="post">
+                    <form action="{{ route('users.search') }}" method="get">
                         @csrf
-                        @method('POST')
+                        @method('GET')
                     <div class="my-form-container row">
                         <div class="form-group col-md-3">
                             <label>استان</label>
@@ -260,7 +260,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    {{ $users->appends(['search' => request('search')])->render() }}
+                    {{ $users->withQueryString()->render() }}
                 </div>
             </div>
             <!-- /.card -->

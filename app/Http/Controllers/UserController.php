@@ -186,13 +186,11 @@ class UserController extends Controller
             $shahrestan_name=Shahrestan::where('id',$selected['shahrestan'])->first()->name;
             $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
         }
-
         //        dd($shahrestans);
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
        return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
     }
-
     public function export()
     {
 //        dd(session()->get('excel'));

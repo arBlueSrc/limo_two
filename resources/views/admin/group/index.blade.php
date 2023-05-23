@@ -262,7 +262,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    {{ $users->appends(['search' => request('search')])->render() }}
+                    {{ $users->withQueryString()->render() }}
                 </div>
             </div>
             <!-- /.card -->
