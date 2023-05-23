@@ -157,7 +157,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
-                        <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allusers.download' : 'excel.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
+                        <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allgroups.download' : 'excel.allgroups.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
                             <div class="row">
 
                                 <a  href="#" onclick="document.getElementById('excel_form').submit()"  class="btn btn-outline-success" style="border-radius: 25px"
@@ -244,9 +244,9 @@
                                 <td>{{ $user->shahrestan()->first()->name }}</td>
                                 <td>{{ "حوزه : ". $user->mosque()->first()->hoze . " - مسجد : ". $user->mosque()->first()->masjed }}</td>
                                 <td>
-                                    {{--<a style="margin: 5px" href="{{ route('group.show', ['user' => $user->id]) }}">
+                                    <a style="margin: 5px" href="{{ route('group.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>
-                                    </a>--}}
+                                    </a>
                                     {{--<a style="margin: 5px" href="{{ route('form.edit', ['user' => $user->id]) }}">
                                         <ion-icon name="create"></ion-icon>
                                     </a>--}}

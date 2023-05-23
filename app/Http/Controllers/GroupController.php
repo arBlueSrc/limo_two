@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\GroupResultExport;
 use App\Models\GroupResult;
 use App\Models\masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GroupController extends Controller
 {
@@ -18,7 +20,11 @@ class GroupController extends Controller
         $ostans=Ostan::all();
         $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
         return view('admin.group.index',compact('users','ostans','shahrestans'));
-
+    }
+    public function show(GroupResult $user)
+    {
+//        dd($user->mosque()->first());
+        return view('admin.group.show',compact('user'));
     }
     public function filterUsers(Request $request)
     {
@@ -68,5 +74,11 @@ class GroupController extends Controller
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
         return view('admin.group.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
+    }
+
+    public function exportAllGroups()
+    {
+        $excel_data=GroupResult::all();
+        return Excel::download(new GroupResultExport($excel_data), 'users.xlsx');
     }
 }

@@ -16,27 +16,55 @@
                         </tr>
                         <tr>
                             <td class="font-weight-bold">نام گروه</td>
-                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->name_group }}</td>
                         </tr>
                         <tr>
                             <td class="font-weight-bold">استان</td>
-                            <td>{{ $user->ostan()->first()->name }}</td>
+                            <td>{{ $user->ostan()->first()->name ?? "" }}</td>
                         </tr>
                         <tr>
                             <td class="font-weight-bold">شهرستان</td>
-                            <td>{{ $user->shahrestan()->first()->name }}</td>
+                            <td>{{ $user->shahrestan()->first()->name ?? "" }}</td>
                         </tr>
                         <tr>
                             <td class="font-weight-bold">مسجد</td>
-                            <td>{{ $user->mosque()->first()->hoze . " - " . $user->mosque()->first()->masjed  }}</td>
+                            <td>{{ "حوزه : ". $user->mosque()->first()->hoze . " - مسجد :  " . $user->mosque()->first()->masjed}}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">رشته</td>
-                            <td>{{ $user->major()->first()->name }}</td>
+                            <td class="font-weight-bold">مدل شرکت گروه</td>
+                            <td>{{ $user->type == 1 ?  "شرکت به صورت مدل اول (هر فرد یک تکلیف)" : "شرکت به صورت مدل دوم (حفظ گروهی سوره مبارکه الرحمن)" }}</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold">تاریخ تولد</td>
+                            <td class="font-weight-bold">نام و نام خانوادگی سرگروه</td>
+                            <td>{{ $user->head_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">کد ملی سرگروه</td>
+                            <td>{{ $user->head_national_code }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">شماره تماس سرگروه</td>
+                            <td>{{ $user->head_phone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">تاریخ تولد سرگروه</td>
                             <td>{{ jdate($user->birthday)->format('Y-m-d') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">نام و نام خانوادگی نفر دوم</td>
+                            <td>{{ $user->second_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">شماره تماس نفر دوم</td>
+                            <td>{{ $user->second_phone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">نام و نام خانوادگی نفر سوم</td>
+                            <td>{{ $user->third_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">شماره تماس نفر سوم</td>
+                            <td>{{ $user->third_phone }}</td>
                         </tr>
                         </tbody>
                     </table>

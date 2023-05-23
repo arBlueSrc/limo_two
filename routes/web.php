@@ -44,6 +44,8 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
     //group routes
     Route::get('/group/',[\App\Http\Controllers\GroupController::class,'index'])->name('group.index');
     Route::post('group/search',[\App\Http\Controllers\GroupController::class,'filterUsers'])->name('group.search');
+    Route::get('/group/show/{user}',[\App\Http\Controllers\GroupController::class,'show'])->name('group.show');
+    Route::get('group/export/allgroupss', [\App\Http\Controllers\GroupController::class, 'exportAllGroups'])->name('excel.allgroups.download');
 
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');
