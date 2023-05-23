@@ -166,9 +166,9 @@
                             </div>
                         </form>
                     </div>
-                    <form action="{{ route('group.search') }}" method="post">
+                    <form action="{{ route('group.search') }}" method="get">
                         @csrf
-                        @method('POST')
+                        @method('GET')
                         <div class="my-form-container row">
                             <div class="form-group col-md-3">
                                 <label>استان</label>
