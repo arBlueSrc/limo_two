@@ -3,7 +3,7 @@
 use App\Http\Controllers\chooseController;
 use App\Http\Controllers\CompetitionRegistrationFormsController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFormController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
