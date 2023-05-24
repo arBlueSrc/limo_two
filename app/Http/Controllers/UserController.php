@@ -165,8 +165,9 @@ class UserController extends Controller
             $users=SingleResult::query();
         }
 //        UserController::$excel_data=$users->get();
-        $excel_data=$users->get();
-        session()->flash('excel',$excel_data);
+        /*$excel_data=$users->get();
+        session()->flash('excel',$excel_data);*/
+        $excel_data='';
 //        dd($excel_data);
         $users=$users->paginate(10);
 
