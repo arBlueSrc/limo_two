@@ -36,9 +36,9 @@ class SingleResultExport implements FromCollection,withHeadings,withMapping
           $row->national_code,
           $row->phone,
           Ostan::find($row->ostan_id)->name,
-          Shahrestan::find($row->shahrestan_id)->name,
-          masjed::find($row->mosque_id)->hoze,
-          masjed::find($row->mosque_id)->masjed,
+          Shahrestan::find($row->shahrestan_id)->name ?? "",
+          masjed::find($row->mosque_id)->hoze ?? "",
+          masjed::find($row->mosque_id)->masjed ?? "",
           Major::find($row->major)->name,
           jdate($row->birthday)->format('Y-m-d')
         ];

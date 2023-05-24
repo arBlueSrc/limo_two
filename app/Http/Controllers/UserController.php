@@ -9,6 +9,8 @@ use App\Models\Shahrestan;
 use App\Models\SingleResult;
 use App\Models\User;
 use Illuminate\Http\Request;
+//use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
@@ -145,7 +147,12 @@ class UserController extends Controller
     }
     public function filterUsers(Request $request)
     {
+
+//        dd(Route::currentRouteName());
         $selected=[];
+        $selected['ostan']=null;
+        $selected['shahrestan']=null;
+        $selected['mosque']=null;
         $masjeds=null;
 //        dd($request->all());
         if ($request->ostan){
@@ -192,10 +199,28 @@ class UserController extends Controller
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
        return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
     }
-    public function export()
+    public function export(Request $request)
     {
+        if ($request->ostan){
+            $users=SingleResult::where('ostan_id',$request->ostan);
+            $selected['ostan']=$request->ostan;
+
+            if ($request->shahrestan){
+                $users=$users->where('shahrestan_id',$request->shahrestan);
+                $selected['shahrestan']=$request->shahrestan;
+            }
+            if ($request->mosque){
+                $selected['mosque']=$request->mosque;
+                $users=$users->where('mosque_id',$request->mosque);
+            }
+        }
+        else{
+            $users=SingleResult::query();
+        }
+        $excel_data=$users->get();
+
 //        dd(session()->get('excel'));
-        $excel_data=session()->get('excel');
+//        $excel_data=session()->get('excel');
 //        dd(UserController::$excel_data);
    /* $aaa=new UserController();
 
