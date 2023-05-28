@@ -43,7 +43,8 @@ Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(funct
 
     //group routes
     Route::get('/group/',[\App\Http\Controllers\GroupController::class,'index'])->name('group.index');
-    Route::get('group/search',[\App\Http\Controllers\GroupController::class,'filterUsers'])->name('group.search');
+    Route::post('group/search',[\App\Http\Controllers\GroupController::class,'filterUsers'])->name('group.search');
+    Route::get('group/search/show',[\App\Http\Controllers\GroupController::class,'filterGroupsShow'])->name('group.search.show');
     Route::get('/group/show/{user}',[\App\Http\Controllers\GroupController::class,'show'])->name('group.show');
     Route::get('group/export/allgroupss', [\App\Http\Controllers\GroupController::class, 'exportAllGroups'])->name('excel.allgroups.download');
 
@@ -55,6 +56,7 @@ Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(funct
     Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
     Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
 });
+
 Route::middleware('auth')->group(function () {
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');

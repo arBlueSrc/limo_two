@@ -26,6 +26,8 @@ class UserController extends Controller
             $excel_data=SingleResult::where('ostan_id',$current_user->ostan_id)->get();
             $ostans=Ostan::where('id',$current_user->ostan_id)->get();
             $shahrestans=Shahrestan::where('ostan',$current_user->ostan_id)->get();
+            $selected['ostan'] = $ostans->first()->id;
+//            $selected=null;
         }
         else{
         $users=SingleResult::paginate(10);
@@ -35,7 +37,7 @@ class UserController extends Controller
 //        dd($shahrestans);
 //        $users = User::paginate(15);
         }
-        return view('admin.user.index',compact('users','ostans','shahrestans','excel_data'));
+        return view('admin.user.index',compact('users','ostans','shahrestans','excel_data','selected'));
     }
     public function create(){
         $this->authorize('is_superadmin');

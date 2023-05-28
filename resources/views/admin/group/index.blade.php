@@ -157,6 +157,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
+                        @if(auth()->user()->isSuperAdmin())
                         <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allgroups.download' : 'excel.allgroups.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
                             <div class="row">
 
@@ -165,11 +166,13 @@
                                 </a>
                             </div>
                         </form>
+                        @endif
                     </div>
-                    <form action="{{ route('group.search') }}" method="get">
+                    <form action="{{ route('group.search') }}" method="post">
                         @csrf
-                        @method('GET')
-                        <div class="my-form-container row">
+                        @method('POST')
+                        <div class="my-form-container row mt-2">
+                            @if(!auth()->user()->isOstaniAdmin())
                             <div class="form-group col-md-3">
                                 <label>استان</label>
                                 <select name="ostan" id="ostans" class="form-control">
@@ -179,6 +182,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @endif
                             <div class="form-group col-md-3">
                                 <label>شهرستان</label>
                                 <select name="shahrestan" id="child_shahrestans" class="form-control">

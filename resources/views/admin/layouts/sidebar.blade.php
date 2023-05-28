@@ -30,7 +30,7 @@
               </li>
               @endcan
               <li class="nav-item has-treeview {{ isActive(["user.index","group.index"],'menu-open') }}">
-                  <a href="#" class="nav-link {{ isActive(["user.index","darolghorans.index"]) }}">
+                  <a href="#" class="nav-link {{ isActive(["user.index","group.index"]) }}">
                       <p>
                           کاربران
                           <i class="right fa fa-angle-left"></i>
