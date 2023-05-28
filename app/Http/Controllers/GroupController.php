@@ -16,6 +16,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $current_user=auth()->user();
+        $selected=null;
         if ($current_user->isOstaniAdmin()){
             // ostani admin
             $users=GroupResult::where('ostan_id',$current_user->ostan_id)->paginate(10);

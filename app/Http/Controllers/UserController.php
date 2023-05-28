@@ -20,6 +20,7 @@ class UserController extends Controller
 
     public function index(){
         $current_user=auth()->user();
+        $selected=null;
         if ($current_user->isOstaniAdmin()){
             // ostani admin
             $users=SingleResult::where('ostan_id',$current_user->ostan_id)->paginate(10);
