@@ -12,19 +12,78 @@ use Illuminate\Http\Request;
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use Morilog\Jalali\CalendarUtils;
 
 class UserController extends Controller
 {
     public $excel_data;
 
     public function index(){
+        $current_user=auth()->user();
+        if ($current_user->isOstaniAdmin()){
+            // ostani admin
+            $users=SingleResult::where('ostan_id',$current_user->ostan_id)->paginate(10);
+            $excel_data=SingleResult::where('ostan_id',$current_user->ostan_id)->get();
+            $ostans=Ostan::where('id',$current_user->ostan_id)->get();
+            $shahrestans=Shahrestan::where('ostan',$current_user->ostan_id)->get();
+        }
+        else{
         $users=SingleResult::paginate(10);
         $excel_data=SingleResult::all();
         $ostans=Ostan::all();
         $shahrestans=Shahrestan::where('ostan',$ostans->first()->id)->get();
 //        dd($shahrestans);
 //        $users = User::paginate(15);
+        }
         return view('admin.user.index',compact('users','ostans','shahrestans','excel_data'));
+    }
+    public function create(){
+        $this->authorize('is_superadmin');
+        /*$login_user=auth()->user();
+        if ($login_user->isOstaniAdmin()){
+            $ostans=Ostan::find($login_user->ostan_id);
+        }
+        else {
+            $ostans = Ostan::all();
+        }*/
+//        $roles = Role::all();
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
+        return view('admin.user.create',compact('ostans','shahrestans'));
+    }
+    public function store(Request $request){
+        $this->authorize('is_superadmin');
+
+        $data['month'] =  str_pad($request->month, 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($request->day, 2, '0', STR_PAD_LEFT);
+//        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'].' 00:00';
+        $birth_date=$request->year.'/'.$data['month'].'/'.$data['day'];
+
+        $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+        $user=User::where('mobile',$request->mobile)->first();
+        if ($user){
+            $user->name=$request->name;
+            $user->national_code=$request->national_code;
+            $user->mobile=$request->mobile;
+            $user->role=$request->role;
+            $user->ostan_id=$request->ostan_id;
+            $user->shahrestan_id=$request->shahrestan_id;
+            $user->birthday=$birth_date;
+            $user->update();
+        }
+        else{
+
+        User::create([
+           'name'=> $request->name,
+           'national_code'=> $request->national_code,
+           'mobile'=> $request->mobile,
+           'role'=> $request->role,
+           'ostan_id'=> $request->ostan_id,
+           'shahrestan_id'=> $request->shahrestan_id,
+            'birthday'=>$birth_date
+        ]);
+        }
+        return redirect()->back()->with('message','کاربر با موفقیت افزوده شد');
     }
     public function show(SingleResult $user){
         return view('admin.user.show', compact('user'));
@@ -38,7 +97,6 @@ class UserController extends Controller
     public function exportExcel()
     {
         $results = User::get();
-
         // Submission form
         $filename = "result_" . date('Ymd') . ".csv";
         header('Content-Encoding: UTF-8');
@@ -63,10 +121,7 @@ class UserController extends Controller
             'اکانت اینستاگرام'
         );
 
-
-
         echo implode(",", array_values($heading)) . "\n";
-
 
         foreach ($results as $result) {
             $gender = "مرد";
@@ -147,56 +202,10 @@ class UserController extends Controller
     }
     public function filterUsers(Request $request)
     {
-
-//        dd(Route::currentRouteName());
-        $selected=[];
-        $selected['ostan']=null;
-        $selected['shahrestan']=null;
-        $selected['mosque']=null;
-        $masjeds=null;
-//        dd($request->all());
-        if ($request->ostan){
-            $users=SingleResult::where('ostan_id',$request->ostan);
-            $selected['ostan']=$request->ostan;
-
-            if ($request->shahrestan){
-                $users=$users->where('shahrestan_id',$request->shahrestan);
-                $selected['shahrestan']=$request->shahrestan;
-        }
-            if ($request->mosque){
-                $selected['mosque']=$request->mosque;
-                $users=$users->where('mosque_id',$request->mosque);
-            }
-        }
-        else{
-            $users=SingleResult::query();
-        }
-//        UserController::$excel_data=$users->get();
-        /*$excel_data=$users->get();
-        session()->flash('excel',$excel_data);*/
-        $excel_data='';
-//        dd($excel_data);
-        $users=$users->paginate(10);
-
-
-        $ostans=Ostan::all();
-//        dd(isset($selected['shahrestan']));
-
-        if ( isset( $selected['ostan']) ){
-            $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
-//            dd($shahrestans);
-        }
-        else {
-            $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-//            dd($shahrestans);
-        }
-        if (isset($selected['shahrestan'])){
-            $shahrestan_name=Shahrestan::where('id',$selected['shahrestan'])->first()->name;
-            $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
-        }
-        //        dd($shahrestans);
-//        $users = User::paginate(15);
-//        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
+       if (auth()->user()->isOstaniAdmin()){
+           $request->ostan=auth()->user()->ostan_id;
+       }
+       return redirect()->route('users.search.show')->with(['ostan'=>$request->ostan,'shahrestan'=>$request->shahrestan,'mosque'=>$request->mosque]);
        return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
     }
     public function export(Request $request)
@@ -204,7 +213,6 @@ class UserController extends Controller
         if ($request->ostan){
             $users=SingleResult::where('ostan_id',$request->ostan);
             $selected['ostan']=$request->ostan;
-
             if ($request->shahrestan){
                 $users=$users->where('shahrestan_id',$request->shahrestan);
                 $selected['shahrestan']=$request->shahrestan;
@@ -218,12 +226,11 @@ class UserController extends Controller
             $users=SingleResult::query();
         }
         $excel_data=$users->get();
-
+        $request->session()->keep(['ostan', 'shahrestan','mosque']);
 //        dd(session()->get('excel'));
 //        $excel_data=session()->get('excel');
 //        dd(UserController::$excel_data);
    /* $aaa=new UserController();
-
    $aaa->excel_data=1;
 //        dd($aaa::excel_data);
         dd($aaa->excel_data);*/
@@ -231,7 +238,6 @@ class UserController extends Controller
         return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
 //        return Excel::download($obj->collection(), 'users.xlsx');
     }
-
     /*public function filterUsersShow(){
         return view('admin.user.index',compact('users','ostans','shahrestans'));
     }*/
@@ -239,7 +245,58 @@ class UserController extends Controller
     {
         $excel_data=SingleResult::all();
         return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
+    }
+    public function filterUsersShow(Request $request)
+    {
+        $login_user=auth()->user();
+//      dd(Route::currentRouteName());
+        $selected=[];
+        $selected['ostan']=null;
+        $selected['shahrestan']=null;
+        $selected['mosque']=null;
+        $masjeds=null;
+//        dd($request->all());
+        if ($login_user->isOstaniAdmin()) {
 
+        }
+//        dd($request->session()->get('ostan'));
+        if ($request->session()->get('ostan')){
+            $users=SingleResult::where('ostan_id',$request->session()->get('ostan'));
+            $selected['ostan']=$request->session()->get('ostan');
+            if ($request->session()->get('shahrestan')){
+                $users=$users->where('shahrestan_id',$request->session()->get('shahrestan'));
+                $selected['shahrestan']=$request->session()->get('shahrestan');
+            }
+            if ($request->session()->get('mosque')){
+                $selected['mosque']=$request->session()->get('mosque');
+                $users=$users->where('mosque_id',$request->session()->get('mosque'));
+            }
+        }
+        else{
+            $users=SingleResult::query();
+        }
+//       UserController::$excel_data=$users->get();
+        /*$excel_data=$users->get();
+        session()->flash('excel',$excel_data);*/
+        $excel_data='';
+//        dd($excel_data);
+        $users=$users->paginate(10);
+        $ostans=Ostan::all();
+//        dd(isset($selected['shahrestan']));
+        if ( isset( $selected['ostan']) ){
+            $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
+//            dd($shahrestans);
+        }
+        else {
+            $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+//            dd($shahrestans);
+        }
+        if (isset($selected['shahrestan'])){
+            $shahrestan_name=Shahrestan::where('id',$selected['shahrestan'])->first()->name;
+            $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
+        }
+        $request->session()->keep(['ostan', 'shahrestan','mosque']);
+        return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
     }
 }
 

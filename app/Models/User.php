@@ -17,23 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'status',
-        'mobile',
-        'lname',
-        'age',
-        'edu',
-        'gender',
-        'social_mobile',
-        'internal_socials',
-        'external_social',
-        'twitter_account',
-        'instagram_account'
-    ];
+    protected $guarded=[];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,4 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function isOstaniAdmin(){
+        return $this->role == 2;
+    }
 }

@@ -169,10 +169,11 @@
                             </div>
                         </form>
                     </div>
-                    <form action="{{ route('users.search') }}" method="get">
+                    <form action="{{ route('users.search') }}" method="post">
                         @csrf
-                        @method('GET')
+                        @method('POST')
                     <div class="my-form-container row">
+                        @if(!auth()->user()->isOstaniAdmin())
                         <div class="form-group col-md-3">
                             <label>استان</label>
                             <select name="ostan" id="ostans" class="form-control">
@@ -182,6 +183,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                         <div class="form-group col-md-3">
                             <label>شهرستان</label>
                             <select name="shahrestan" id="child_shahrestans" class="form-control">
@@ -245,7 +247,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->ostan()->first()->name }}</td>
-                                <td>{{ $user->shahrestan()->first()->name }}</td>
+                                <td>{{ $user->shahrestan()->first()->name ?? "" }}</td>
                                 <td>
                                     <a style="margin: 5px" href="{{ route('user.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>

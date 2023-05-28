@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(function () {
 
     Route::get('/', function () {return view('admin.index');})->name('admin');
 
@@ -49,16 +49,13 @@ Route::prefix('admin')->middleware(['auth', 'can:is_superadmin'])->group(functio
 
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');
-    Route::get('users/search',[UserController::class,'filterUsers'])->name('users.search');
-//    Route::get('users/search',[UserController::class,'filterUsersShow'])->name('users.search.show');
+    Route::post('users/search',[UserController::class,'filterUsers'])->name('users.search');
+    Route::get('users/search/show',[UserController::class,'filterUsersShow'])->name('users.search.show');
     Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
     Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
     Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
 });
-
-
 Route::middleware('auth')->group(function () {
-
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 

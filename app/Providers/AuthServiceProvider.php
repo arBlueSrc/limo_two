@@ -31,5 +31,8 @@ class AuthServiceProvider extends ServiceProvider
 //            dd($user);
             return $user->role == 1;
         });
+        Gate::define('is_ostani_admin',function (User $user){
+           return $user->role == 1 || $user->role==2;
+        });
     }
 }
