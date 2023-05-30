@@ -75,7 +75,6 @@ class UserController extends Controller
             $user->update();
         }
         else{
-
         User::create([
            'name'=> $request->name,
            'national_code'=> $request->national_code,

@@ -55,6 +55,14 @@ Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(funct
     Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
     Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
     Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
+
+
+    //family routes
+    Route::get('family',[\App\Http\Controllers\FamilyController::class,'index'])->name('family.index');
+    Route::post('family/search',[\App\Http\Controllers\FamilyController::class,'filterUsers'])->name('family.search');
+    Route::get('family/search/show',[\App\Http\Controllers\FamilyController::class,'filterFamiliesShow'])->name('family.search.show');
+    Route::get('/family/show/{user}',[\App\Http\Controllers\FamilyController::class,'show'])->name('family.show');
+    Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
 });
 
 Route::middleware('auth')->group(function () {

@@ -23,7 +23,6 @@ class GroupResultExport implements FromCollection,withHeadings,withMapping
     */
     public function collection()
     {
-//        return GroupResult::all();
         return $this->data;
     }
     public function map($row): array

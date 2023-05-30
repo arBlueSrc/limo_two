@@ -215,7 +215,7 @@
 
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="number_of_chaild">نام فرزتد اول*</label>
+                                <label class="form-label" for="number_of_chaild">نام فرزند اول*</label>
                                 <input type="text" id="number_chaild" name="child_name1" class="form-control"/>
                             </div>
 
@@ -258,7 +258,7 @@
 
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="number_of_chaild">نام فرزتد دوم*</label>
+                                <label class="form-label" for="number_of_chaild">نام فرزند دوم*</label>
                                 <input type="text" id="number_chaild" name="child_name2" class="form-control"/>
                             </div>
 
@@ -301,7 +301,7 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="number_of_chaild">نام فرزتد سوم*</label>
+                                <label class="form-label" for="number_of_chaild">نام فرزند سوم*</label>
                                 <input type="text" id="number_chaild" name="child_name3" class="form-control"/>
                             </div>
 
@@ -344,7 +344,7 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="number_of_chaild">نام فرزتد چهارم*</label>
+                                <label class="form-label" for="number_of_chaild">نام فرزند چهارم*</label>
                                 <input type="text" id="number_chaild" name="child_name4" class="form-control"/>
                             </div>
 
