@@ -72,7 +72,7 @@
                                 var masjed = data[i]['masjed'];
                                 // console.log(sharestan_holder);
 
-                                $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - حوزه: "+hoze+" - مسجد: "+ masjed +"</option>");
+                                $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
 
                             }
                         }
@@ -117,10 +117,10 @@
                         var hoze = data[i]['hoze'];
                         var masjed = data[i]['masjed'];
                        /* if(i == 0){
-                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - حوزه: "+hoze+" - مسجد: "+ masjed +"</option>");
+                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
                         }*/
 
-                        $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - حوزه: "+hoze+" - مسجد: "+ masjed +"</option>");
+                        $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
 
                     }
                 }
