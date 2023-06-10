@@ -42,7 +42,6 @@ class FamilyController extends Controller
             return redirect()->route('family.search.show')->with(['ostan'=>$request->ostan,'shahrestan'=>$request->shahrestan,'mosque'=>$request->mosque]);
         }
         public function filterFamiliesShow(Request $request){
-
             $selected = [];
             $masjeds = null;
 //        dd($request->all());
@@ -82,7 +81,6 @@ class FamilyController extends Controller
                 $masjeds = masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
             }
             $request->session()->keep(['ostan', 'shahrestan','mosque']);
-
             //        dd($shahrestans);
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);

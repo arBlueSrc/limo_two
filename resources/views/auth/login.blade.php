@@ -22,7 +22,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('شماره همراه')"/>
-            <x-text-input id="email" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus autocomplete="username" placeholder="اعداد را به انگلیسی وارد کنید" />
             <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
         </div>
 
