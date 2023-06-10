@@ -73,7 +73,7 @@
             <x-input-label for="email" :value="__('کد تایید')" />
             <div class="again-code my-timer"> <a href="{{ route('resend.code') }}">ارسال مجدد کد</a>  <span id="time"> 00:00  </span> </div>
             </div>
-            <x-text-input id="email" class="block mt-1 w-full" type="text" name="otp_code" :value="old('otp_code')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="text" name="otp_code" :value="old('otp_code')" required autofocus autocomplete="username" placeholder="اعداد را به انگلیسی وارد کنید" />
             <x-input-error :messages="$errors->get('otp_code')" class="mt-2" />
         </div>
 
