@@ -25,25 +25,22 @@ class UserController extends Controller
         if ($current_user->isOstaniAdmin()) {
             // ostani admin
             $users = SingleResult::where('ostan_id', $current_user->ostan_id)->paginate(10);
-            $excel_data = SingleResult::where('ostan_id', $current_user->ostan_id)->get();
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
             $selected['ostan'] = $ostans->first()->id;
         } else {
             $users = SingleResult::paginate(10);
-            $excel_data = SingleResult::all();
             $ostans = Ostan::all();
             $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
         }
-        return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'excel_data', 'selected'));
+        return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected'));
     }
 
     public function ostanUsers(){
         $users = User::where('role',2)->paginate(10);
-        $excel_data = User::all();
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-        return view('admin.user.index-ostani', compact('users', 'ostans', 'shahrestans', 'excel_data'));
+        return view('admin.user.index-ostani', compact('users', 'ostans', 'shahrestans'));
     }
 
     public function create()
