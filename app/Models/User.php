@@ -45,4 +45,12 @@ class User extends Authenticatable
     {
         return $this->role == 1;
     }
+
+    public function ostan(){
+        return $this->belongsTo(Ostan::class,);
+    }
+    public function shahrestan()
+    {
+        return $this->belongsTo(Shahrestan::class);
+    }
 }

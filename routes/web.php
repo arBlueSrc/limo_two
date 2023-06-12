@@ -50,6 +50,7 @@ Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(funct
 
     //user
     Route::resource('user', 'App\Http\Controllers\UserController');
+    Route::get('users/ostanUsers',[UserController::class,'ostanUsers'])->name('users.ostanUsers');
     Route::post('users/search',[UserController::class,'filterUsers'])->name('users.search');
     Route::get('users/search/show',[UserController::class,'filterUsersShow'])->name('users.search.show');
     Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');

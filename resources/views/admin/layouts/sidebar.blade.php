@@ -22,12 +22,29 @@
                 with font-awesome or any other icon font library -->
 
                 @can('is_superadmin')
-              <li class="nav-item">
-                  <a href="{{ route('user.create') }}" class="nav-link {{ isActive("user.create") }}">
-                      <i class="fa fa-circle-o nav-icon"></i>
-                      <p>ثبت نام مدیران استانی</p>
-                  </a>
-              </li>
+
+                  <li class="nav-item has-treeview {{ isActive(["user.create","users.ostanUsers"],'menu-open') }}">
+                      <a href="#" class="nav-link {{ isActive(["user.index","users.ostanUsers"]) }}">
+                          <p>
+                              مدیریت مدیران استانی
+                              <i class="right fa fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="{{ route('user.create') }}" class="nav-link {{ isActive("user.create") }}">
+                                  <i class="fa fa-circle-o nav-icon"></i>
+                                  <p>ثبت نام مدیران استانی</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('users.ostanUsers') }}" class="nav-link {{ isActive("user.ostanUsers") }}">
+                                  <i class="fa fa-circle-o nav-icon"></i>
+                                  <p>لیست مدیران استانی</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
               @endcan
               <li class="nav-item has-treeview {{ isActive(["user.index","group.index",'family.index'],'menu-open') }}">
                   <a href="#" class="nav-link {{ isActive(["user.index","group.index",'family.index']) }}">
