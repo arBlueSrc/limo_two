@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @push('styles')
     <style>
-        .filter-result-container span.text-bold{
+        .filter-result-container span.text-bold {
             font-size: 1rem;
         }
     </style>
@@ -12,67 +12,68 @@
         function setDelete(user) {
             document.getElementById("delete_id").value = user['id'];
         }
-        let sharestan_holder=0;
-        $('#ostans').on('change', function() {
+
+        let sharestan_holder = 0;
+        $('#ostans').on('change', function () {
             // alert( this.value );
-            let ostan_id= this.value;
+            let ostan_id = this.value;
             // alert( ostan_id);
 
             $.ajaxSetup({
-                headers : {
-                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                    'Content-Type' : 'application/json'
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Content-Type': 'application/json'
                 }
             })
             $.ajax({
-                type : 'POST',
-                url : '{{ url("/"); }}/get-child-shahrestans',
-                data : JSON.stringify( {ostan_id: ostan_id}),
-                success : function(data) {
+                type: 'POST',
+                url: '{{ url("/"); }}/get-child-shahrestans',
+                data: JSON.stringify({ostan_id: ostan_id}),
+                success: function (data) {
                     var len = data.length;
 
                     $("#child_shahrestans").empty();
                     $("#child_shahrestans").append("<option value=''>همه</option>");
-                    for( var i = 0; i<len; i++){
+                    for (var i = 0; i < len; i++) {
 
                         var id = data[i]['id'];
-                        if(i==0){
-                            sharestan_holder=id;
+                        if (i == 0) {
+                            sharestan_holder = id;
                             // console.log(id);
                         }
                         var name = data[i]['name'];
 
-                        $("#child_shahrestans").append("<option value='"+id+"'>"+name+"</option>");
+                        $("#child_shahrestans").append("<option value='" + id + "'>" + name + "</option>");
 
                     }
-                    let shahrestan_id= sharestan_holder;
+                    let shahrestan_id = sharestan_holder;
                     // alert( ostan_id);
                     // console.log(shahrestan_id);
 
                     $.ajaxSetup({
-                        headers : {
-                            'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                            'Content-Type' : 'application/json'
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                            'Content-Type': 'application/json'
                         }
                     })
                     $.ajax({
-                        type : 'POST',
-                        url : '{{ url("/"); }}/get-related-masjeds',
-                        data : JSON.stringify( {shahrestan_id: shahrestan_id}),
-                        success : function(data) {
+                        type: 'POST',
+                        url: '{{ url("/"); }}/get-related-masjeds',
+                        data: JSON.stringify({shahrestan_id: shahrestan_id}),
+                        success: function (data) {
                             // console.log(data);
                             var len = data.length;
 
                             $("#mosque").empty();
                             $("#mosque").append("<option value=''>همه</option>");
-                            for( var i = 0; i<len; i++){
+                            for (var i = 0; i < len; i++) {
                                 var id = data[i]['id'];
                                 var shahrestan = data[i]['shahrestan'];
                                 var hoze = data[i]['hoze'];
                                 var masjed = data[i]['masjed'];
                                 // console.log(sharestan_holder);
 
-                                $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                                $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + "</option>");
 
                             }
                         }
@@ -89,38 +90,38 @@
         });
 
 
-        $('#child_shahrestans').on('change', function() {
+        $('#child_shahrestans').on('change', function () {
             // alert( this.value );
-            let shahrestan_id= $('#child_shahrestans').val();
+            let shahrestan_id = $('#child_shahrestans').val();
             // alert( ostan_id);
             // console.log(shahrestan_id);
 
             $.ajaxSetup({
-                headers : {
-                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                    'Content-Type' : 'application/json'
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Content-Type': 'application/json'
                 }
             })
             $.ajax({
-                type : 'POST',
-                url : '{{ url("/"); }}/get-related-masjeds',
-                data : JSON.stringify( {shahrestan_id: shahrestan_id}),
-                success : function(data) {
+                type: 'POST',
+                url: '{{ url("/"); }}/get-related-masjeds',
+                data: JSON.stringify({shahrestan_id: shahrestan_id}),
+                success: function (data) {
                     // console.log(data);
                     var len = data.length;
 
                     $("#mosque").empty();
                     $("#mosque").append("<option value=''>همه</option>");
-                    for( var i = 0; i<len; i++){
+                    for (var i = 0; i < len; i++) {
                         var id = data[i]['id'];
                         var shahrestan = data[i]['shahrestan'];
                         var hoze = data[i]['hoze'];
                         var masjed = data[i]['masjed'];
-                       /* if(i == 0){
-                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
-                        }*/
+                        /* if(i == 0){
+                             $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                         }*/
 
-                        $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                        $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + "</option>");
 
                     }
                 }
@@ -130,15 +131,15 @@
         });
 
 
-        $('#ostans').change(function() {
+        $('#ostans').change(function () {
             if ($(this).val() == "") {
-                $('#child_shahrestans option[value=""]').attr('selected','selected');
-                $('#mosque option[value=""]').attr('selected','selected');
+                $('#child_shahrestans option[value=""]').attr('selected', 'selected');
+                $('#mosque option[value=""]').attr('selected', 'selected');
             }
         });
-        $('#child_shahrestans').change(function() {
+        $('#child_shahrestans').change(function () {
             if ($(this).val() == "") {
-                $('#mosque option[value=""]').attr('selected','selected');
+                $('#mosque option[value=""]').attr('selected', 'selected');
             }
         });
 
@@ -167,7 +168,8 @@
                         </tr>
                         @foreach ($users as $key => $user)
                             <tr>
-                                <td style="width: 5%; alignment: center" class="text-center">{{ $users->firstItem()+$key }}</td>
+                                <td style="width: 5%; alignment: center"
+                                    class="text-center">{{ $users->firstItem()+$key }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->ostan()->first()->name }}</td>
                                 <td>{{ $user->shahrestan()->first()->name ?? "" }}</td>

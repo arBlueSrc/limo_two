@@ -155,19 +155,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
-                        @if(auth()->user()->isSuperAdmin())
                         <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allfamilies.download' : 'excel.allfamilies.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
                             <div class="row">
-
                                 <a  href="#" onclick="document.getElementById('excel_form').submit()"  class="btn btn-outline-success" style="border-radius: 25px"
                                 > خروجی اکسل <i class="fa fa-file-excel-o" ></i>
                                 </a>
                             </div>
                         </form>
-                        @endif
                     </div>
+
                     <form action="{{ route('family.search') }}" method="post">
                         @csrf
                         @method('POST')
@@ -210,6 +209,7 @@
                         </div>
 
                     </form>
+
                     <div class="filter-result-container py-3">
                         @isset($selected['ostan'])
                             <span>کلید جستجو : </span>

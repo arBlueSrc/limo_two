@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FamilyResultExport;
 use App\Exports\GroupResultExport;
+use App\Models\FamilyResult;
 use App\Models\GroupResult;
 use App\Models\masjed;
 use App\Models\Ostan;
@@ -49,9 +51,24 @@ class GroupController extends Controller
 
     }
 
-    public function exportAllGroups()
+    public function exportAllGroups(Request $request)
     {
-        $excel_data = GroupResult::all();
+        if ($request->session()->get('ostan')) {
+            $users = GroupResult::where('ostan_id', $request->session()->get('ostan'));
+            $selected['ostan'] = $request->session()->get('ostan');
+            if ($request->session()->get('shahrestan')) {
+                $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                $selected['shahrestan'] = $request->session()->get('shahrestan');
+            }
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
+        } else {
+            $users = GroupResult::query();
+        }
+        $excel_data = $users->get();
+
         return Excel::download(new GroupResultExport($excel_data), 'users.xlsx');
     }
 
