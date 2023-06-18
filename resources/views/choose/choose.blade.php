@@ -63,6 +63,7 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center" dir="rtl">
+
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
 
@@ -72,6 +73,11 @@
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
         </a>
+
+        <form action="{{route('logout')}}" method="post">
+            @csrf
+            <button class="btn btn-danger btn-sm text-white ml-3">خروج از حساب کاربری</button>
+        </form>
 
 
     </div>
