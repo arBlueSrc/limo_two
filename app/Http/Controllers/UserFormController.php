@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FamilyResult;
 use App\Models\GroupResult;
+use App\Models\Major;
 use App\Models\SingleResult;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -136,7 +137,7 @@ class UserFormController extends Controller
 
     public function checkResponseSingle(Request $request)
     {
-//        dd(Auth::user()->mobile);
+
         $data = $request->validate([
             'name' => 'required',
             'national_code' => 'required',
@@ -150,15 +151,15 @@ class UserFormController extends Controller
             'major' => 'required',
             'moaref_mobile' => '',
         ]);
-//        dd($data);
+
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
-//        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'].' 00:00';
+
         $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
         $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
         $single_result=SingleResult::create([
-//            'type' => 1,
+
             'name' => $data['name'],
             'national_code' => $data['national_code'],
             'ostan_id' => $data['ostan_id'],
@@ -169,6 +170,7 @@ class UserFormController extends Controller
             'phone' => $data['mobile'],
             'user_id' => Auth::user()->id,
         ]);
+
         // add moref if exists
         if ($data['moaref_mobile']){
             $single_result->moarefs()->create([
@@ -178,11 +180,12 @@ class UserFormController extends Controller
 
         // send sms to user
             //API Url
+        $major = Major::find($data['major'])->name ?? "";
             $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                 'number' => "660005",
-                'text' =>"ثبت نام شما ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+                'text' =>"ثبت نام شما در بخش فردی و رشته $major ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
 eitaa.com/quranbsj_ir
 rubika.ir/quranbsj_ir",
                 'mobiles' => Auth::user()->mobile,
@@ -257,7 +260,7 @@ rubika.ir/quranbsj_ir",
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
             'number' => "660005",
-            'text' =>"ثبت نام شما ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+            'text' =>"ثبت نام شما در بخش گروهی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
 eitaa.com/quranbsj_ir
 rubika.ir/quranbsj_ir",
             'mobiles' => Auth::user()->mobile,
@@ -403,7 +406,7 @@ rubika.ir/quranbsj_ir",
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
             'number' => "660005",
-            'text' =>"ثبت نام شما ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+            'text' =>"ثبت نام شما در بخش خانوادگی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
 eitaa.com/quranbsj_ir
 rubika.ir/quranbsj_ir",
             'mobiles' => Auth::user()->mobile,
