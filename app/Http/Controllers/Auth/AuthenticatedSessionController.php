@@ -84,19 +84,11 @@ class AuthenticatedSessionController extends Controller
 
             // send code to user
             //API Url
-            $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
-            $dataArray = array(
-                'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
-                'number' => "660005",
-                'text' => "کد تایید : " . $otp_code,
-                'mobiles' => session('register_data')['mobile'],
-                'clientIDs' => 1,
-            );
-            $data = http_build_query($dataArray);
-
-            $getUrl = $url . "?" . $data;
-//                                dd($getUrl);
-            $contents = file_get_contents($getUrl, false);
+            $result = true;
+            while ($result){
+                $result = $this->peyk(("کد تایید : " . $otp_code),session('register_data')['mobile']);
+                sleep(0.5);
+            }
         }
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');
@@ -108,6 +100,39 @@ class AuthenticatedSessionController extends Controller
 
         return view('auth.otp', compact('otp_time_remain'));
     }
+
+
+    public function peyk($text, $phone)
+    {
+
+        $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+        $dataArray = array(
+            'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+            'number' => "660005",
+            'text' => $text,
+            'isFlash' => "true",
+            'udh' => 1,
+            'mobiles' => $phone,
+            'clientIDs' => 1,
+        );
+        $data = http_build_query($dataArray);
+
+        $getUrl = $url . "?" . $data;
+        $contents = file_get_contents($getUrl, false);
+
+        $response = json_decode($contents, true);
+
+        return ($response['Error'] != null);
+
+    }
+
+
+
+
+
+
+
+
 
     public function resendCode(Request $request)
     {
@@ -134,20 +159,11 @@ class AuthenticatedSessionController extends Controller
             //send code to user
 
             //API Url
-            $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
-            $dataArray = array(
-                'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
-                'number' => "660005",
-                'text' => "کد تایید : " . $otp_code,
-                'mobiles' => session('register_data')['mobile'],
-                'clientIDs' => 1,
-
-            );
-            $data = http_build_query($dataArray);
-
-            $getUrl = $url . "?" . $data;
-            $contents = file_get_contents($getUrl, false);
-
+            $result = true;
+            while ($result){
+                $result = $this->peyk(("کد تایید : " . $otp_code),session('register_data')['mobile']);
+                sleep(0.5);
+            }
 
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
         }

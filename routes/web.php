@@ -23,6 +23,9 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('sendSMS',[\App\Http\Controllers\SMSController::class,'sendSms']);
+
+
 //choose category
 Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
 Route::get('/showForm', [UserFormController::class, 'showForm']);
@@ -84,6 +87,8 @@ Route::middleware('auth')->group(function () {
 });
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
+
+
 
 require __DIR__ . '/auth.php';
 
