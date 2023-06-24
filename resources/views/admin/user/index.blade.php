@@ -7,7 +7,6 @@
     </style>
 @endpush
 @push('scripts')
-
     <script>
         function setDelete(user) {
             document.getElementById("delete_id").value = user['id'];
@@ -84,10 +83,8 @@
 
             });
 
-
             // alert( this.value );
         });
-
 
         $('#child_shahrestans').on('change', function() {
             // alert( this.value );
