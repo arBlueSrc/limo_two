@@ -17,23 +17,23 @@ class UserFormController extends Controller
 {
     public function showForm()
     {
-        $single = SingleResult::where('user_id', Auth()->user()->id)->get();
-        $group = GroupResult::where('user_id', Auth()->user()->id)->get();
-        $family = FamilyResult::where('user_id', Auth()->user()->id)->get();
+        $single = SingleResult::where('user_id',Auth()->user()->id)->get();
+        $group = GroupResult::where('user_id',Auth()->user()->id)->get();
+        $family = FamilyResult::where('user_id',Auth()->user()->id)->get();
 
-        if (sizeof($single) <= 3 || sizeof($group) == 0 || sizeof($family) == 0) {
+        if (sizeof($single)<=3 || sizeof($group)==0 || sizeof($family)==0){
 
             $deactive_item1 = 0;
             $deactive_item2 = 0;
             $deactive_item3 = 0;
 
-            if (sizeof($single) >= 3) $deactive_item1 = 1;
-            if (sizeof($group) != 0) $deactive_item2 = 1;
-            if (sizeof($family) != 0) $deactive_item3 = 1;
+            if (sizeof($single)>=3)$deactive_item1 = 1;
+            if (sizeof($group)!=0)$deactive_item2 = 1;
+            if (sizeof($family)!=0)$deactive_item3 = 1;
 
-            return view('choose.choose', compact('deactive_item1', 'deactive_item2', 'deactive_item3'));
+            return view('choose.choose', compact('deactive_item1','deactive_item2','deactive_item3'));
 
-        } else {
+        }else{
 
             Auth::logout();
             return view('form.registerBefore');
@@ -41,11 +41,10 @@ class UserFormController extends Controller
         }
 
     }
-
     public function edit(Request $request)
     {
         $user = User::find($request->user);
-        return view('admin.form.updateForm', compact('user'));
+        return view('admin.form.updateForm',compact('user'));
     }
 
     public function update(Request $request)
@@ -74,50 +73,50 @@ class UserFormController extends Controller
         ]);
 
 
-        if (array_key_exists('twitter', $data) && $data['twitter_account'] == "") {
-            return response($data['twitter_account'], 405);
+        if (array_key_exists('twitter',$data) && $data['twitter_account'] == ""){
+            return response($data['twitter_account'],405);
         }
 
-        if (array_key_exists('instagram', $data) && $data['instagram_account'] == "") {
-            return response($data['instagram_account'], 405);
+        if (array_key_exists('instagram',$data) && $data['instagram_account'] == ""){
+            return response($data['instagram_account'],405);
         }
 
         $internal_social = "";
-        if (array_key_exists('eita', $data)) {
-            $internal_social = $internal_social . 'eita' . ",";
+        if (array_key_exists('eita',$data)){
+            $internal_social = $internal_social.'eita'.",";
         }
-        if (array_key_exists('bale', $data)) {
-            $internal_social = $internal_social . 'bale' . ",";
+        if (array_key_exists('bale',$data)){
+            $internal_social = $internal_social.'bale'.",";
         }
-        if (array_key_exists('soroosh', $data)) {
-            $internal_social = $internal_social . 'soroosh' . ",";
+        if (array_key_exists('soroosh',$data)){
+            $internal_social = $internal_social.'soroosh'.",";
         }
-        if (array_key_exists('igap', $data)) {
-            $internal_social = $internal_social . 'igap' . ",";
+        if (array_key_exists('igap',$data)){
+            $internal_social = $internal_social.'igap'.",";
         }
-        if (array_key_exists('roobika', $data)) {
-            $internal_social = $internal_social . 'roobika' . ",";
+        if (array_key_exists('roobika',$data)){
+            $internal_social = $internal_social.'roobika'.",";
         }
-        if (array_key_exists('virasti', $data)) {
-            $internal_social = $internal_social . 'virasti' . ",";
+        if (array_key_exists('virasti',$data)){
+            $internal_social = $internal_social.'virasti'.",";
         }
-        if (array_key_exists('virasti', $data)) {
-            $internal_social = $internal_social . 'virasti' . ",";
+        if (array_key_exists('virasti',$data)){
+            $internal_social = $internal_social.'virasti'.",";
         }
 
 
         $external_social = "";
-        if (array_key_exists('twitter', $data)) {
-            $external_social = $external_social . 'twitter' . ",";
+        if (array_key_exists('twitter',$data)){
+            $external_social = $external_social.'twitter'.",";
         }
-        if (array_key_exists('telegram', $data)) {
-            $external_social = $external_social . 'telegram' . ",";
+        if (array_key_exists('telegram',$data)){
+            $external_social = $external_social.'telegram'.",";
         }
-        if (array_key_exists('instagram', $data)) {
-            $external_social = $external_social . 'instagram' . ",";
+        if (array_key_exists('instagram',$data)){
+            $external_social = $external_social.'instagram'.",";
         }
-        if (array_key_exists('whatsapp', $data)) {
-            $external_social = $external_social . 'whatsapp' . ",";
+        if (array_key_exists('whatsapp',$data)){
+            $external_social = $external_social.'whatsapp'.",";
         }
 
         User::where('id', $request->id)->update([
@@ -153,12 +152,14 @@ class UserFormController extends Controller
             'moaref_mobile' => '',
         ]);
 
-        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
-        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
-        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+        $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
-        $single_result = SingleResult::create([
+        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
+
+        $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+        $single_result=SingleResult::create([
+
             'name' => $data['name'],
             'national_code' => $data['national_code'],
             'ostan_id' => $data['ostan_id'],
@@ -171,31 +172,31 @@ class UserFormController extends Controller
         ]);
 
         // add moref if exists
-        if ($data['moaref_mobile']) {
+        if ($data['moaref_mobile']){
             $single_result->moarefs()->create([
-                'moaref_mobile' => $data['moaref_mobile']
+               'moaref_mobile'=>$data['moaref_mobile']
             ]);
         }
 
         // send sms to user
-        //API Url
+            //API Url
         $major = Major::find($data['major'])->name ?? "";
-        $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
-        $dataArray = array(
-            'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
-            'number' => "660005",
-            'text' => "ثبت نام شما در بخش فردی و رشته $major ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
-                            eitaa.com/quranbsj_ir
-                            rubika.ir/quranbsj_ir",
-            'mobiles' => Auth::user()->mobile,
-            'clientIDs' => 1,
+            $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+            $dataArray = array(
+                'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+                'number' => "660005",
+                'text' =>"ثبت نام شما در بخش فردی و رشته $major ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+eitaa.com/quranbsj_ir
+rubika.ir/quranbsj_ir",
+                'mobiles' => Auth::user()->mobile,
+                'clientIDs' => 1,
 
-        );
-        $data = http_build_query($dataArray);
+            );
+            $data = http_build_query($dataArray);
 
-        $getUrl = $url . "?" . $data;
-
-        file_get_contents($getUrl, false);
+            $getUrl = $url."?".$data;
+//                                dd($getUrl);
+            $contents = file_get_contents($getUrl,false);
         return view('form.registerComplete');
 
 
@@ -223,15 +224,15 @@ class UserFormController extends Controller
         ]);
 //        dd($data);
 
-        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
+        $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
-        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
+        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
-        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+        $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
 //        dd($birth_date);
 
-        $group_result = GroupResult::create([
+        $group_result=GroupResult::create([
             'name_group' => $data['group_name'],
             'ostan_id' => $data['ostan_id'],
             'shahrestan_id' => $data['shahrestan_id'],
@@ -248,20 +249,18 @@ class UserFormController extends Controller
             'user_id' => Auth::user()->id,
             'type' => $data['type'],
         ]);
-
-        if ($data['moaref_mobile']) {
+        if ($data['moaref_mobile']){
             $group_result->moarefs()->create([
-                'moaref_mobile' => $data['moaref_mobile']
+               'moaref_mobile'=>$data['moaref_mobile']
             ]);
         }
-
         // send sms to user
         //API Url
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
             'number' => "660005",
-            'text' => "ثبت نام شما در بخش گروهی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+            'text' =>"ثبت نام شما در بخش گروهی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
 eitaa.com/quranbsj_ir
 rubika.ir/quranbsj_ir",
             'mobiles' => Auth::user()->mobile,
@@ -270,9 +269,9 @@ rubika.ir/quranbsj_ir",
         );
         $data = http_build_query($dataArray);
 
-        $getUrl = $url . "?" . $data;
+        $getUrl = $url."?".$data;
 //                                dd($getUrl);
-        $contents = file_get_contents($getUrl, false);
+        $contents = file_get_contents($getUrl,false);
         return view('form.registerComplete');
 
     }
@@ -312,93 +311,93 @@ rubika.ir/quranbsj_ir",
             'moaref_mobile' => '',
         ]);
 //dd($data);
-        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
-        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
+        $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
-        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
+        $birth_date=$data['year'].'/'.$data['month'].'/'.$data['day'];
 
-        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+        $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
 
-        $f = FamilyResult::create([
-            'name' => $data['family_name'],
-            'ostan_id' => $data['ostan_id'],
-            'shahrestan_id' => $data['shahrestan_id'],
-            'father_name' => $data['father_name'],
-            'father_national_code' => $data['father_national_code'],
-            'father_phone' => $data['father_phone'],
-            'mother_name' => $data['mother_name'],
-            'mother_phone' => $data['mother_phone'],
+        $f=FamilyResult::create([
+            'name'=>$data['family_name'],
+            'ostan_id'=>$data['ostan_id'],
+            'shahrestan_id'=>$data['shahrestan_id'],
+            'father_name'=>$data['father_name'],
+            'father_national_code'=>$data['father_national_code'],
+            'father_phone'=>$data['father_phone'],
+            'mother_name'=>$data['mother_name'],
+            'mother_phone'=>$data['mother_phone'],
 //            'child_count'=>$data['child_count'],
-            'birthdate' => $birth_date,
-            'mosque_id' => $data['mosque'],
-            'user_id' => Auth::user()->id
+            'birthdate'=>$birth_date,
+            'mosque_id'=>$data['mosque'],
+            'user_id'=>Auth::user()->id
         ]);
 
-        if ($data['moaref_mobile']) {
+        if ($data['moaref_mobile']){
             $f->moarefs()->create([
-                'moaref_mobile' => $data['moaref_mobile']
+               'moaref_mobile'=>$data['moaref_mobile']
             ]);
         }
 
         // inserting child info
-        if ($data['child_name1']) {
-            if ($data['child_year1']) {
-                $data['child_month1'] = str_pad($data['child_month1'], 2, '0', STR_PAD_LEFT);
-                $data['child_day1'] = str_pad($data['child_day1'], 2, '0', STR_PAD_LEFT);
+        if ($data['child_name1']){
+            if ($data['child_year1']){
+                $data['child_month1'] =  str_pad($data['child_month1'], 2, '0', STR_PAD_LEFT);
+                $data['child_day1'] =  str_pad($data['child_day1'], 2, '0', STR_PAD_LEFT);
 
-                $birth_date = $data['child_year1'] . '/' . $data['child_month1'] . '/' . $data['child_day1'];
+                $birth_date=$data['child_year1'].'/'.$data['child_month1'].'/'.$data['child_day1'];
 
-                $child_birth_date1 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+                $child_birth_date1=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+        FamilyResultChildren::create([
+            'family_result_id'=>$f->id,
+            'name'=>$data['child_name1'],
+            'birthdate'=>$child_birth_date1,
+        ]);
+        }
+        if ($data['child_name2']){
+            if ($data['child_year2']){
+                $data['child_month2'] =  str_pad($data['child_month2'], 2, '0', STR_PAD_LEFT);
+                $data['child_day2'] =  str_pad($data['child_day2'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date=$data['child_year2'].'/'.$data['child_month2'].'/'.$data['child_day2'];
+
+                $child_birth_date2=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
             }
             FamilyResultChildren::create([
-                'family_result_id' => $f->id,
-                'name' => $data['child_name1'],
-                'birthdate' => $child_birth_date1,
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name2'],
+                'birthdate'=>$child_birth_date2,
             ]);
         }
-        if ($data['child_name2']) {
-            if ($data['child_year2']) {
-                $data['child_month2'] = str_pad($data['child_month2'], 2, '0', STR_PAD_LEFT);
-                $data['child_day2'] = str_pad($data['child_day2'], 2, '0', STR_PAD_LEFT);
+        if ($data['child_name3']){
+            if ($data['child_year3']){
+                $data['child_month3'] =  str_pad($data['child_month3'], 2, '0', STR_PAD_LEFT);
+                $data['child_day3'] =  str_pad($data['child_day3'], 2, '0', STR_PAD_LEFT);
 
-                $birth_date = $data['child_year2'] . '/' . $data['child_month2'] . '/' . $data['child_day2'];
+                $birth_date=$data['child_year3'].'/'.$data['child_month3'].'/'.$data['child_day3'];
 
-                $child_birth_date2 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+                $child_birth_date3=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
             }
             FamilyResultChildren::create([
-                'family_result_id' => $f->id,
-                'name' => $data['child_name2'],
-                'birthdate' => $child_birth_date2,
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name3'],
+                'birthdate'=>$child_birth_date3,
             ]);
         }
-        if ($data['child_name3']) {
-            if ($data['child_year3']) {
-                $data['child_month3'] = str_pad($data['child_month3'], 2, '0', STR_PAD_LEFT);
-                $data['child_day3'] = str_pad($data['child_day3'], 2, '0', STR_PAD_LEFT);
+        if ($data['child_name4']){
+            if ($data['child_year4']){
+                $data['child_month4'] =  str_pad($data['child_month4'], 2, '0', STR_PAD_LEFT);
+                $data['child_day4'] =  str_pad($data['child_day4'], 2, '0', STR_PAD_LEFT);
 
-                $birth_date = $data['child_year3'] . '/' . $data['child_month3'] . '/' . $data['child_day3'];
+                $birth_date=$data['child_year4'].'/'.$data['child_month4'].'/'.$data['child_day4'];
 
-                $child_birth_date3 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+                $child_birth_date4=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
             }
             FamilyResultChildren::create([
-                'family_result_id' => $f->id,
-                'name' => $data['child_name3'],
-                'birthdate' => $child_birth_date3,
-            ]);
-        }
-        if ($data['child_name4']) {
-            if ($data['child_year4']) {
-                $data['child_month4'] = str_pad($data['child_month4'], 2, '0', STR_PAD_LEFT);
-                $data['child_day4'] = str_pad($data['child_day4'], 2, '0', STR_PAD_LEFT);
-
-                $birth_date = $data['child_year4'] . '/' . $data['child_month4'] . '/' . $data['child_day4'];
-
-                $child_birth_date4 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
-            }
-            FamilyResultChildren::create([
-                'family_result_id' => $f->id,
-                'name' => $data['child_name4'],
-                'birthdate' => $child_birth_date4,
+                'family_result_id'=>$f->id,
+                'name'=>$data['child_name4'],
+                'birthdate'=>$child_birth_date4,
             ]);
         }
 // send sms to user
@@ -407,7 +406,7 @@ rubika.ir/quranbsj_ir",
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
             'number' => "660005",
-            'text' => "ثبت نام شما در بخش خانوادگی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+            'text' =>"ثبت نام شما در بخش خانوادگی ثبت شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
 eitaa.com/quranbsj_ir
 rubika.ir/quranbsj_ir",
             'mobiles' => Auth::user()->mobile,
@@ -415,9 +414,9 @@ rubika.ir/quranbsj_ir",
         );
         $data = http_build_query($dataArray);
 
-        $getUrl = $url . "?" . $data;
+        $getUrl = $url."?".$data;
 //                                dd($getUrl);
-        $contents = file_get_contents($getUrl, false);
+        $contents = file_get_contents($getUrl,false);
         return view('form.registerComplete');
     }
 }
