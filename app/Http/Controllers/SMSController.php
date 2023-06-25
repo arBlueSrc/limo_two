@@ -74,8 +74,11 @@ class SMSController extends Controller
 
                 $major = Major::find($single_result->major)->name ?? "قرآن";
                 $message = 'شرکت کننده مسابقات قران، ' . $single_result->name . ' عزیز' . "\r\n";
-                $message = $message . "شما در سامانه مسابقات در بخش فردی و در رشته " . str_replace(",", "", $major) . "، ثبت نام کرده اید. این پیام صرفا جهت یادآوری می باشد. تمامی اطلاع رسانی های بعدی از طریق پیامک به شما اطلاع رسانی خواهد گردید.";
-
+                $message = $message . "شما در سامانه مسابقات در بخش فردی و در رشته " . str_replace(",", "", $major) . "، ثبت نام کرده اید. این پیام صرفا جهت یادآوری می باشد. تمامی اطلاع رسانی های بعدی از طریق پیامک به شما اطلاع رسانی خواهد گردید." . "\r\n";
+                $message = $message . "\r\n";
+                $message = $message . "عضو کانال دارالقرآن بسیج شوید" . "\r\n";
+                $message = $message . "eitaa.com/quranbsj_ir" . "\r\n";
+                $message = $message . "rubika.ir/quranbsj_ir" . "\r\n";
                 $sms_log = SmsLog::create([
                     'ref_id' => $single_result->id,
                     'ref_type' => 1,
