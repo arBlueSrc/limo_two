@@ -58,7 +58,7 @@ class SMSController extends Controller
     public function sendSingleResultSms()
     {
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 4; $i++) {
 
 
             $last_send_message = SmsLog::orderBy('id', 'DESC')->first() ?? null;
@@ -79,6 +79,7 @@ class SMSController extends Controller
                 $message = $message . "عضو کانال دارالقرآن بسیج شوید" . "\r\n";
                 $message = $message . "eitaa.com/quranbsj_ir" . "\r\n";
                 $message = $message . "rubika.ir/quranbsj_ir" . "\r\n";
+
                 $sms_log = SmsLog::create([
                     'ref_id' => $single_result->id,
                     'ref_type' => 1,
