@@ -24,6 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('sendSMS',[\App\Http\Controllers\SMSController::class,'sendSms']);
+Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'sendSingleResultSms']);
 
 
 //choose category

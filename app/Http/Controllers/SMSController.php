@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Scalar\String_;
+use App\Http\SmsSenderHelper;
+use App\Models\Major;
+use App\Models\SingleResult;
+use App\Models\SmsLog;
 
 class SMSController extends Controller
 {
@@ -50,6 +51,52 @@ class SMSController extends Controller
         $response = json_decode($contents, true);
 
         return ($response['Error'] != null);
+
+    }
+
+
+
+
+
+    public function sendSingleResultSms()
+    {
+
+        $last_send_message = SmsLog::orderBy('id', 'DESC')->first() ?? null;
+
+        if ($last_send_message == null){
+            $single_result = SingleResult::first();
+        }else{
+            $last_send_id = $last_send_message->ref_id;
+            $single_result = SingleResult::where('id', '>', $last_send_id)->first();
+        }
+
+        $major = Major::find($single_result->major)->name ?? "قرآن";
+        $message = 'شرکت کننده مسابقات قران، '. $single_result->name .' عزیز' . "\r\n";
+        $message = $message . "شما در سامانه مسابقات در بخش فردی و در رشته ". str_replace(",","",$major) ."، ثبت نام کرده اید. این پیام صرفا جهت یادآوری می باشد. تمامی اطلاع رسانی های بعدی از طریق پیامک به شما اطلاع رسانی خواهد گردید.";
+
+        $sms_log = SmsLog::create([
+            'ref_id' => $single_result->id,
+            'ref_type' => 1,
+            'is_sended' => 0,
+            'message' => $message
+        ]);
+
+        //send message
+        $sms_sender = new SmsSenderHelper();
+
+        $result = true;
+        while ($result){
+            $result = $sms_sender->peyk($message, $single_result->phone);
+            if (!$result){
+                //here message sended
+                $sms_log->update([
+                    'is_sended' => 1
+                ]);
+
+                echo "message sended!";
+            }
+            sleep(0.5);
+        }
 
     }
 
