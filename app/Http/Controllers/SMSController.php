@@ -70,33 +70,38 @@ class SMSController extends Controller
             $single_result = SingleResult::where('id', '>', $last_send_id)->first();
         }
 
-        $major = Major::find($single_result->major)->name ?? "قرآن";
-        $message = 'شرکت کننده مسابقات قران، '. $single_result->name .' عزیز' . "\r\n";
-        $message = $message . "شما در سامانه مسابقات در بخش فردی و در رشته ". str_replace(",","",$major) ."، ثبت نام کرده اید. این پیام صرفا جهت یادآوری می باشد. تمامی اطلاع رسانی های بعدی از طریق پیامک به شما اطلاع رسانی خواهد گردید.";
+        if ($single_result != null){
 
-        $sms_log = SmsLog::create([
-            'ref_id' => $single_result->id,
-            'ref_type' => 1,
-            'is_sended' => 0,
-            'message' => $message
-        ]);
+            $major = Major::find($single_result->major)->name ?? "قرآن";
+            $message = 'شرکت کننده مسابقات قران، '. $single_result->name .' عزیز' . "\r\n";
+            $message = $message . "شما در سامانه مسابقات در بخش فردی و در رشته ". str_replace(",","",$major) ."، ثبت نام کرده اید. این پیام صرفا جهت یادآوری می باشد. تمامی اطلاع رسانی های بعدی از طریق پیامک به شما اطلاع رسانی خواهد گردید.";
 
-        //send message
-        $sms_sender = new SmsSenderHelper();
+            $sms_log = SmsLog::create([
+                'ref_id' => $single_result->id,
+                'ref_type' => 1,
+                'is_sended' => 0,
+                'message' => $message
+            ]);
 
-        $result = true;
-        while ($result){
-            $result = $sms_sender->peyk($message, $single_result->phone);
-            if (!$result){
-                //here message sended
-                $sms_log->update([
-                    'is_sended' => 1
-                ]);
+            //send message
+            $sms_sender = new SmsSenderHelper();
 
-                echo "message sended!";
+            $result = true;
+            while ($result){
+                $result = $sms_sender->peyk($message, $single_result->phone);
+                if (!$result){
+                    //here message sended
+                    $sms_log->update([
+                        'is_sended' => 1
+                    ]);
+
+                    echo "message sended!";
+                }
+                sleep(0.5);
             }
-            sleep(0.5);
+
         }
+
 
     }
 
