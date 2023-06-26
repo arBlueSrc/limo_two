@@ -80,12 +80,9 @@
                     });
                 }
                 // console.log(data);
-
             });
-
             // alert( this.value );
         });
-
         $('#child_shahrestans').on('change', function() {
             // alert( this.value );
             let shahrestan_id= $('#child_shahrestans').val();

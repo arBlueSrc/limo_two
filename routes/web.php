@@ -29,7 +29,7 @@ Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'se
 
 //choose category
 Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
-Route::get('/showForm', [UserFormController::class, 'showForm']);
+Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
 
 Route::get('/dashboard', function () {
     return Redirect::to(url('/admin'));
@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 
     //forms_Competition
-    Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->name('single');
+    Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->middleware('single-form')->name('single');
     Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->name("group");
     Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->name("family");
 
