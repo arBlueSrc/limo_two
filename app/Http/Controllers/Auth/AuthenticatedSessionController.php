@@ -158,6 +158,7 @@ class AuthenticatedSessionController extends Controller
             $getUrl = $url . "?" . $data;
             $contents = file_get_contents($getUrl, false);*/
 
+//            dd($otp_code);
             $user=User::where('mobile',session('register_data')['mobile'])->first();
             $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 

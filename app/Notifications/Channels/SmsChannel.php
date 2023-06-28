@@ -9,7 +9,7 @@ class SmsChannel
 
     public function send($notifiable, Notification $notification)
     {
-        $data = $notification->toSms($notifiable);
+        $otp_code = $notification->toSms($notifiable);
         //send sms here
 // send code to user
         //API Url
@@ -19,7 +19,7 @@ class SmsChannel
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                 'number' => "660005",
-                'text' => "کد تایید : " .$data,
+                'text' => "کد تایید : " .$otp_code,
                 'mobiles' => $notifiable->mobile,
                 'clientIDs' => 1,
             );
