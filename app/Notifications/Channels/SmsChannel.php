@@ -19,7 +19,7 @@ class SmsChannel
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                 'number' => "660005",
-                'text' => $data,
+                'text' => "کد تایید : " .$data,
                 'mobiles' => $notifiable->mobile,
                 'clientIDs' => 1,
             );
