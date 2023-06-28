@@ -99,8 +99,8 @@ class AuthenticatedSessionController extends Controller
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);*/
                 $user = User::where('mobile', session('register_data')['mobile'])->first();
-                $response = $user->notify(new \App\Notifications\SendCodeNotification(session('otp')['otp_code']));
 
+                $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 
         }
         $now = Carbon::now();
@@ -159,7 +159,7 @@ class AuthenticatedSessionController extends Controller
             $contents = file_get_contents($getUrl, false);*/
 
             $user=User::where('mobile',session('register_data')['mobile'])->first();
-            $response=$user->notify(new \App\Notifications\SendCodeNotification(session('otp')['otp_code']));
+            $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
         }
