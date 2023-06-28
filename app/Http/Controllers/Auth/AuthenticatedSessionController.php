@@ -82,9 +82,10 @@ class AuthenticatedSessionController extends Controller
                 'otp_expired_at' => $otp_expired_at
             ]]);
 
+
             // send code to user
             //API Url
-            $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+            /*$url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                 'number' => "660005",
@@ -96,7 +97,11 @@ class AuthenticatedSessionController extends Controller
 
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-            $contents = file_get_contents($getUrl, false);
+            $contents = file_get_contents($getUrl, false);*/
+                $user = User::where('mobile', session('register_data')['mobile'])->first();
+                $response = $user->notify(new \App\Notifications\SendCodeNotification(session('otp')['otp_code']));
+
+
         }
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');
@@ -106,11 +111,16 @@ class AuthenticatedSessionController extends Controller
             $otp_time_remain = $now->diffInSeconds($otp_expire_time);
         }
 
+
         return view('auth.otp', compact('otp_time_remain'));
     }
 
     public function resendCode(Request $request)
     {
+
+//        $user=User::where('mobile',session('register_data')['mobile'])->first();
+//        dd($user);
+
 //        dd(session()->all());
 
 
@@ -120,7 +130,7 @@ class AuthenticatedSessionController extends Controller
 
         $now = Carbon::now();
         if (session()->missing('otp')) {
-            dd('here');
+
         } elseif (!$now->isBefore(session('otp')['otp_expired_at'])) {
 
             $otp_code = rand(100000, 999999);
@@ -133,7 +143,7 @@ class AuthenticatedSessionController extends Controller
             ]]);
             //send code to user
 
-            //API Url
+           /* //API Url
             $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
@@ -146,14 +156,16 @@ class AuthenticatedSessionController extends Controller
             $data = http_build_query($dataArray);
 
             $getUrl = $url . "?" . $data;
-            $contents = file_get_contents($getUrl, false);
+            $contents = file_get_contents($getUrl, false);*/
 
+            $user=User::where('mobile',session('register_data')['mobile'])->first();
+            $response=$user->notify(new \App\Notifications\SendCodeNotification(session('otp')['otp_code']));
 
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
         }
+
         return back()->with('message', 'زمان کد قبلی به پایان نرسیده');
     }
-
     public function otpHandle(Request $request)
     {
         $valid = $request->validate([

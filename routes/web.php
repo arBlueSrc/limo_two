@@ -5,6 +5,7 @@ use App\Http\Controllers\CompetitionRegistrationFormsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFormController;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -80,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->name("family");
 
     //check response
-    Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->name('checkResponseSingle');
+    Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->middleware('single-form')->name('checkResponseSingle');
     Route::post('checkResponseGroup', [UserFormController::class, 'checkResponseGroup'])->name('checkResponseGroup');
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
 
@@ -89,6 +90,18 @@ Route::middleware('auth')->group(function () {
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 
+Route::get('/a', function (){
+    $user=auth()->user();
+    $user=User::where('mobile','09380969944')->first();
+    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
+
+});
+/*Route::get('/a', function (){
+for ($i=1;i<100;i++){
+    echo $i;
+    sleep(1);
+}
+});*/
 
 
 require __DIR__ . '/auth.php';
