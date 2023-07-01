@@ -99,7 +99,11 @@ class AuthenticatedSessionController extends Controller
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);*/
                 $user = User::where('mobile', session('register_data')['mobile'])->first();
-
+            if (!$user){
+                $user=User::create([
+                    'mobile'=>session('register_data')['mobile']
+                ]);
+            }
                 $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 
         }
@@ -160,6 +164,11 @@ class AuthenticatedSessionController extends Controller
 
 //            dd($otp_code);
             $user=User::where('mobile',session('register_data')['mobile'])->first();
+            if (!$user){
+                $user=User::create([
+                    'mobile'=>session('register_data')['mobile']
+                ]);
+            }
             $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
