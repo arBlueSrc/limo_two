@@ -116,38 +116,64 @@
 
     function onClicked1(){
 
-        var a = document.createElement("a");
-        a.href = "https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f";
-        var evt = document.createEvent("MouseEvents");
+        let userAgent = navigator.userAgent;
+        let browserName;
 
-        //the tenth parameter of initMouseEvent sets ctrl key
-        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
-        a.dispatchEvent(evt);
+
+        if(userAgent.match(/chrome|chromium|crios/i)){
+            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
+        }else {
+            var a = document.createElement("a");
+            a.href = "https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f";
+
+            var evt = document.createEvent("MouseEvents");
+
+            //the tenth parameter of initMouseEvent sets ctrl key
+            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
+            a.dispatchEvent(evt);
+        }
+
+
+
 
     }
 
     function onClicked2(){
 
-        var a = document.createElement("a");
-        a.href = "https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a";
-        var evt = document.createEvent("MouseEvents");
+        let userAgent = navigator.userAgent;
+        let browserName;
 
-        //the tenth parameter of initMouseEvent sets ctrl key
-        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
-        a.dispatchEvent(evt);
 
+        if(userAgent.match(/chrome|chromium|crios/i)){
+            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
+        }else {
+            var a = document.createElement("a");
+            a.href = "https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a";
+            var evt = document.createEvent("MouseEvents");
+
+            //the tenth parameter of initMouseEvent sets ctrl key
+            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
+            a.dispatchEvent(evt);
+        }
     }
 
     function onClicked3(){
 
-        var a = document.createElement("a");
-        a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
-        var evt = document.createEvent("MouseEvents");
+        let userAgent = navigator.userAgent;
+        let browserName;
 
-        //the tenth parameter of initMouseEvent sets ctrl key
-        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
-        a.dispatchEvent(evt);
 
+        if(userAgent.match(/chrome|chromium|crios/i)){
+            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
+        }else {
+            var a = document.createElement("a");
+            a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
+            var evt = document.createEvent("MouseEvents");
+
+            //the tenth parameter of initMouseEvent sets ctrl key
+            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
+            a.dispatchEvent(evt);
+        }
     }
 
 </script>
