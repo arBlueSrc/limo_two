@@ -84,7 +84,8 @@
                     <p data-aos="fade-up">برای شروع کلیک کنید</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" onclick="onClicked1()" class="btn-get-started" style="font-family: Shabnam">شروع</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}" onclick="onClicked2()" class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120" onclick="onClicked3()" class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120" onclick="onClicked3()">ارتباط با ما</a>
+{{--                    <a class="btn-get-started" style="font-family: Shabnam" id="mine" href="">ما</a>--}}
                 </div>
             </div>
         </div>
@@ -140,6 +141,7 @@
 
     function onClicked3(){
 
+
         var a = document.createElement("a");
         a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
         var evt = document.createEvent("MouseEvents");
@@ -148,9 +150,22 @@
         evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
         a.dispatchEvent(evt);
 
+
     }
 
+
+
 </script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $('#mine').click(function (){
+
+        var handle = window.open('https://stackoverflow.com/');
+        handle.blur();
+        window.focus();
+    });
+</script>--}}
+
 </body>
 
 </html>

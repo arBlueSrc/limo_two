@@ -139,7 +139,7 @@ class UserFormController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'national_code' => 'required|unique:single_result',
+            'national_code' => 'required',
             'mobile' => 'required',
             'day' => 'required',
             'month' => 'required',
@@ -150,7 +150,6 @@ class UserFormController extends Controller
             'major' => 'required',
             'moaref_mobile' => '',
         ]);
-
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
@@ -158,7 +157,6 @@ class UserFormController extends Controller
 
         $birth_date=CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
         $single_result=SingleResult::create([
-
             'name' => $data['name'],
             'national_code' => $data['national_code'],
             'ostan_id' => $data['ostan_id'],
