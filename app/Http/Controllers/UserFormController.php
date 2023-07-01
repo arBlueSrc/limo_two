@@ -137,10 +137,9 @@ class UserFormController extends Controller
 
     public function checkResponseSingle(Request $request)
     {
-
         $data = $request->validate([
             'name' => 'required',
-            'national_code' => 'required',
+            'national_code' => 'required|unique:single_result',
             'mobile' => 'required',
             'day' => 'required',
             'month' => 'required',
