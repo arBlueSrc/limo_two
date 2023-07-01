@@ -82,9 +82,9 @@
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     <p data-aos="fade-up">برای شروع کلیک کنید</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started" style="font-family: Shabnam">شروع</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}" class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120" class="btn-get-started" style="font-family: Shabnam" target=”_blank”>ارتباط با ما</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" onclick="onClicked1()" class="btn-get-started" style="font-family: Shabnam">شروع</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}" onclick="onClicked2()" class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120" onclick="onClicked3()" class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
                 </div>
             </div>
         </div>
@@ -112,7 +112,45 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('landing_assets/assets/js/main.js') }}"></script>
+<script>
 
+    function onClicked1(){
+
+        var a = document.createElement("a");
+        a.href = "https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f";
+        var evt = document.createEvent("MouseEvents");
+
+        //the tenth parameter of initMouseEvent sets ctrl key
+        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
+        a.dispatchEvent(evt);
+
+    }
+
+    function onClicked2(){
+
+        var a = document.createElement("a");
+        a.href = "https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a";
+        var evt = document.createEvent("MouseEvents");
+
+        //the tenth parameter of initMouseEvent sets ctrl key
+        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
+        a.dispatchEvent(evt);
+
+    }
+
+    function onClicked3(){
+
+        var a = document.createElement("a");
+        a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
+        var evt = document.createEvent("MouseEvents");
+
+        //the tenth parameter of initMouseEvent sets ctrl key
+        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
+        a.dispatchEvent(evt);
+
+    }
+
+</script>
 </body>
 
 </html>
