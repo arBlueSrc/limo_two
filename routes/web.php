@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseGroup', [UserFormController::class, 'checkResponseGroup'])->name('checkResponseGroup');
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
 
-    Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->middleware('single-form')->name('form.complete');
+    Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->name('form.complete');
 
 
 });
