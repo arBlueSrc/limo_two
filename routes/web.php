@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 //Route::get('sendSMS',[\App\Http\Controllers\SMSController::class,'sendSms']);
 Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'sendSingleResultSms']);
@@ -84,6 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->middleware('single-form')->name('checkResponseSingle');
     Route::post('checkResponseGroup', [UserFormController::class, 'checkResponseGroup'])->name('checkResponseGroup');
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
+
+    Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->middleware('single-form')->name('form.complete');
 
 
 });

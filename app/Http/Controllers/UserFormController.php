@@ -150,6 +150,7 @@ class UserFormController extends Controller
             'major' => 'required',
             'moaref_mobile' => '',
         ]);
+//        dd($data);
         $data['month'] =  str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] =  str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
@@ -190,13 +191,11 @@ rubika.ir/quranbsj_ir",
 
             );
             $data = http_build_query($dataArray);
-
             $getUrl = $url."?".$data;
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl,false);
-        return view('form.registerComplete');
-
-
+        return redirect(route('form.complete'));
+//        return view('form.registerComplete');
     }
 
     public function checkResponseGroup(Request $request)
@@ -269,7 +268,8 @@ rubika.ir/quranbsj_ir",
         $getUrl = $url."?".$data;
 //                                dd($getUrl);
         $contents = file_get_contents($getUrl,false);
-        return view('form.registerComplete');
+        return redirect(route('form.complete'));
+//        return view('form.registerComplete');
 
     }
 
@@ -414,6 +414,12 @@ rubika.ir/quranbsj_ir",
         $getUrl = $url."?".$data;
 //                                dd($getUrl);
         $contents = file_get_contents($getUrl,false);
+        return redirect(route('form.complete'));
+//        return view('form.registerComplete');
+    }
+
+    public function showFormComplete()
+    {
         return view('form.registerComplete');
     }
 }

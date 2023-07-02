@@ -20,7 +20,7 @@ class SingleForm
         $user=auth()->user();
         $single_count = SingleResult::where('user_id',Auth()->user()->id)->count();
         if ($single_count>=3){
-        return redirect()->route('show_form');
+        return redirect()->route('home');
         }
         else {
             return $next($request);
