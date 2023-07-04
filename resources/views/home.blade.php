@@ -78,9 +78,9 @@
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     <p data-aos="fade-up">برای شروع کلیک کنید</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" onclick="onClicked1()" class="btn-get-started" style="font-family: Shabnam">شروع</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}" onclick="onClicked2()" class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120" onclick="onClicked3()" class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}"   class="btn-get-started" style="font-family: Shabnam">شروع</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"   class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"   class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
                 </div>
             </div>
         </div>
