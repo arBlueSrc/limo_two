@@ -36,10 +36,6 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 
-    <script>
-        !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/Skz6HmQM/native-event.quranbsj.ir-32370/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
-    </script>
-
 </head>
 
 <style>
@@ -115,27 +111,7 @@
 <script>
 
     function onClicked1(){
-
-        let userAgent = navigator.userAgent;
-        let browserName;
-
-
-        if(userAgent.match(/chrome|chromium|crios/i)){
-            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
-        }else {
-            var a = document.createElement("a");
-            a.href = "https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f";
-
-            var evt = document.createEvent("MouseEvents");
-
-            //the tenth parameter of initMouseEvent sets ctrl key
-            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,true, false, false, false, 0, null);
-            a.dispatchEvent(evt);
-        }
-
-
-
-
+        window.open("https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a", '_blank', 'width=100,height=100');
     }
 
     function onClicked2(){
