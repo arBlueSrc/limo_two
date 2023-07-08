@@ -96,7 +96,6 @@ Route::get('/a', function (){
     $user=auth()->user();
     $user=User::where('mobile','09380969944')->first();
     $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
-
 });
 /*Route::get('/a', function (){
 for ($i=1;i<100;i++){

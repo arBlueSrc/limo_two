@@ -272,7 +272,6 @@ rubika.ir/quranbsj_ir",
 //        return view('form.registerComplete');
 
     }
-
     public function checkResponseFamily(Request $request)
     {
 //        dd(Auth::user()->id);
@@ -417,7 +416,6 @@ rubika.ir/quranbsj_ir",
         return redirect(route('form.complete'));
 //        return view('form.registerComplete');
     }
-
     public function showFormComplete()
     {
         return view('form.registerComplete');
