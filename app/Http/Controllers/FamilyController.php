@@ -49,7 +49,6 @@ class FamilyController extends Controller
     {
         $selected = [];
         $masjeds = null;
-//        dd($request->all());
         if ($request->session()->get('ostan')) {
             $users = FamilyResult::where('ostan_id', $request->session()->get('ostan'));
             $selected['ostan'] = $request->session()->get('ostan');
@@ -65,21 +64,16 @@ class FamilyController extends Controller
         } else {
             $users = FamilyResult::query();
         }
-//        UserController::$excel_data=$users->get();
         $excel_data = $users->get();
         session()->flash('excel', $excel_data);
-//        dd($excel_data);
         $users = $users->paginate(10);
 
         $ostans = Ostan::all();
-//        dd(isset($selected['shahrestan']));
 
         if (isset($selected['ostan'])) {
             $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
-//            dd($shahrestans);
         } else {
             $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-//            dd($shahrestans);
         }
         if (isset($selected['shahrestan'])) {
             $shahrestan_name = Shahrestan::where('id', $selected['shahrestan'])->first()->name;

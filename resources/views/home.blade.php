@@ -16,7 +16,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -40,27 +42,34 @@
 
 <style>
 
-    @font-face { font-family: Shabnam; src: url('landing_assets/fonts/Shabnam.ttf'); }
-    @font-face { font-family: Shabnam; font-weight: bold; src: url('landing_assets/fonts/Shabnam.ttf');}
+    @font-face {
+        font-family: Shabnam;
+        src: url('landing_assets/fonts/Shabnam.ttf');
+    }
+    @font-face {
+        font-family: Shabnam;
+        font-weight: bold;
+        src: url('landing_assets/fonts/Shabnam.ttf');
+    }
 
-    .h1,h2,h3,h4,h5,div {
-        font-family: Shabnam,serif;
+    .h1, h2, h3, h4, h5, div {
+        font-family: Shabnam, serif;
     }
 
 </style>
 
-<body style="background: white" >
+<body style="background: white">
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center" dir="rtl">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
 
-         <a href="#" class="logo d-flex align-items-center">
+        <a href="#" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
-         </a>
+        </a>
 
 
     </div>
@@ -73,14 +82,17 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center" dir="rtl">
-                    <img  src="{{ asset('images/logo.png') }} " data-aos="fade-up"  width="30%">
+                    <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
                     <br>
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     <p data-aos="fade-up">برای شروع کلیک کنید</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}"   class="btn-get-started" style="font-family: Shabnam">شروع</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"   class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"   class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
+                       style="font-family: Shabnam">شروع</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
+                       class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
+                       class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
                 </div>
             </div>
         </div>
@@ -110,19 +122,22 @@
 <script src="{{ asset('landing_assets/assets/js/main.js') }}"></script>
 <script>
 
-    function onClicked1(){
+    function onClicked1() {
         window.open("https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a", '_blank', 'width=100,height=100');
     }
 
-    function onClicked2(){
+    function onClicked2() {
 
         let userAgent = navigator.userAgent;
         let browserName;
 
 
-        if(userAgent.match(/chrome|chromium|crios/i)){
-            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
-        }else {
+        if (userAgent.match(/chrome|chromium|crios/i)) {
+            window.tabs.create({
+                url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f',
+                active: false
+            });
+        } else {
             var a = document.createElement("a");
             a.href = "https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a";
             var evt = document.createEvent("MouseEvents");
@@ -133,15 +148,18 @@
         }
     }
 
-    function onClicked3(){
+    function onClicked3() {
 
         let userAgent = navigator.userAgent;
         let browserName;
 
 
-        if(userAgent.match(/chrome|chromium|crios/i)){
-            window.tabs.create({url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f', active: false});
-        }else {
+        if (userAgent.match(/chrome|chromium|crios/i)) {
+            window.tabs.create({
+                url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f',
+                active: false
+            });
+        } else {
             var a = document.createElement("a");
             a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
             var evt = document.createEvent("MouseEvents");
@@ -153,6 +171,7 @@
     }
 
 </script>
+
 </body>
 
 </html>
