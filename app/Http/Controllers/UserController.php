@@ -58,7 +58,6 @@ class UserController extends Controller
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
         return view('admin.user.create', compact('ostans', 'shahrestans'));
     }
-
     public function store(Request $request)
     {
         $this->authorize('is_superadmin');

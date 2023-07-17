@@ -24,7 +24,7 @@
                 @can('is_superadmin')
 
                   <li class="nav-item has-treeview {{ isActive(["user.create","users.ostanUsers"],'menu-open') }}">
-                      <a href="#" class="nav-link {{ isActive(["user.index","users.ostanUsers"]) }}">
+                      <a href="#" class="nav-link {{ isActive(["user.create","users.ostanUsers"]) }}">
                           <p>
                               مدیریت مدیران استانی
                               <i class="right fa fa-angle-left"></i>

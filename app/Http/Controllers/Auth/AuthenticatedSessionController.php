@@ -81,8 +81,6 @@ class AuthenticatedSessionController extends Controller
                 'otp_code' => $otp_code,
                 'otp_expired_at' => $otp_expired_at
             ]]);
-
-
             // send code to user
             //API Url
             /*$url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
