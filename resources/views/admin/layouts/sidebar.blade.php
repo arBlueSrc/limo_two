@@ -38,7 +38,7 @@
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ route('users.ostanUsers') }}" class="nav-link {{ isActive("user.ostanUsers") }}">
+                              <a href="{{ route('users.ostanUsers') }}" class="nav-link {{ isActive("users.ostanUsers") }}">
                                   <i class="fa fa-circle-o nav-icon"></i>
                                   <p>لیست مدیران استانی</p>
                               </a>
