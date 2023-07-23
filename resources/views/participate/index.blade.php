@@ -111,7 +111,7 @@
                                             ها</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">زمان
                                             بندی مسابقه</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">ویرایش
+                                    <li hidden class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">ویرایش
                                             اطلاعات شخصی</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
