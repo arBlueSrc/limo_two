@@ -78,14 +78,30 @@
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
         </a>
 
-        <form action="{{route('logout')}}" method="post">
-            @csrf
-            <button class="btn btn-danger btn-sm text-white ml-3">خروج از حساب کاربری</button>
-        </form>
+        <div class="row">
 
+            <form action="{{route('logout')}}" method="post" class="col-5">
+                @csrf
+                <button class="btn btn-danger btn-sm text-white ml-3">خروج </button>
+            </form>
+
+            @if(auth()->user()->role == 3)
+            <a href="{{ route('participate') }}"
+               class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
+            @endif
+
+            @if(auth()->user()->role == 1)
+                <a href="{{ route('admin') }}"
+                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
+            @endif
+
+        </div>
 
     </div>
+
 </header><!-- End Header -->
+
+
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero">

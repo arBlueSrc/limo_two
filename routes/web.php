@@ -42,34 +42,52 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->middleware(['auth', 'can:is_ostani_admin'])->group(function () {
+Route::prefix('admin')->group(function () {
 
-    Route::get('/', function () {return view('admin.index');})->name('admin');
+    Route::middleware(['auth', 'can:is_ostani_admin'])->group(function () {
 
-    //group routes
-    Route::get('/group/',[\App\Http\Controllers\GroupController::class,'index'])->name('group.index');
-    Route::post('group/search',[\App\Http\Controllers\GroupController::class,'filterUsers'])->name('group.search');
-    Route::get('group/search/show',[\App\Http\Controllers\GroupController::class,'filterGroupsShow'])->name('group.search.show');
-    Route::get('/group/show/{user}',[\App\Http\Controllers\GroupController::class,'show'])->name('group.show');
-    Route::get('group/export/allgroupss', [\App\Http\Controllers\GroupController::class, 'exportAllGroups'])->name('excel.allgroups.download');
+        Route::get('/', function () {
+            return view('admin.index');
+        })->name('admin');
 
-    //user
-    Route::resource('user', 'App\Http\Controllers\UserController');
-    Route::get('users/ostanUsers',[UserController::class,'ostanUsers'])->name('users.ostanUsers');
-    Route::post('users/search',[UserController::class,'filterUsers'])->name('users.search');
-    Route::get('users/search/show',[UserController::class,'filterUsersShow'])->name('users.search.show');
-    Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
-    Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
-    Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
+        //group routes
+        Route::get('/group/', [\App\Http\Controllers\GroupController::class, 'index'])->name('group.index');
+        Route::post('group/search', [\App\Http\Controllers\GroupController::class, 'filterUsers'])->name('group.search');
+        Route::get('group/search/show', [\App\Http\Controllers\GroupController::class, 'filterGroupsShow'])->name('group.search.show');
+        Route::get('/group/show/{user}', [\App\Http\Controllers\GroupController::class, 'show'])->name('group.show');
+        Route::get('group/export/allgroupss', [\App\Http\Controllers\GroupController::class, 'exportAllGroups'])->name('excel.allgroups.download');
+
+        //user
+        Route::resource('user', 'App\Http\Controllers\UserController');
+        Route::get('users/ostanUsers', [UserController::class, 'ostanUsers'])->name('users.ostanUsers');
+        Route::post('users/search', [UserController::class, 'filterUsers'])->name('users.search');
+        Route::get('users/search/show', [UserController::class, 'filterUsersShow'])->name('users.search.show');
+        Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
+        Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
+        Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
 
 
-    //family routes
-    Route::get('family',[\App\Http\Controllers\FamilyController::class,'index'])->name('family.index');
-    Route::post('family/search',[\App\Http\Controllers\FamilyController::class,'filterUsers'])->name('family.search');
-    Route::get('family/search/show',[\App\Http\Controllers\FamilyController::class,'filterFamiliesShow'])->name('family.search.show');
-    Route::get('/family/show/{user}',[\App\Http\Controllers\FamilyController::class,'show'])->name('family.show');
-    Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
+        //family routes
+        Route::get('family', [\App\Http\Controllers\FamilyController::class, 'index'])->name('family.index');
+        Route::post('family/search', [\App\Http\Controllers\FamilyController::class, 'filterUsers'])->name('family.search');
+        Route::get('family/search/show', [\App\Http\Controllers\FamilyController::class, 'filterFamiliesShow'])->name('family.search.show');
+        Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
+        Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
+
+    });
+
+
+    Route::middleware(['auth', 'can:is_participant'])->group(function () {
+
+        Route::get('/participate', [\App\Http\Controllers\ParticipateController::class, 'index'])->name('participate');
+
+    });
 });
+
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
