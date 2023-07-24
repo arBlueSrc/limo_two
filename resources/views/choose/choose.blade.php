@@ -85,7 +85,7 @@
                 <button class="btn btn-danger btn-sm text-white ml-3">خروج </button>
             </form>
 
-            @if(auth()->user()->role == 3)
+            @if(auth()->user()->role == 0)
             <a href="{{ route('participate') }}"
                class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
             @endif

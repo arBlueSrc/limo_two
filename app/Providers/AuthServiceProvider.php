@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
            return $user->role == 1 || $user->role==2;
         });
         Gate::define('is_participant',function (User $user){
-            return $user->role == 3;
+            return $user->role == 0;
         });
     }
 }
