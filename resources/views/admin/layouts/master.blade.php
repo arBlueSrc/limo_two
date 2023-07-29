@@ -75,8 +75,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
       <form action="{{route('logout')}}" method="post">
           @csrf
-          <button class="btn btn-danger btn-sm text-white ml-3">خروج از حساب کاربری</button>
+          <button class="btn btn-danger btn-sm text-white ml-3">خروج</button>
       </form>
+
 {{--<a href="{{ route('logout') }}" class="btn btn-danger btn-sm text-white ml-3"></a>--}}
     <!-- SEARCH FORM -->
    {{-- <form class="form-inline ml-3">
