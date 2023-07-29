@@ -52,7 +52,7 @@ class AuthenticatedSessionController extends Controller
     public function handleLogin(Request $request)
     {
         $valid_data = $request->validate([
-            'mobile' => ''
+            'mobile' => 'required|min:11|max:11'
         ]);
 
         //redirect to login otp page
