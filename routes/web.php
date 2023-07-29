@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFormController;
 use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -86,16 +87,16 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
 
     Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->name('form.complete');
-
-
 });
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 
-Route::get('/a', function (){
+Route::get('/aaa', function (){
     $user=auth()->user();
     $user=User::where('mobile','09380969944')->first();
-    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
+//    auth()->login($user);
+//    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
+    Notification::send($user,new \App\Notifications\SendCodeNotification(rand(1111,9999)));
 });
 /*Route::get('/a', function (){
 for ($i=1;i<100;i++){

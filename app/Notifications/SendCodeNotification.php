@@ -13,14 +13,16 @@ class SendCodeNotification extends Notification implements ShouldQueue
     use Queueable;
 //    public $timeout = 20;
     public $code;
+    public $mobile;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($code)
+    public function __construct($code,$mobile=null)
     {
         $this->code=$code;
+        $this->mobile=$mobile;
     }
     /*public function retryUntil(): \Illuminate\Support\Carbon
     {
@@ -45,9 +47,9 @@ class SendCodeNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
     /**
      * Get the array representation of the notification.
@@ -62,6 +64,10 @@ class SendCodeNotification extends Notification implements ShouldQueue
         ];
     }
     public function toSms($notifiable){
-        return $this->code;
+//        return $this->code;
+        return [
+            $this->code,
+            $this->mobile
+        ];
     }
 }

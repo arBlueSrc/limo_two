@@ -96,15 +96,19 @@ class AuthenticatedSessionController extends Controller
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);*/
+
                 $user = User::where('mobile', session('register_data')['mobile'])->first();
             if (!$user){
                 $user=User::create([
                     'mobile'=>session('register_data')['mobile']
                 ]);
             }
+//            dd($otp_code);
+//            echo $otp_code;
                 $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 
         }
+
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');
         if ($now->isAfter($otp_expire_time)) {
@@ -112,11 +116,8 @@ class AuthenticatedSessionController extends Controller
         } else {
             $otp_time_remain = $now->diffInSeconds($otp_expire_time);
         }
-
-
         return view('auth.otp', compact('otp_time_remain'));
     }
-
     public function resendCode(Request $request)
     {
 
@@ -168,9 +169,12 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
             $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
-
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
         }
+//        $user=User::where('mobile','09380969944')->first();
+//dd($user);
+        /*$response=$user->notify(new \App\Notifications\SendCodeNotification('11111',));
+        dd('done');*/
 
         return back()->with('message', 'زمان کد قبلی به پایان نرسیده');
     }
