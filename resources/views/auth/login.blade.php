@@ -24,6 +24,13 @@
             <x-input-label for="email" :value="__('شماره همراه')"/>
             <x-text-input id="email" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus autocomplete="username" placeholder="اعداد را به انگلیسی وارد کنید" />
             <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+                @if(session()->has('sms_error'))
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            <li>{{ session()->get('sms_error') }}</li>
+                        </ul>
+                    </div>
+                @endif
         </div>
 
 

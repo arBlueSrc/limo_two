@@ -51,10 +51,13 @@ class AuthenticatedSessionController extends Controller
 
     public function handleLogin(Request $request)
     {
-        $valid_data = $request->validate([
+        /*$valid_data = $request->validate([
             'mobile' => 'required|min:11|max:11'
-        ]);
-
+        ]);*/
+        if(session('register_data.mobile') && session('register_data.mobile') != $request->mobile){
+            session()->forget(['otp','register_data']);
+            session()->forget('register_data');
+        };
         //redirect to login otp page
         session(['register_data' => [
             'mobile' => $request->mobile,
@@ -71,7 +74,7 @@ class AuthenticatedSessionController extends Controller
             return redirect(route('login'));
         }
 
-        if (session()->missing('otp')) {
+        if (session()->missing('otp') || ( !session()->missing('otp') && now()->isAfter(session('otp.otp_expired_at'))) ) {
             $otp_code = rand(100000, 999999);
             $otp_time_remain = 120;
 
@@ -96,7 +99,6 @@ class AuthenticatedSessionController extends Controller
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);*/
-
                 $user = User::where('mobile', session('register_data')['mobile'])->first();
             if (!$user){
                 $user=User::create([
@@ -106,15 +108,23 @@ class AuthenticatedSessionController extends Controller
 //            dd($otp_code);
 //            echo $otp_code;
                 $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
-
+//dd('aaa');
         }
-
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');
         if ($now->isAfter($otp_expire_time)) {
             $otp_time_remain = 0;
         } else {
             $otp_time_remain = $now->diffInSeconds($otp_expire_time);
+        }
+        if (session('sms_error')){
+            session()->forget('otp');
+            session()->forget('register_data');
+            session()->keep('sms_error');
+//            dd(session()->all());
+
+//                dd(session('otp_password')['otp_expired_at']);
+            return back();
         }
         return view('auth.otp', compact('otp_time_remain'));
     }
@@ -175,6 +185,7 @@ class AuthenticatedSessionController extends Controller
 //dd($user);
         /*$response=$user->notify(new \App\Notifications\SendCodeNotification('11111',));
         dd('done');*/
+
 
         return back()->with('message', 'زمان کد قبلی به پایان نرسیده');
     }

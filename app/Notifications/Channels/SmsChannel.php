@@ -9,6 +9,7 @@ class SmsChannel
 
     public function send($notifiable, Notification $notification)
     {
+
         $otp_code = $notification->toSms($notifiable)[0];
         $mobile=$notification->toSms($notifiable)[1];
         //send sms here
