@@ -32,7 +32,6 @@ class SmsChannel
             if ($error=json_decode($contents)->Error) {
 //                dd($error->ID);
                 if ($error->ID==1){
-
                     return redirect()->back()->with('sms_error',$error->Message);
 //                    return $error->ID;
                 }
