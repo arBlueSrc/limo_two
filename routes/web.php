@@ -32,6 +32,7 @@ Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'se
 //choose category
 Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
 Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
+Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
 
 Route::get('/dashboard', function () {
     return Redirect::to(url('/admin'));

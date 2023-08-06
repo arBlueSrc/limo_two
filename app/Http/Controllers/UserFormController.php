@@ -41,6 +41,18 @@ class UserFormController extends Controller
 
     }
 
+    public function showFormEdit()
+    {
+
+        //get submitted form of user
+        $single_forms = SingleResult::where('user_id', auth()->user()->id)->get();
+        $group_forms = GroupResult::where('user_id', auth()->user()->id)->get();
+        $family_forms = FamilyResult::where('user_id', auth()->user()->id)->get();
+
+        return view('choose.chooseEdit', compact('single_forms', 'group_forms','family_forms'));
+
+    }
+
     public function edit(Request $request)
     {
         $user = User::find($request->user);
