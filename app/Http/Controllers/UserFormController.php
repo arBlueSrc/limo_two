@@ -410,7 +410,7 @@ rubika.ir/quranbsj_ir",
         $mosques = masjed::where('ostan', Ostan::find($single_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($single_result->shahrestan_id)->name)->get();
 
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $single_result->birthday);
-        $shamsi_date = \Morilog\Jalali\CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
+        $shamsi_date = CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
 
         $b_day = $shamsi_date[2];
         $b_month = $shamsi_date[1];
@@ -429,7 +429,7 @@ rubika.ir/quranbsj_ir",
         $mosques = masjed::where('ostan', Ostan::find($group_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($group_result->shahrestan_id)->name)->get();
 
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $group_result->birthday);
-        $shamsi_date = \Morilog\Jalali\CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
+        $shamsi_date = CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
 
         $b_day = $shamsi_date[2];
         $b_month = $shamsi_date[1];
@@ -438,8 +438,56 @@ rubika.ir/quranbsj_ir",
         return view('editForm.groupForm', compact('ostans', 'shahrestans', 'group_result', 'mosques', 'b_day', 'b_month', 'b_year'));
     }
 
-    public function familyEdit()
+    public function familyEdit($id)
     {
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+
+        $family_result = FamilyResult::find($id);
+
+        $mosques = masjed::where('ostan', Ostan::find($family_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($family_result->shahrestan_id)->name)->get();
+
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $family_result->birthdate);
+        $shamsi_date = CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
+
+        $b_day = $shamsi_date[2];
+        $b_month = $shamsi_date[1];
+        $b_year = $shamsi_date[0];
+
+        // get children
+        $children = FamilyResultChildren::where('family_result_id', $id)->get();
+
+        $ch_birthdate_1 = $children[0]->birthdate ?? "";
+        $ch_birthdate_2 = $children[1]->birthdate ?? "";
+        $ch_birthdate_3 = $children[2]->birthdate ?? "";
+        $ch_birthdate_4 = $children[3]->birthdate ?? "";
+
+        $date_1 = DateTime::createFromFormat('Y-m-d H:i:s', $ch_birthdate_1);
+        $date_2 = DateTime::createFromFormat('Y-m-d H:i:s', $ch_birthdate_2);
+        $date_3 = DateTime::createFromFormat('Y-m-d H:i:s', $ch_birthdate_3);
+        $date_4 = DateTime::createFromFormat('Y-m-d H:i:s', $ch_birthdate_4);
+
+
+        $shamsi_date_1 = array(-1,-1,-1);
+        $shamsi_date_2 = array(-1,-1,-1);
+        $shamsi_date_3 = array(-1,-1,-1);
+        $shamsi_date_4 = array(-1,-1,-1);
+
+        if ($date_1 != null) {
+            $shamsi_date_1 = CalendarUtils::toJalali($date_1->format('Y'), $date_1->format('m'), $date_1->format('d'));
+        }
+        if ($date_2 != null) {
+            $shamsi_date_2 = CalendarUtils::toJalali($date_2->format('Y'), $date_2->format('m'), $date_2->format('d'));
+        }
+        if ($date_3 != null) {
+            $shamsi_date_3 = CalendarUtils::toJalali($date_3->format('Y'), $date_3->format('m'), $date_3->format('d'));
+        }
+        if ($date_4 != null) {
+            $shamsi_date_4 = CalendarUtils::toJalali($date_4->format('Y'), $date_4->format('m'), $date_4->format('d'));
+        }
+
+        return view('editForm.familyForm', compact('ostans', 'shahrestans', 'mosques', 'b_day', 'b_month', 'b_year', 'family_result', 'children'
+            , 'shamsi_date_1', 'shamsi_date_2', 'shamsi_date_3', 'shamsi_date_4'));
 
     }
 
@@ -570,6 +618,149 @@ rubika.ir/quranbsj_ir",
 //                                dd($getUrl);
         $contents = file_get_contents($getUrl, false);
 
+        return redirect(route('form.complete'));
+
+    }
+
+    public function checkResponseFamilyEdit(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required',
+            'family_name' => 'required',
+            'ostan_id' => 'required',
+            'shahrestan_id' => 'required',
+            'father_name' => 'required',
+            'father_national_code' => 'required',
+            'day' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+            'father_phone' => 'required',
+            'mother_name' => 'required',
+            'mother_phone' => 'required',
+            'mosque' => 'required',
+            'child_name1' => '',
+            'child_name2' => '',
+            'child_name3' => '',
+            'child_name4' => '',
+            'child_day1' => '',
+            'child_day2' => '',
+            'child_day3' => '',
+            'child_day4' => '',
+            'child_month1' => '',
+            'child_month2' => '',
+            'child_month3' => '',
+            'child_month4' => '',
+            'child_year1' => '',
+            'child_year2' => '',
+            'child_year3' => '',
+            'child_year4' => ''
+        ]);
+
+        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
+
+        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
+
+        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+
+        FamilyResult::whereId($data["id"])->update([
+            'name' => $data['family_name'],
+            'ostan_id' => $data['ostan_id'],
+            'shahrestan_id' => $data['shahrestan_id'],
+            'father_name' => $data['father_name'],
+            'father_national_code' => $data['father_national_code'],
+            'father_phone' => $data['father_phone'],
+            'mother_name' => $data['mother_name'],
+            'mother_phone' => $data['mother_phone'],
+//            'child_count'=>$data['child_count'],
+            'birthdate' => $birth_date,
+            'mosque_id' => $data['mosque'],
+            'user_id' => Auth::user()->id
+        ]);
+
+
+        FamilyResultChildren::where('family_result_id', $data['id'])->delete();
+
+
+        // inserting child info
+        if ($data['child_name1']) {
+            if ($data['child_year1']) {
+                $data['child_month1'] = str_pad($data['child_month1'], 2, '0', STR_PAD_LEFT);
+                $data['child_day1'] = str_pad($data['child_day1'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date = $data['child_year1'] . '/' . $data['child_month1'] . '/' . $data['child_day1'];
+
+                $child_birth_date1 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id' => $data["id"],
+                'name' => $data['child_name1'],
+                'birthdate' => $child_birth_date1,
+            ]);
+        }
+        if ($data['child_name2']) {
+            if ($data['child_year2']) {
+                $data['child_month2'] = str_pad($data['child_month2'], 2, '0', STR_PAD_LEFT);
+                $data['child_day2'] = str_pad($data['child_day2'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date = $data['child_year2'] . '/' . $data['child_month2'] . '/' . $data['child_day2'];
+
+                $child_birth_date2 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id' => $data["id"],
+                'name' => $data['child_name2'],
+                'birthdate' => $child_birth_date2,
+            ]);
+        }
+        if ($data['child_name3']) {
+            if ($data['child_year3']) {
+                $data['child_month3'] = str_pad($data['child_month3'], 2, '0', STR_PAD_LEFT);
+                $data['child_day3'] = str_pad($data['child_day3'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date = $data['child_year3'] . '/' . $data['child_month3'] . '/' . $data['child_day3'];
+
+                $child_birth_date3 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id' => $data["id"],
+                'name' => $data['child_name3'],
+                'birthdate' => $child_birth_date3,
+            ]);
+        }
+        if ($data['child_name4']) {
+            if ($data['child_year4']) {
+                $data['child_month4'] = str_pad($data['child_month4'], 2, '0', STR_PAD_LEFT);
+                $data['child_day4'] = str_pad($data['child_day4'], 2, '0', STR_PAD_LEFT);
+
+                $birth_date = $data['child_year4'] . '/' . $data['child_month4'] . '/' . $data['child_day4'];
+
+                $child_birth_date4 = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+            }
+            FamilyResultChildren::create([
+                'family_result_id' => $data["id"],
+                'name' => $data['child_name4'],
+                'birthdate' => $child_birth_date4,
+            ]);
+        }
+
+        // send sms to user
+        //API Url
+        $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+        $dataArray = array(
+            'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+            'number' => "660005",
+            'text' => "ثبت نام شما در بخش خانوادگی به روزرسانی شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+eitaa.com/quranbsj_ir
+rubika.ir/quranbsj_ir",
+            'mobiles' => Auth::user()->mobile,
+            'clientIDs' => 1,
+        );
+        $data = http_build_query($dataArray);
+
+        $getUrl = $url . "?" . $data;
+
+        $contents = file_get_contents($getUrl, false);
         return redirect(route('form.complete'));
 
     }
