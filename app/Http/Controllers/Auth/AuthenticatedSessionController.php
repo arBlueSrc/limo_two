@@ -223,7 +223,7 @@ class AuthenticatedSessionController extends Controller
             Auth::login($user);
 //            dd($user);
 
-            return redirect('/showForm');
+            return redirect('/showFormEdit');
 
         } elseif (($now->isBefore(session('otp')['otp_expired_at']) && session('otp')['otp_code'] == $valid['otp_code'])) {
 
@@ -238,13 +238,12 @@ class AuthenticatedSessionController extends Controller
               ]);
             }
 
-
             session()->forget(['register_data', 'otp']);
             session()->flush();
 
             Auth::login($user);
 
-            return redirect()->route('/showForm')->with(['code' => '1', 'register' => '1']);
+            return redirect()->route('/showFormEdit')->with(['code' => '1', 'register' => '1']);
 
         }
         return back()->with('message', 'کد وارد شده اشتباه است');

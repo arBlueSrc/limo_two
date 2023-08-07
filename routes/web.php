@@ -29,10 +29,8 @@ Route::get('/', function () {
 Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'sendSingleResultSms']);
 
 
-//choose category
-Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
-Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
-Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
+
+
 
 Route::get('/dashboard', function () {
     return Redirect::to(url('/admin'));
@@ -76,6 +74,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
 
+
+
     });
 
 
@@ -92,6 +92,7 @@ Route::prefix('admin')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
+
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 
@@ -104,25 +105,38 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->middleware('single-form')->name('checkResponseSingle');
     Route::post('checkResponseGroup', [UserFormController::class, 'checkResponseGroup'])->name('checkResponseGroup');
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
-
     Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->name('form.complete');
+
+    //edit check response
+    Route::post('checkResponseSingleEdit', [UserFormController::class, 'checkResponseSingleEdit'])->name('checkResponseSingleEdit');
+    Route::post('checkResponseGroupEdit', [UserFormController::class, 'checkResponseGroupEdit'])->name('checkResponseGroupEdit');
+    Route::post('checkResponseFamilyEdit', [UserFormController::class, 'checkResponseFamilyEdit'])->name('checkResponseFamilyEdit');
+
+    //edit forms
+    Route::get('/singleEdit/{id}', [UserFormController::class, 'singleEdit'])->name('singleEdit');
+    Route::get('/groupEdit/{id}', [UserFormController::class, 'groupEdit'])->name('groupEdit');
+    Route::get('/familyEdit/{id}', [UserFormController::class, 'familyEdit'])->name('familyEdit');
+
+    //choose category
+    Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
+    Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
+    Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
+
 });
+
+
+
+
+
+
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 
 Route::get('/aaa', function (){
     $user=auth()->user();
     $user=User::where('mobile','09380969944')->first();
-//    auth()->login($user);
-//    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
     Notification::send($user,new \App\Notifications\SendCodeNotification(rand(1111,9999)));
 });
-/*Route::get('/a', function (){
-for ($i=1;i<100;i++){
-    echo $i;
-    sleep(1);
-}
-});*/
 
 
 require __DIR__ . '/auth.php';

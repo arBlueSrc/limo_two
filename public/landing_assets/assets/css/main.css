@@ -1862,6 +1862,7 @@ section {
   padding: 0;
 }
 
+
 .hero .carousel {
   width: 100%;
   min-height: 100vh;
@@ -1888,16 +1889,22 @@ section {
   inset: 0;
 }
 
+@media (max-width: 768px) {
+    .hero .info {
+        margin-top: 200px;
+    }
+}
+
 .hero .info {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 }
 
 @media (max-width: 768px) {
-  .hero .info {
-    padding: 0 50px;
-  }
+    .hero .info {
+        padding: 0;
+    }
 }
 
 .hero .info h2 {

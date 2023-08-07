@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Models\Major; @endphp
+    <!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -57,7 +58,7 @@
         src: url('landing_assets/fonts/Shabnam.ttf');
     }
 
-    .h1, h2, h3, h4, h5, div,a {
+    .h1, h2, h3, h4, h5, div, a {
         font-family: Shabnam, serif;
     }
 
@@ -82,12 +83,12 @@
 
             <form action="{{route('logout')}}" method="post" class="col-5">
                 @csrf
-                <button class="btn btn-danger btn-sm text-white ml-3">خروج </button>
+                <button class="btn btn-danger btn-sm text-white ml-3">خروج</button>
             </form>
 
             @if(auth()->user()->role == 0)
-            <a href="{{ route('participate') }}"
-               class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
+                <a href="{{ route('participate') }}"
+                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
             @endif
 
             @if(auth()->user()->role == 1  || auth()->user()->role == 2)
@@ -100,7 +101,6 @@
     </div>
 
 </header><!-- End Header -->
-
 
 
 <!-- ======= Hero Section ======= -->
@@ -118,8 +118,9 @@
 
                         @foreach($single_forms as $single_item)
 
-                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started" style="font-family: Shabnam">فردی - {{ $single_item->name . " - " . \App\Models\Major::find($single_item->major)->name }}</a>
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('singleEdit',['id' => $single_item->id]) }}"
+                               class="btn-get-started" style="font-family: Shabnam">فردی
+                                - {{ $single_item->name . " - " . Major::find($single_item->major)->name }}</a>
                             <br>
 
                         @endforeach
@@ -127,7 +128,8 @@
                         @foreach($group_forms as $group_item)
 
                             <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started" style="font-family: Shabnam">گروهی - {{ $group_item->name_group  }}</a>
+                               class="btn-get-started" style="font-family: Shabnam">گروهی
+                                - {{ $group_item->name_group  }}</a>
                             <br>
 
                         @endforeach
@@ -135,24 +137,25 @@
                         @foreach($family_forms as $family_item)
 
                             <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started" style="font-family: Shabnam">خانوادگی - {{ $family_item->name   }}</a>
+                               class="btn-get-started" style="font-family: Shabnam">خانوادگی
+                                - {{ $family_item->name   }}</a>
                             <br>
 
                         @endforeach
-{{--                        @if($deactive_item1 == 0)--}}
-{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"--}}
-{{--                               class="btn-get-started" style="font-family: Shabnam">فردی</a>--}}
-{{--                            <br>--}}
-{{--                        @endif--}}
-{{--                        @if($deactive_item2 == 0)--}}
-{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"--}}
-{{--                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>--}}
-{{--                            <br>--}}
-{{--                        @endif--}}
-{{--                        @if($deactive_item3 == 0)--}}
-{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"--}}
-{{--                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>--}}
-{{--                        @endif--}}
+                        {{--                        @if($deactive_item1 == 0)--}}
+                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"--}}
+                        {{--                               class="btn-get-started" style="font-family: Shabnam">فردی</a>--}}
+                        {{--                            <br>--}}
+                        {{--                        @endif--}}
+                        {{--                        @if($deactive_item2 == 0)--}}
+                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"--}}
+                        {{--                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>--}}
+                        {{--                            <br>--}}
+                        {{--                        @endif--}}
+                        {{--                        @if($deactive_item3 == 0)--}}
+                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"--}}
+                        {{--                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>--}}
+                        {{--                        @endif--}}
                     </div>
                 </div>
             </div>

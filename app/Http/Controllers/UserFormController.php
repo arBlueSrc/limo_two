@@ -6,8 +6,12 @@ use App\Models\FamilyResult;
 use App\Models\FamilyResultChildren;
 use App\Models\GroupResult;
 use App\Models\Major;
+use App\Models\masjed;
+use App\Models\Ostan;
+use App\Models\Shahrestan;
 use App\Models\SingleResult;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\CalendarUtils;
@@ -49,7 +53,7 @@ class UserFormController extends Controller
         $group_forms = GroupResult::where('user_id', auth()->user()->id)->get();
         $family_forms = FamilyResult::where('user_id', auth()->user()->id)->get();
 
-        return view('choose.chooseEdit', compact('single_forms', 'group_forms','family_forms'));
+        return view('choose.chooseEdit', compact('single_forms', 'group_forms', 'family_forms'));
 
     }
 
@@ -57,94 +61,6 @@ class UserFormController extends Controller
     {
         $user = User::find($request->user);
         return view('admin.form.updateForm', compact('user'));
-    }
-
-    public function update(Request $request)
-    {
-        $data = $request->validate([
-            'name' => 'required',
-            'lname' => 'required',
-            'age' => 'required',
-            'id' => '',
-            'edu' => '',
-            'gender' => '',
-            'vnumber' => 'required',
-            'eita' => '',
-            'bale' => '',
-            'soroosh' => '',
-            'igap' => '',
-            'roobika' => '',
-            'virasti' => '',
-            'other' => '',
-            'twitter' => '',
-            'telegram' => '',
-            'instagram' => '',
-            'whatsapp' => '',
-            'twitter_account' => '',
-            'instagram_account' => ''
-        ]);
-
-
-        if (array_key_exists('twitter', $data) && $data['twitter_account'] == "") {
-            return response($data['twitter_account'], 405);
-        }
-
-        if (array_key_exists('instagram', $data) && $data['instagram_account'] == "") {
-            return response($data['instagram_account'], 405);
-        }
-
-        $internal_social = "";
-        if (array_key_exists('eita', $data)) {
-            $internal_social = $internal_social . 'eita' . ",";
-        }
-        if (array_key_exists('bale', $data)) {
-            $internal_social = $internal_social . 'bale' . ",";
-        }
-        if (array_key_exists('soroosh', $data)) {
-            $internal_social = $internal_social . 'soroosh' . ",";
-        }
-        if (array_key_exists('igap', $data)) {
-            $internal_social = $internal_social . 'igap' . ",";
-        }
-        if (array_key_exists('roobika', $data)) {
-            $internal_social = $internal_social . 'roobika' . ",";
-        }
-        if (array_key_exists('virasti', $data)) {
-            $internal_social = $internal_social . 'virasti' . ",";
-        }
-        if (array_key_exists('virasti', $data)) {
-            $internal_social = $internal_social . 'virasti' . ",";
-        }
-
-
-        $external_social = "";
-        if (array_key_exists('twitter', $data)) {
-            $external_social = $external_social . 'twitter' . ",";
-        }
-        if (array_key_exists('telegram', $data)) {
-            $external_social = $external_social . 'telegram' . ",";
-        }
-        if (array_key_exists('instagram', $data)) {
-            $external_social = $external_social . 'instagram' . ",";
-        }
-        if (array_key_exists('whatsapp', $data)) {
-            $external_social = $external_social . 'whatsapp' . ",";
-        }
-
-        User::where('id', $request->id)->update([
-            'name' => $data['name'] ?? "",
-            'lname' => $data['lname'] ?? "",
-            'age' => $data['age'] ?? "",
-            'edu' => $data['edu'] ?? "",
-            'gender' => $data['gender'] ?? "",
-            'social_mobile' => $data['vnumber'] ?? "",
-            'internal_socials' => $internal_social,
-            'external_social' => $external_social,
-            'twitter_account' => $data['twitter_account'] ?? "",
-            'instagram_account' => $data['instagram_account'] ?? ""
-        ]);
-
-        return redirect()->route('user.index');
     }
 
     public function checkResponseSingle(Request $request)
@@ -185,7 +101,6 @@ class UserFormController extends Controller
                 'user_id' => Auth::user()->id,
             ]
         )->first();
-
 
 
         if ($check == null) {
@@ -229,7 +144,7 @@ rubika.ir/quranbsj_ir",
         }
 
 
-       return redirect(route('form.complete'));
+        return redirect(route('form.complete'));
 
     }
 
@@ -334,7 +249,6 @@ rubika.ir/quranbsj_ir",
 
     public function checkResponseFamily(Request $request)
     {
-//        dd(Auth::user()->id);
         $data = $request->validate([
             'family_name' => 'required',
             'ostan_id' => 'required',
@@ -480,5 +394,99 @@ rubika.ir/quranbsj_ir",
     public function showFormComplete()
     {
         return view('form.registerComplete');
+    }
+
+
+    //edit forms
+
+    public function singleEdit($id)
+    {
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+        $majors = Major::all();
+
+        //get single data
+        $single_result = SingleResult::find($id);
+        $mosques = masjed::where('ostan', Ostan::find($single_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($single_result->shahrestan_id)->name)->get();
+
+        $birthday = $single_result->birthdate;
+
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $single_result->birthday);
+        $shamsi_date = \Morilog\Jalali\CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
+
+        $b_day = $shamsi_date[2];
+        $b_month = $shamsi_date[1];
+        $b_year = $shamsi_date[0];
+
+        return view('editForm.IndividualForm', compact('ostans', 'shahrestans', 'majors', 'single_result', 'b_day', 'b_month', 'b_year', 'mosques'));
+    }
+
+    public function groupEdit()
+    {
+
+    }
+
+    public function familyEdit()
+    {
+
+    }
+
+    public function checkResponseSingleEdit(Request $request)
+    {
+
+        $data = $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'national_code' => 'required',
+            'mobile' => 'required',
+            'day' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+            'ostan_id' => 'required',
+            'shahrestan_id' => 'required',
+            'mosque' => 'required',
+            'major' => 'required'
+        ]);
+
+
+        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
+        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
+
+        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+
+        SingleResult::whereId($data["id"])->update([
+            'name' => $data['name'],
+            'national_code' => $data['national_code'],
+            'ostan_id' => $data['ostan_id'],
+            'shahrestan_id' => $data['shahrestan_id'],
+            'birthday' => $birth_date,
+            'major' => $data['major'],
+            'mosque_id' => $data['mosque'],
+            'phone' => $data['mobile']
+        ]);
+
+
+        // send sms to user
+        //API Url
+        $major = Major::find($data['major'])->name ?? "";
+        $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+        $dataArray = array(
+            'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+            'number' => "660005",
+            'text' => "ثبت نام شما در بخش فردی و رشته $major به روز رسانی شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+eitaa.com/quranbsj_ir
+rubika.ir/quranbsj_ir",
+            'mobiles' => Auth::user()->mobile,
+            'clientIDs' => 1,
+
+        );
+        $data = http_build_query($dataArray);
+        $getUrl = $url . "?" . $data;
+        $contents = file_get_contents($getUrl, false);
+
+
+        return redirect(route('form.complete'));
+
     }
 }
