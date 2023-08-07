@@ -409,8 +409,6 @@ rubika.ir/quranbsj_ir",
         $single_result = SingleResult::find($id);
         $mosques = masjed::where('ostan', Ostan::find($single_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($single_result->shahrestan_id)->name)->get();
 
-        $birthday = $single_result->birthdate;
-
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $single_result->birthday);
         $shamsi_date = \Morilog\Jalali\CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
 
@@ -421,9 +419,23 @@ rubika.ir/quranbsj_ir",
         return view('editForm.IndividualForm', compact('ostans', 'shahrestans', 'majors', 'single_result', 'b_day', 'b_month', 'b_year', 'mosques'));
     }
 
-    public function groupEdit()
+    public function groupEdit($id)
     {
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
 
+        $group_result = GroupResult::find($id);
+
+        $mosques = masjed::where('ostan', Ostan::find($group_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($group_result->shahrestan_id)->name)->get();
+
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $group_result->birthday);
+        $shamsi_date = \Morilog\Jalali\CalendarUtils::toJalali($date->format('Y'), $date->format('m'), $date->format('d'));
+
+        $b_day = $shamsi_date[2];
+        $b_month = $shamsi_date[1];
+        $b_year = $shamsi_date[0];
+
+        return view('editForm.groupForm', compact('ostans', 'shahrestans', 'group_result', 'mosques', 'b_day', 'b_month', 'b_year'));
     }
 
     public function familyEdit()
@@ -485,6 +497,78 @@ rubika.ir/quranbsj_ir",
         $getUrl = $url . "?" . $data;
         $contents = file_get_contents($getUrl, false);
 
+
+        return redirect(route('form.complete'));
+
+    }
+
+    public function checkResponseGroupEdit(Request $request)
+    {
+
+        $data = $request->validate([
+            'id' => 'required',
+            'group_name' => 'required',
+            'head_name' => 'required',
+            'head_national_code' => 'required',
+            'day' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+            'ostan_id' => 'required',
+            'shahrestan_id' => 'required',
+            'mosque' => 'required',
+            'head_phone' => 'required',
+            'second_person_name' => 'required',
+            'second_person_phone' => 'required',
+            'third_person_name' => 'required',
+            'third_persons_phone' => 'required',
+            'type' => 'required'
+        ]);
+
+
+        $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
+        $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
+
+        $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
+
+        $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+
+
+        $group_result = GroupResult::whereId($data["id"])->update([
+            'name_group' => $data['group_name'],
+            'ostan_id' => $data['ostan_id'],
+            'shahrestan_id' => $data['shahrestan_id'],
+            'mosque_id' => $data['mosque'],
+            'name_group' => $data['group_name'],
+            'head_name' => $data['head_name'],
+            'head_national_code' => $data['head_national_code'],
+            'head_phone' => $data['head_phone'],
+            'second_name' => $data['second_person_name'],
+            'second_phone' => $data['second_person_phone'],
+            'third_name' => $data['third_person_name'],
+            'third_phone' => $data['third_persons_phone'],
+            'birthday' => $birth_date,
+            'user_id' => Auth::user()->id,
+            'type' => $data['type'],
+        ]);
+
+        // send sms to user
+        //API Url
+        $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+        $dataArray = array(
+            'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+            'number' => "660005",
+            'text' => "ثبت نام شما در بخش گروهی به روزرسانی شد برای اطلاعات بیشتر وارد کانال دارالقرآن بسیج در ایتا یا روبیکا شوید.
+eitaa.com/quranbsj_ir
+rubika.ir/quranbsj_ir",
+            'mobiles' => Auth::user()->mobile,
+            'clientIDs' => 1,
+
+        );
+        $data = http_build_query($dataArray);
+
+        $getUrl = $url . "?" . $data;
+//                                dd($getUrl);
+        $contents = file_get_contents($getUrl, false);
 
         return redirect(route('form.complete'));
 

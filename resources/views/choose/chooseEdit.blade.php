@@ -127,7 +127,7 @@
 
                         @foreach($group_forms as $group_item)
 
-                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('groupEdit',['id' => $group_item->id]) }}"
                                class="btn-get-started" style="font-family: Shabnam">گروهی
                                 - {{ $group_item->name_group  }}</a>
                             <br>
@@ -136,26 +136,13 @@
 
                         @foreach($family_forms as $family_item)
 
-                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('familyEdit',['id' => $family_item->id]) }}"
                                class="btn-get-started" style="font-family: Shabnam">خانوادگی
                                 - {{ $family_item->name   }}</a>
                             <br>
 
                         @endforeach
-                        {{--                        @if($deactive_item1 == 0)--}}
-                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"--}}
-                        {{--                               class="btn-get-started" style="font-family: Shabnam">فردی</a>--}}
-                        {{--                            <br>--}}
-                        {{--                        @endif--}}
-                        {{--                        @if($deactive_item2 == 0)--}}
-                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"--}}
-                        {{--                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>--}}
-                        {{--                            <br>--}}
-                        {{--                        @endif--}}
-                        {{--                        @if($deactive_item3 == 0)--}}
-                        {{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"--}}
-                        {{--                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>--}}
-                        {{--                        @endif--}}
+
                     </div>
                 </div>
             </div>

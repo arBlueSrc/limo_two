@@ -174,7 +174,7 @@
                                 <select name="mosque" id="mosque" class="form-control">
                                     @foreach($mosques as $mosuque)
                                         <option
-                                            value="{{ $shahrestan->id }}" @selected($mosuque->id == $single_result->mosques_id)>{{ $shahrestan->name }}</option>
+                                            value="{{ $mosuque->id }}" @selected($mosuque->id == $single_result->mosques_id)>{{ $mosuque->masjed }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -188,8 +188,7 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-lg mb-1">به روز رسانی</button>
-
+                            <button type="submit" class="btn btn-success block">به روز رسانی</button>
 
                         </form>
 
