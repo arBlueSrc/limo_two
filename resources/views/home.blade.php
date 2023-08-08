@@ -86,8 +86,9 @@
                     <br>
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
-                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است. ویرایش اطلاعات از چهارشنبه 18 مرداد تا 20 مرداد در دسترس شما می باشد.</p>
-
+                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است.با کلیک روی دکمه زیر امکان ویرایش فرم های قبلی را دارید.</p>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
+                       style="font-family: Shabnam">ویرایش فرم های قبلی</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
                        class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
