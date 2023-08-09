@@ -119,7 +119,7 @@ Route::middleware('auth')->group(function () {
 
     //choose category
     Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
-    Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
+    //Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
     Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
 
 });
