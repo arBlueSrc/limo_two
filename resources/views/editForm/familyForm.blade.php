@@ -141,7 +141,7 @@
                                 <select  name="mosque" id="mosque" class="form-control">
                                     @foreach($mosques as $mosuque)
                                         <option
-                                            value="{{ $mosuque->id }}" @selected($mosuque->id == $family_result->mosques_id)>{{ $mosuque->masjed }}</option>
+                                            value="{{ $mosuque->id }}" @selected($mosuque->id == $family_result->mosque_id)>{{ $mosuque->masjed }}</option>
                                     @endforeach
                                 </select>
                             </div>
