@@ -86,7 +86,7 @@
                     <br>
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
-                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است.با کلیک روی دکمه زیر امکان ویرایش فرم های قبلی را دارید.</p>
+                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است.زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.با کلیک روی دکمه زیر امکان ویرایش فرم های قبلی را دارید.</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
                        style="font-family: Shabnam">ویرایش فرم های قبلی</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
