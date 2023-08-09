@@ -401,12 +401,13 @@ rubika.ir/quranbsj_ir",
 
     public function singleEdit($id)
     {
+        $single_result = SingleResult::find($id);
+
         $ostans = Ostan::all();
-        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+        $shahrestans = Shahrestan::where('ostan', $single_result->ostan_id)->get();
         $majors = Major::all();
 
         //get single data
-        $single_result = SingleResult::find($id);
         $mosques = masjed::where('ostan', Ostan::find($single_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($single_result->shahrestan_id)->name)->get();
 
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $single_result->birthday);
@@ -421,10 +422,10 @@ rubika.ir/quranbsj_ir",
 
     public function groupEdit($id)
     {
-        $ostans = Ostan::all();
-        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-
         $group_result = GroupResult::find($id);
+
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $group_result->ostan_id)->get();
 
         $mosques = masjed::where('ostan', Ostan::find($group_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($group_result->shahrestan_id)->name)->get();
 
@@ -440,10 +441,11 @@ rubika.ir/quranbsj_ir",
 
     public function familyEdit($id)
     {
-        $ostans = Ostan::all();
-        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-
         $family_result = FamilyResult::find($id);
+
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $family_result->ostan_id)->get();
+
 
         $mosques = masjed::where('ostan', Ostan::find($family_result->ostan_id)->name)->where('shahrestan', Shahrestan::find($family_result->shahrestan_id)->name)->get();
 
