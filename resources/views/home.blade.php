@@ -62,8 +62,8 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center" dir="rtl">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
         <a href="#" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
@@ -71,8 +71,8 @@
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
         </a>
 
-
     </div>
+
 </header><!-- End Header -->
 
 <!-- ======= Hero Section ======= -->
@@ -86,9 +86,7 @@
                     <br>
                     <br><br>
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
-                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است.زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.با کلیک روی دکمه زیر امکان ویرایش فرم های قبلی را دارید.</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
-                       style="font-family: Shabnam">ویرایش فرم های قبلی</a>
+                    <p data-aos="fade-up">مهلت ثبت نام به پایان رسیده است.زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
                        class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
