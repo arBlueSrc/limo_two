@@ -1,6 +1,82 @@
 @extends('participate.layouts.master')
 @section('content')
 
+    <style>
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+        }
+        @font-face {
+            font-family: 'Shekasteh_beta';
+            src: url({{ asset('fonts/Shekasteh_beta.eot') }});
+            src: url({{ asset('fonts/Shekasteh_beta.eot?#iefix') }}) format('embedded-opentype'), url({{ asset('fonts/Shekasteh_beta.woff') }}) format('woff'), url({{ asset('fonts/Shekasteh_beta.woff2') }}) format('woff2');
+        }
+        @font-face {
+            font-family: 'BNaznnBd';
+            src: url({{ asset('fonts/BNaznnBd.eot') }});
+            src: url({{ asset('fonts/BNaznnBd.eot?#iefix') }}) format('embedded-opentype'), url({{ asset('fonts/BNaznnBd.woff2') }}) format('woff2'), url({{ asset('fonts/BNaznnBd.woff') }}) format('woff');
+        }
+        body {
+            font-family: 'BNaznnBd';
+        }
+        .over {
+            width: 21cm;
+            height: 29.7cm;
+            z-index: 11;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .main {
+            width: 21cm;
+            height: 29.7cm;
+            position: relative;
+        }
+        .bg img {
+            direction: rtl;
+            width: 21cm;
+            height: 29.7cm;
+        }
+        .main .name {
+            font-family: 'Shekasteh_beta';
+            position: absolute;
+            top: 12.55cm;
+            right: 6.7cm;
+            text-align: right;
+            direction: rtl;
+            font-size: 33px;
+            width: 15cm;
+            color: #000;
+        }
+        .msg_hide {
+            display: none;
+        }
+        @media screen and (min-width: 10px) and (max-width: 1130px) {
+            .msg_hide {
+                display: block;
+                background: #fc0;
+                padding: 25px;
+                z-index: 12;
+                position: relative;
+                text-align: center;
+            }
+            .side_left {
+                width: 100%;
+                z-index: 1;
+            }
+            .main, .side_left .txt .btn-group .btn {
+                display: none;
+            }
+        }
+        @media screen and (min-width: 1130px) and (max-width: 1494px) {
+            .side_left {
+                opacity: 0.85;
+            }
+        }
+    </style>
+
     @if(false)
         <div class="col-md-12">
             <div class="alert alert-warning alert-dismissible">
@@ -111,8 +187,7 @@
                                             ها</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">زمان
                                             بندی مسابقه</a></li>
-                                    <li hidden class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">ویرایش
-                                            اطلاعات شخصی</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">تقدیرنامه</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -201,30 +276,11 @@
                                         <!-- /.tab-pane -->
 
                                         <div class="tab-pane" id="settings">
-                                            <form class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="col-sm-2 control-label">نام</label>
+                                            <form class="main">
 
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputName"
-                                                               placeholder="نام" value="{{ auth()->user()->name }}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="inputEmail" class="col-sm-2 control-label">نام
-                                                        خانوادگی</label>
+                                                <div class="bg"> <img src="{{ asset("images/loh.jpg") }}"> </div>
+                                                <div class="name"> {{ $name }} </div>
 
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputEmail"
-                                                               placeholder="نام خانوادگی"
-                                                               value="{{ auth()->user()->family }}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-danger">تایید</button>
-                                                    </div>
-                                                </div>
                                             </form>
                                         </div>
                                         <!-- /.tab-pane -->
