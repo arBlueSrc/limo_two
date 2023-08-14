@@ -76,10 +76,10 @@ class ApiController extends Controller
 
         $mosqs = masjed::get();
 
-        $mos_group_hoze = DB::table('masjeds')
-            ->select('mosque_id', DB::raw('count(mosque_id) as total'))
-            ->groupBy('mosque_id')
-            ->get();
+//        $mos_group_hoze = DB::table('masjeds')
+//            ->select('mosque_id', DB::raw('count(mosque_id) as total'))
+//            ->groupBy('mosque_id')
+//            ->get();
 
         foreach ($mosqs as $item){
             $single_count = $single_result->where('mosque_id', $item->id)->first()->total ?? 0;

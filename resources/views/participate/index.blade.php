@@ -56,11 +56,6 @@
         @media screen and (min-width: 10px) and (max-width: 1130px) {
             .msg_hide {
                 display: block;
-                background: #fc0;
-                padding: 25px;
-                z-index: 12;
-                position: relative;
-                text-align: center;
             }
             .side_left {
                 width: 100%;
@@ -276,12 +271,25 @@
                                         <!-- /.tab-pane -->
 
                                         <div class="tab-pane" id="settings">
+
+
+                                            <a href="{{ route('printLoh',['name' => $name ]) }}"
+                                               class="btn btn-primary btn-sm text-white col-12" style="font-family: Shabnam">پرینت تقدیرنامه</a>
+
+                                            <br>
+
+                                            <div class="msg_hide"> برای مشاهده لوح سپاس باید از طریق کامپیوتر وارد شوید </div>
+
                                             <form class="main">
 
                                                 <div class="bg"> <img src="{{ asset("images/loh.jpg") }}"> </div>
                                                 <div class="name"> {{ $name }} </div>
 
                                             </form>
+
+
+
+
                                         </div>
                                         <!-- /.tab-pane -->
 
@@ -302,5 +310,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
 
 @endsection

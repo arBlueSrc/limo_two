@@ -37,5 +37,11 @@ class ParticipateController extends Controller
         }
 
         return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name'));
+
+    }
+
+    public function printLoh($name)
+    {
+        return view('participate.loh', compact('name'));
     }
 }
