@@ -150,7 +150,6 @@ class UserFormController extends Controller
             'major' => 'required',
             'moaref_mobile' => '',
         ]);
-
         $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 

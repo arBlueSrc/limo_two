@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +75,6 @@ Route::prefix('admin')->group(function () {
         Route::get('family/search/show', [\App\Http\Controllers\FamilyController::class, 'filterFamiliesShow'])->name('family.search.show');
         Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
-
     });
 
 
@@ -84,9 +84,6 @@ Route::prefix('admin')->group(function () {
 
     });
 });
-
-
-
 
 
 
@@ -109,13 +106,13 @@ Route::middleware('auth')->group(function () {
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 
-Route::get('/aaa', function (){
+/*Route::get('/aaa', function (){
     $user=auth()->user();
     $user=User::where('mobile','09380969944')->first();
 //    auth()->login($user);
 //    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
     Notification::send($user,new \App\Notifications\SendCodeNotification(rand(1111,9999)));
-});
+});*/
 /*Route::get('/a', function (){
 for ($i=1;i<100;i++){
     echo $i;
@@ -124,7 +121,8 @@ for ($i=1;i<100;i++){
 });*/
 
 
-require __DIR__ . '/auth.php';
+/*Route::get('/sms',[SMSController::class,'sendSingleResultSms']);
+require __DIR__ . '/auth.php';*/
 
 
 

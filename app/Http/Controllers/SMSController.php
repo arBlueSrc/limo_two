@@ -6,6 +6,7 @@ use App\Http\SmsSenderHelper;
 use App\Models\Major;
 use App\Models\SingleResult;
 use App\Models\SmsLog;
+use App\Models\User;
 
 class SMSController extends Controller
 {
@@ -32,7 +33,6 @@ class SMSController extends Controller
 
     public function peyk()
     {
-
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
@@ -86,20 +86,20 @@ class SMSController extends Controller
                     'is_sended' => 0,
                     'message' => $message
                 ]);
-
                 //send message
                 $sms_sender = new SmsSenderHelper();
 
                 $result = true;
                 while ($result) {
-                    $result = $sms_sender->peyk($message, $single_result->phone);
+                    //send sms here
+//                    $result = $sms_sender->peyk($message, $single_result->phone);
+                    $user=User::first();
+                    $result=$user->notify(new \App\Notifications\SendCodeNotification($message,$single_result->phone));
                     if (!$result) {
                         //here message sended
                         $sms_log->update([
                             'is_sended' => 1
                         ]);
-
-
                     }
                     sleep(0.5);
                 }

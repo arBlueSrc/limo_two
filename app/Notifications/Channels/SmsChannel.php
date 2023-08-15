@@ -41,7 +41,7 @@ class SmsChannel
                 break;
             }
             $i++;
-            sleep(1);
+            sleep(.5);
         }
         if ($status){
             return true;
