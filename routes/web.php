@@ -30,10 +30,6 @@ Route::get('/', function () {
 Route::get('sendSingleResultSms',[\App\Http\Controllers\SMSController::class,'sendSingleResultSms']);
 
 
-//choose category
-Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
-Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
-
 Route::get('/dashboard', function () {
     return Redirect::to(url('/admin'));
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -75,8 +71,6 @@ Route::prefix('admin')->group(function () {
         Route::get('family/search/show', [\App\Http\Controllers\FamilyController::class, 'filterFamiliesShow'])->name('family.search.show');
         Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
-
-
 
     });
 

@@ -119,7 +119,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-wrapper -->
 
-
     <!-- Main Footer -->
     <footer class="main-footer" style="text-align: center; margin: 0">
         <!-- To the right -->

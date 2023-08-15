@@ -273,7 +273,7 @@
                                         <div class="tab-pane" id="settings">
 
 
-                                            <a href="{{ route('printLoh',['name' => $name ]) }}"
+                                            {{--<a href="{{ route('printLoh',['name' => $name ]) }}"
                                                class="btn btn-primary btn-sm text-white col-12" style="font-family: Shabnam">پرینت تقدیرنامه</a>
 
                                             <br>
@@ -285,9 +285,14 @@
                                                 <div class="bg"> <img src="{{ asset("images/loh.jpg") }}"> </div>
                                                 <div class="name"> {{ $name }} </div>
 
-                                            </form>
+                                            </form>--}}
+                                            <div class="alert alert-info alert-dismissible">
+{{--                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
+                                                <h5><i class="icon fa fa-info"></i> توجه!</h5>
+                                                در صورت شرکت در مسابقات ۱۵مهرماه میتوانید با مراجعه به سایت لوح تقدیر خود را دریافت کنید.
+                                            </div>
 
-
+{{--        <div class="alert alert-info"> </div>--}}
 
 
                                         </div>
@@ -311,6 +316,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
+{{--    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
 
 @endsection
