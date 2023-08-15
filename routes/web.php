@@ -75,19 +75,27 @@ Route::prefix('admin')->group(function () {
         Route::get('family/search/show', [\App\Http\Controllers\FamilyController::class, 'filterFamiliesShow'])->name('family.search.show');
         Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
+
+
+
     });
 
 
     Route::middleware(['auth', 'can:is_participant'])->group(function () {
 
         Route::get('/participate', [\App\Http\Controllers\ParticipateController::class, 'index'])->name('participate');
+        Route::get('/printLoh/{name}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
 
     });
 });
 
 
 
+
+
+
 Route::middleware('auth')->group(function () {
+
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 
@@ -102,7 +110,29 @@ Route::middleware('auth')->group(function () {
     Route::post('checkResponseFamily', [UserFormController::class, 'checkResponseFamily'])->name('checkResponseFamily');
 
     Route::get('/form-complete', [UserFormController::class, 'showFormComplete'])->name('form.complete');
+
+    //edit check response
+    Route::post('checkResponseSingleEdit', [UserFormController::class, 'checkResponseSingleEdit'])->name('checkResponseSingleEdit');
+    Route::post('checkResponseGroupEdit', [UserFormController::class, 'checkResponseGroupEdit'])->name('checkResponseGroupEdit');
+    Route::post('checkResponseFamilyEdit', [UserFormController::class, 'checkResponseFamilyEdit'])->name('checkResponseFamilyEdit');
+
+    //edit forms
+    Route::get('/singleEdit/{id}', [UserFormController::class, 'singleEdit'])->name('singleEdit');
+    Route::get('/groupEdit/{id}', [UserFormController::class, 'groupEdit'])->name('groupEdit');
+    Route::get('/familyEdit/{id}', [UserFormController::class, 'familyEdit'])->name('familyEdit');
+
+    //choose category
+    Route::get('/choose', [chooseController::class, 'catgory'])->name('choose');
+    Route::get('/showForm', [UserFormController::class, 'showForm'])->name('show_form');
+//    Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
+
 });
+
+
+
+
+
+
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 
@@ -112,7 +142,7 @@ Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class
 //    auth()->login($user);
 //    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
     Notification::send($user,new \App\Notifications\SendCodeNotification(rand(1111,9999)));
-});*/
+});
 /*Route::get('/a', function (){
 for ($i=1;i<100;i++){
     echo $i;
@@ -121,8 +151,7 @@ for ($i=1;i<100;i++){
 });*/
 
 
-/*Route::get('/sms',[SMSController::class,'sendSingleResultSms']);
-require __DIR__ . '/auth.php';*/
+require __DIR__ . '/auth.php';
 
 
 

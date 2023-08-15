@@ -26,6 +26,22 @@ class ParticipateController extends Controller
         //get messages
         $messages = Message::where('receiver_id', null)->orWhere('receiver_id', auth()->user()->id)->get();
 
-        return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages'));
+        //get name
+        $name = "";
+        if ($single_count != 0){
+            $name = SingleResult::where('user_id', auth()->user()->id)->first()->name;
+        }else if($family_count != 0){
+            $name = FamilyResult::where('user_id', auth()->user()->id)->first()->name;
+        }else if($group_count != 0){
+            $name = GroupResult::where('user_id', auth()->user()->id)->first()->name_group;
+        }
+
+        return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name'));
+
+    }
+
+    public function printLoh($name)
+    {
+        return view('participate.loh', compact('name'));
     }
 }

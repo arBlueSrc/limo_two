@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Models\Major; @endphp
+    <!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -6,12 +7,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>مسابقات قرآن</title>
-    <meta content="ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج" name="description">
-    <meta content="مسابقات قرآن,مسابقات قرآن بسیج,مسابقات قرآن,قرآن بسیج" name="keywords">
+    <meta content="مسابقات قرآن" name="description">
+    <meta content="مسابقات قرآن" name="keywords">
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
     {{--    {{ asset('landing_assets/') }}--}}
+    <link href="{{ asset('landing_assets/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +21,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet">
-
-    <script>
-        !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/Skz6HmQM/native-event.quranbsj.ir-32370/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
-    </script>
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -42,6 +40,10 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 
+    {{--<script>
+        !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/Skz6HmQM/native-event.quranbsj.ir-32370/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
+    </script>--}}
+
 </head>
 
 <style>
@@ -56,7 +58,7 @@
         src: url('landing_assets/fonts/Shabnam.ttf');
     }
 
-    .h1, h2, h3, h4, h5, div {
+    .h1, h2, h3, h4, h5, div, a {
         font-family: Shabnam, serif;
     }
 
@@ -69,15 +71,37 @@
 
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
+
         <a href="#" class="logo d-flex align-items-center">
+
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
         </a>
 
+        <div class="row">
+
+            <form action="{{route('logout')}}" method="post" class="col-5">
+                @csrf
+                <button class="btn btn-danger btn-sm text-white ml-3">خروج</button>
+            </form>
+
+            @if(auth()->user()->role == 0)
+                <a href="{{ route('participate') }}"
+                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
+            @endif
+
+            @if(auth()->user()->role == 1  || auth()->user()->role == 2)
+                <a href="{{ route('admin') }}"
+                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
+            @endif
+
+        </div>
+
     </div>
 
 </header><!-- End Header -->
+
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero">
@@ -86,18 +110,40 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center" dir="rtl">
-                    <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
-                    <br>
-                    <br><br>
-                    <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
-                    <p data-aos="fade-up">ثبت نام فقط برای شهر تهران بزرگ امکان پذیر است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
-                       style="font-family: Shabnam;">شروع</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
-                       class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
-                    <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
-                       class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
 
+                    <div class="alert" role="alert">
+
+                        <h4 data-aos="fade-down" class="text-muted"> فرم مورد نظر را برای ویرایش انتخاب کنید </h4>
+                        <br>
+
+                        @foreach($single_forms as $single_item)
+
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('singleEdit',['id' => $single_item->id]) }}"
+                               class="btn-get-started" style="font-family: Shabnam">فردی
+                                - {{ $single_item->name . " - " . Major::find($single_item->major)->name }}</a>
+                            <br>
+
+                        @endforeach
+
+                        @foreach($group_forms as $group_item)
+
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('groupEdit',['id' => $group_item->id]) }}"
+                               class="btn-get-started" style="font-family: Shabnam">گروهی
+                                - {{ $group_item->name_group  }}</a>
+                            <br>
+
+                        @endforeach
+
+                        @foreach($family_forms as $family_item)
+
+                            <a data-aosa-aos="fade-up" data-aos-delay="200" href="{{ route('familyEdit',['id' => $family_item->id]) }}"
+                               class="btn-get-started" style="font-family: Shabnam">خانوادگی
+                                - {{ $family_item->name   }}</a>
+                            <br>
+
+                        @endforeach
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,61 +171,29 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('landing_assets/assets/js/main.js') }}"></script>
-<script>
-
-    function onClicked1() {
-        window.open("https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a", '_blank', 'width=100,height=100');
-    }
-
-    function onClicked2() {
-
-        let userAgent = navigator.userAgent;
-        let browserName;
-
-
-        if (userAgent.match(/chrome|chromium|crios/i)) {
-            window.tabs.create({
-                url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f',
-                active: false
-            });
-        } else {
-            var a = document.createElement("a");
-            a.href = "https://ck.chavosh.org/click/8a792230-afc1-4b07-a081-ce762668169a";
-            var evt = document.createEvent("MouseEvents");
-
-            //the tenth parameter of initMouseEvent sets ctrl key
-            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
-            a.dispatchEvent(evt);
-        }
-    }
-
-    function onClicked3() {
-
-        let userAgent = navigator.userAgent;
-        let browserName;
-
-
-        if (userAgent.match(/chrome|chromium|crios/i)) {
-            window.tabs.create({
-                url: 'https://ck.chavosh.org/click/426dff0b-c7f7-4135-a7d4-cd207e89262f',
-                active: false
-            });
-        } else {
-            var a = document.createElement("a");
-            a.href = "https://ck.chavosh.org/click/481610e6-f9e8-4f84-bf7a-9256b08388d8";
-            var evt = document.createEvent("MouseEvents");
-
-            //the tenth parameter of initMouseEvent sets ctrl key
-            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
-            a.dispatchEvent(evt);
-        }
-    }
-
-</script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

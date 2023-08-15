@@ -238,7 +238,6 @@ class AuthenticatedSessionController extends Controller
               ]);
             }
 
-
             session()->forget(['register_data', 'otp']);
             session()->flush();
 
