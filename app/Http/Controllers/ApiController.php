@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MosExport;
+use App\Exports\MosShahrExport;
 use App\Exports\SingleResultExport;
 use App\Models\masjed;
 use App\Models\Ostan;
@@ -117,8 +118,6 @@ class ApiController extends Controller
             ->groupBy('shahrestan_id')
             ->get();
 
-        $mosqs = Shahrestan::get();
-
 //        $mos_group_hoze = DB::table('masjeds')
 //            ->select('mosque_id', DB::raw('count(mosque_id) as total'))
 //            ->groupBy('mosque_id')
@@ -136,11 +135,12 @@ class ApiController extends Controller
 
             if ($total > 99){
                 $item->total = $total;
+                $item->ostan_name = Ostan::find($item->ostan)->name;
                 array_push($mos, $item);
             }
 
         }
 
-        return Excel::download(new MosExport(collect($mos)), 'mos.xlsx');
+        return Excel::download(new MosShahrExport(collect($mos)), 'mosshahr.xlsx');
     }
 }
