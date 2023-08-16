@@ -88,10 +88,57 @@ class ApiController extends Controller
 
             $total = $single_count + ($family_count * 2) + ($group_count * 2);
 
+            if ($total > 49){
+                $item->total = $total;
+                array_push($mos, $item);
+            }
+        }
+
+        return Excel::download(new MosExport(collect($mos)), 'mos.xlsx');
+    }
+
+
+    public function getMosShahr()
+    {
+        $mos = array();
+
+        $single_result = DB::table('single_result')
+            ->select('shahrestan_id', DB::raw('count(shahrestan_id) as total'))
+            ->groupBy('shahrestan_id')
+            ->get();
+
+        $family_result = DB::table('group_result')
+            ->select('shahrestan_id', DB::raw('count(shahrestan_id) as total'))
+            ->groupBy('shahrestan_id')
+            ->get();
+
+        $group_result = DB::table('family_result')
+            ->select('shahrestan_id', DB::raw('count(shahrestan_id) as total'))
+            ->groupBy('shahrestan_id')
+            ->get();
+
+        $mosqs = masjed::get();
+
+//        $mos_group_hoze = DB::table('masjeds')
+//            ->select('mosque_id', DB::raw('count(mosque_id) as total'))
+//            ->groupBy('mosque_id')
+//            ->get();
+
+        $shahrestan = Shahrestan::all();
+
+        foreach ($shahrestan as $item){
+
+            $single_count = $single_result->where('shahrestan_id', $item->id)->first()->total ?? 0;
+            $family_count = $family_result->where('shahrestan_id', $item->id)->first()->total ?? 0;
+            $group_count = $group_result->where('shahrestan_id', $item->id)->first()->total ?? 0;
+
+            $total = $single_count + ($family_count * 2) + ($group_count * 2);
+
             if ($total > 99){
                 $item->total = $total;
                 array_push($mos, $item);
             }
+
         }
 
         return Excel::download(new MosExport(collect($mos)), 'mos.xlsx');
