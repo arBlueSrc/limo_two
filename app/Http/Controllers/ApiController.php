@@ -117,7 +117,7 @@ class ApiController extends Controller
             ->groupBy('shahrestan_id')
             ->get();
 
-        $mosqs = masjed::get();
+        $mosqs = Shahrestan::get();
 
 //        $mos_group_hoze = DB::table('masjeds')
 //            ->select('mosque_id', DB::raw('count(mosque_id) as total'))
