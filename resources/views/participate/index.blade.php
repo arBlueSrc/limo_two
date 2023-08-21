@@ -151,12 +151,28 @@
                                 <ul class="list-group  mb-3">
                                     <li class="list-group-item">
                                         <a class="float-right"><b>فردی : </b>{{ $single_count }}</a>
+                                        @foreach($single_forms as $item)
+                                            <br>
+                                            <span class="badge badge-danger">{{ $item->name . " - " . \App\Models\Major::find($item->major)->name }}</span>
+                                        @endforeach
+
                                     </li>
                                     <li class="list-group-item">
                                         <a class="float-right"><b>گروهی : </b>{{ $family_count }}</a>
+                                        @foreach($family_forms as $item)
+                                            <br>
+                                            <span class="badge badge-success">{{ $item->name }}</span>
+                                        @endforeach
                                     </li>
                                     <li class="list-group-item">
                                         <a class="float-right"><b>خانوادگی : </b>{{ $group_count }}</a>
+                                        @foreach($group_forms as $item)
+                                            <br>
+                                            <span class="badge badge-primary">نام گروه : {{ $item->name_group }}</span>
+                                            <span class="badge badge-primary">سرگروه : {{ $item->head_name }}</span>
+                                            <span class="badge badge-primary">فرد دوم: {{ $item->second_name }}</span>
+                                            <span class="badge badge-primary">فرد سوم: {{ $item->third_name }}</span>
+                                        @endforeach
                                     </li>
                                 </ul>
 

@@ -15,6 +15,10 @@ class ParticipateController extends Controller
     public function index()
     {
 
+        $single_forms = SingleResult::where('user_id', auth()->user()->id)->get();
+        $family_forms = FamilyResult::where('user_id', auth()->user()->id)->get();
+        $group_forms = GroupResult::where('user_id', auth()->user()->id)->get();
+
         //calculate form count
         $single_count = SingleResult::where('user_id', auth()->user()->id)->count();
         $family_count = FamilyResult::where('user_id', auth()->user()->id)->count();
@@ -36,7 +40,8 @@ class ParticipateController extends Controller
             $name = GroupResult::where('user_id', auth()->user()->id)->first()->name_group;
         }
 
-        return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name'));
+        return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name',
+        'single_forms', 'family_forms', 'group_forms'));
 
     }
 
