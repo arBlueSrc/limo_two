@@ -81,6 +81,30 @@
                   </ul>
               </li>
 
+              <li class="nav-item has-treeview {{ isActive(["user.create","users.ostanUsers"],'menu-open') }}">
+                  <a href="#" class="nav-link {{ isActive(["user.create","users.ostanUsers"]) }}">
+                      <p>
+                          آزمون
+                          <i class="right fa fa-angle-left"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{ route('azmoon.index') }}" class="nav-link {{ isActive("azmoon.index") }}">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>لیست آزمون ها</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="{{ route('result.index') }}" class="nav-link {{ isActive("result.index") }}">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>لیست نتایج</p>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

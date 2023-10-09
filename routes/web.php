@@ -81,6 +81,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/printLoh/{name}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
 
     });
+
+    //azmoon
+    Route::resource('azmoon', 'App\Http\Controllers\AzmoonController');
+    Route::get('azmoons/updateTitle', 'App\Http\Controllers\AzmoonController@updateTitle')->name('azmoons.updateTitle');
+    Route::get('azmoons/updateRandomicNumber', 'App\Http\Controllers\AzmoonController@updateRandomicNumber')->name('azmoons.updateRandomicNumber');
+    Route::post('azmoons/updateTime', 'App\Http\Controllers\AzmoonController@updateTime')->name('azmoons.updateTime');
+
+    //question
+    Route::resource('question', 'App\Http\Controllers\QuestionController');
+    Route::post('questions/uploadExcel', 'App\Http\Controllers\QuestionController@uploadExcel')->name('questions.uploadExcel');
+    Route::post('azmoon/questions/tashrihi-store',[\App\Http\Controllers\QuestionController::class,'tashrihi_question_store'])->name('tashrihi.question.store');
+
+    //result
+    Route::resource('result', 'App\Http\Controllers\ResultController');
+    Route::get('results/exportExcel', 'App\Http\Controllers\ResultController@exportExcel')->name('azmoons.exportExcel');
 });
 
 
@@ -122,6 +137,14 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('azmoons', [\App\Http\Controllers\UserAzmoonController::class, 'index'])->name('azmoons.index');
+    Route::get('azmoons/questions/{azmoon}', [\App\Http\Controllers\UserAzmoonController::class, 'questions'])->name('azmoon.questions');
+    Route::post('azmoons/answer/{azmoon}', [\App\Http\Controllers\UserAzmoonController::class, 'answerHnadler'])->name('azmoon.answer');
+    Route::get('azmoon/result/{azmoon_id}',[\App\Http\Controllers\UserAzmoonController::class,'userResult'])->name('user.azmoon.result');
+    Route::get('azmoons/result',[\App\Http\Controllers\UserAzmoonController::class,'userResults'])->name('user.results');
+});
 
 
 
