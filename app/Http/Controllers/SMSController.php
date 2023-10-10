@@ -33,6 +33,7 @@ class SMSController extends Controller
 
     public function peyk()
     {
+
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
         $dataArray = array(
             'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
