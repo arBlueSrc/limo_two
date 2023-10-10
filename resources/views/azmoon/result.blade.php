@@ -478,7 +478,7 @@
 <!-- Main Footer -->
 <footer style="text-align: center" class="p-2">
     <!-- To the right -->
-    توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.
+{{--    توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.--}}
     <!-- Default to the left -->
 
 </footer>

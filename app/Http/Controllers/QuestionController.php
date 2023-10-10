@@ -78,7 +78,19 @@ class QuestionController extends Controller
         ]);
         return back();
     }
+    public function tashrihi_question_update(Request $request){
+        $valid_data=$request->validate([
+            'tashrihi_question_update'=>'',
+            'tashrihi_true_answer_update'=>'',
+            'tashrihi_question_id'=>''
+        ]);
 
+        Question::find($valid_data['tashrihi_question_id'])->update([
+           'question'=>$valid_data['tashrihi_question_update'],
+           'tashrihi_answer'=>$valid_data['tashrihi_true_answer_update'],
+        ]);
+        return back();
+    }
     /**
      * Display the specified resource.
      *
@@ -112,16 +124,18 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->input('question_id'));
         $valid_data = $request->validate([
             'question_update' => 'required',
             'option_1_update' => 'required',
             'option_2_update' => 'required',
             'option_3_update' => 'required',
             'option_4_update' => 'required',
-            'answer_update' => 'required'
+            'answer_update' => 'required',
+            'question_id' => ''
         ]);
 
-        Question::where('id', $id)->update([
+        Question::find($valid_data['question_id'])->update([
             'question' => $valid_data['question_update'],
             'option_1' => $valid_data['option_1_update'],
             'option_2' => $valid_data['option_2_update'],

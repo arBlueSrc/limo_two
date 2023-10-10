@@ -18,7 +18,8 @@ class Azmoon extends Model
         'shamsi',
         'start_hour',
         'end_hour',
-        'duration'
+        'duration',
+        'major_id'
     ];
 
     public function questionCount()

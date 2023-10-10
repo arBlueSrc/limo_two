@@ -98,13 +98,22 @@
                                 <input type="text" class="form-control" name="name" id="name">
                             </div>
                             <div class="form-group col-md-12">
+                                <label for="negative_point">رشته مربوطه :</label>
+                                <select name="major" id="major">
+                                    @foreach($majors as $major)
+                                    <option value="{{ $major->id }}">{{ $major->name }}</option>
+                                    @endforeach
+{{--                                    <option value="1">بله</option>--}}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12 d-none">
                                 <label for="negative_point">نمره منفی دارد ؟ :</label>
                                 <select name="negative_point" id="negative_point">
                                     <option value="0">خیر</option>
                                     <option value="1">بله</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-12 d-none">
                                 <label for="randomic">سوالات رندوم نمایش داده شود ؟ :</label>
                                 <select name="randomic" id="randomic">
                                     <option value="0">خیر</option>
@@ -113,19 +122,21 @@
                             </div>
 
 
-                            <div class="form-group col-6">
-                                <label for="date">تاریخ</label>
+                            <div class="form-group col-12">
+                                <label for="date">تاریخ:</label>
                                 <input type="text" name="date" class="form-control" id="date" value=""
                                        placeholder="تاریخ را وارد کنید">
                             </div>
 
 
-                            <div class="form-group col-6">
+                            <div class="form-group col-12">
                                 <label for="duration">مدت زمان آزمون</label>
-                                <div class="row">
-                                    <input type="number" min="0" max="12" name="duration_h" class="form-control col-5" id="duration_h" value="0"
+                                <div class="row align-items-baseline">
+                                    <label class="pl-2" for="">ساعت</label>
+                                    <input type="number" min="0" max="12" name="duration_h" class="form-control col-4" id="duration_h" value="0"
                                            placeholder="ساعت">
-                                    <input type="number" min="0" max="60" name="duration_m" class="form-control col-5 mr-2" id="duration_m" value="0"
+                                    <label class="mr-2 pl-2" for="">دقیقه</label>
+                                    <input type="number" min="0" max="60" name="duration_m" class="form-control col-4 mr-2" id="duration_m" value="0"
                                            placeholder="دقیقه">
                                 </div>
                             </div>
@@ -231,7 +242,18 @@
                                     <input type="text" class="form-control" name="name_update" id="name_update">
                                 </div>
 
+
                                 <div class="form-group col-md-12">
+                                    <label for="negative_point">رشته مربوطه :</label>
+                                    <select name="major" id="major_update">
+                                        @foreach($majors as $major)
+                                            <option value="{{ $major->id }}" >{{ $major->name }}</option>
+                                        @endforeach
+                                        {{--                                    <option value="1">بله</option>--}}
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-12 d-none">
                                     <label for="negative_point_update">نمره منفی دارد ؟ :</label>
                                     <select name="negative_point_update" id="negative_point_update">
                                         <option value="0">خیر</option>
@@ -239,7 +261,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-12 d-none">
                                     <label for="randomic_update">سوالات رندوم نمایش داده شود ؟ :</label>
                                     <select name="randomic_update" id="randomic_update">
                                         <option value="0">خیر</option>
@@ -247,21 +269,40 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-6">
+                                <div class="form-group col-12">
                                     <label for="date_update">تاریخ</label>
                                     <input class="datea" type="text" name="date_update" class="form-control" id="date_update" value=""
                                            placeholder="تاریخ را وارد کنید">
                                 </div>
 
-                                <div class="form-group col-6">
-                                    <label for="duration">مدت زمان آزمون</label>
-                                    <div class="row">
-                                        <input type="number" min="0" max="12" name="duration_h_update" class="form-control col-5" id="duration_h_update" value="0"
+                                <div class="form-group col-12">
+                                    <label for="duration">مدت زمان آزمون:</label>
+                                    <div class="row align-items-baseline">
+                                        <label class="pl-2" for="">ساعت</label>
+                                        <input type="number" min="0" max="12" name="duration_h_update" class="form-control col-4" id="duration_h_update" value="0"
                                                placeholder="ساعت">
-                                        <input type="number" min="0" max="60" name="duration_m_update" class="form-control col-5 mr-2" id="duration_m_update" value="0"
+                                        <label class="mr-2 pl-2" for="">دقیقه</label>
+                                        <input type="number" min="0" max="60" name="duration_m_update" class="form-control col-4 mr-2" id="duration_m_update" value="0"
                                                placeholder="دقیقه">
                                     </div>
                                 </div>
+
+
+
+                                {{--<div class="form-group col-12">
+                                    <label for="duration">مدت زمان آزمون</label>
+                                    <div class="row align-items-baseline">
+                                        <label class="pl-2" for="">ساعت</label>
+                                        <input type="number" min="0" max="12" name="duration_h" class="form-control col-4" id="duration_h" value="0"
+                                               placeholder="ساعت">
+                                        <label class="mr-2 pl-2" for="">دقیقه</label>
+                                        <input type="number" min="0" max="60" name="duration_m" class="form-control col-4 mr-2" id="duration_m" value="0"
+                                               placeholder="دقیقه">
+                                    </div>
+                                </div>--}}
+
+
+
 
                                 <script>
 
@@ -314,6 +355,7 @@
 
     function setDateUpdate(azmoon) {
         document.getElementById("name_update").value = azmoon['name'];
+        document.getElementById("major_update").value = azmoon['major_id'];
         document.getElementById("negative_point_update").value = azmoon['negative_point'];
         document.getElementById("randomic_update").value = azmoon['randomic'];
         document.getElementById("date_update").value = azmoon['shamsi'];
@@ -322,6 +364,7 @@
         document.getElementById("id_update").value = azmoon['id'];
         document.getElementById("duration_h_update").value = azmoon['duration'].split(":")[0];
         document.getElementById("duration_m_update").value = azmoon['duration'].split(":")[1];
+
     }
 
     function setDelete(azmoon) {

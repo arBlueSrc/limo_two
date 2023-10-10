@@ -92,6 +92,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('question', 'App\Http\Controllers\QuestionController');
     Route::post('questions/uploadExcel', 'App\Http\Controllers\QuestionController@uploadExcel')->name('questions.uploadExcel');
     Route::post('azmoon/questions/tashrihi-store',[\App\Http\Controllers\QuestionController::class,'tashrihi_question_store'])->name('tashrihi.question.store');
+    Route::post('azmoon/questions/tashrihi-update',[\App\Http\Controllers\QuestionController::class,'tashrihi_question_update'])->name('tashrihi.question.update');
 
     //result
     Route::resource('result', 'App\Http\Controllers\ResultController');

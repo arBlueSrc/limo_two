@@ -18,18 +18,22 @@ class UserAzmoonController extends Controller
     public function index()
     {
         $azmoons = Azmoon::all();
-
+        $user=SingleResult::where('phone',auth()->user()->mobile)->get();
+        $user_majors=$user->pluck('major');
+//        dd($user_majors);
+//        dd($user_majors->contains('144'));
+//        dd($user->pluck('major'));
         $index = 0;
         foreach ($azmoons as $azmoon){
             $now = Carbon::now();
-            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time)) {
+//            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
                 $azmoons->forget($index);
             }
             $index++;
         }
         return view('azmoon.index', compact('azmoons'));
     }
-
     public function questions(Azmoon $azmoon)
     {
         $user_id = auth()->user()->id;
@@ -92,21 +96,28 @@ class UserAzmoonController extends Controller
         }
 
         $questions = Question::where('parent_azmoon', $azmoon->id)->get();
+//        dd($questions);
 
-//        if ($azmoon->randomic){
-//            srand($user->id.$azmoon->id);
-//            $random_number_range = range(1, $questions->count());
-//            shuffle($random_number_range );
-//            $random_number_array_generated = array_slice($random_number_range ,1
-//                ,$questions->count()-$azmoon->randomic_number);
-//            foreach ($random_number_array_generated as $value){
-//                $questions->forget($value);
-//            }
-//        }
+        /*if ($azmoon->randomic){
+            srand($user->id.$azmoon->id);
+            $random_number_range = range(1, $questions->count());
+
+            shuffle($random_number_range );
+            $ex=$random_number_range;
+//            dd($ex);
+//            dd($random_number_range);
+            $random_number_array_generated=$random_number_range;
+            $random_number_array_generated = array_slice($random_number_range ,1
+                ,$questions->count()-$azmoon->randomic_number);
+//            dd($random_number_array_generated);
+            foreach ($random_number_array_generated as $value){
+                $questions->forget($value);
+            }
+            dd($questions);
+        }*/
         $azmoon_question_count = Question::where('parent_azmoon', $azmoon->id)->count();
         return view('azmoon.questions', compact('end_user_time','questions', 'azmoon', 'azmoon_question_count', 'time_remain'));
     }
-
 
     public function answerHnadler(Request $request)
     {
@@ -205,7 +216,6 @@ class UserAzmoonController extends Controller
         return redirect()->route('azmoons.index');
         return view('azmoon.index', compact('azmoons'));
     }
-
     public function userResult($result)
     {
         $user_id = auth()->user()->id;
@@ -214,7 +224,6 @@ class UserAzmoonController extends Controller
         $azmoon_question_count = Question::where('parent_azmoon', $azmoon->id)->count();
         return view('azmoon.result', compact('result', 'azmoon', 'azmoon_question_count'));
     }
-
     public function userResults()
     {
         $user=SingleResult::where('phone',auth()->user()->mobile)->first();

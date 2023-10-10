@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Azmoon;
+use App\Models\Major;
 use App\Models\Question;
 use App\Models\Result;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class AzmoonController extends Controller
     public function index()
     {
         $azmoons = Azmoon::paginate(15);
-        return view('admin.azmoon.index',compact('azmoons'));
+        $majors=Major::all();
+        return view('admin.azmoon.index',compact('azmoons','majors'));
     }
 
     /**
@@ -50,6 +52,7 @@ class AzmoonController extends Controller
             'end' => 'required',
             'duration_h' => 'required',
             'duration_m' => 'required',
+            'major'=>''
         ]);
 
         $values = explode('/', $valid_data['date']);
@@ -73,6 +76,7 @@ class AzmoonController extends Controller
             'start_hour' => $valid_data['start'],
             'end_hour' => $valid_data['end'],
             'duration' => str_pad($valid_data['duration_h'], 2, '0', STR_PAD_LEFT) . ":" . str_pad($valid_data['duration_m'], 2, '0', STR_PAD_LEFT),
+            'major_id'=>$valid_data['major']
         ]);
 
         return back();
@@ -161,7 +165,8 @@ class AzmoonController extends Controller
             'start_update' => 'required',
             'end_update' => 'required',
             'duration_h_update' => 'required',
-            'duration_m_update' => 'required'
+            'duration_m_update' => 'required',
+            'major'=>''
         ]);
 
 //        dd($valid_data['date_update']);
@@ -196,6 +201,7 @@ class AzmoonController extends Controller
             'start_hour' => $valid_data['start_update'],
             'end_hour' => $valid_data['end_update'],
             'duration' => str_pad($valid_data['duration_h_update'], 2, '0', STR_PAD_LEFT) . ":" . str_pad($valid_data['duration_m_update'], 2, '0', STR_PAD_LEFT),
+            'major_id'=>$valid_data['major']
         ]);
 
         return back();

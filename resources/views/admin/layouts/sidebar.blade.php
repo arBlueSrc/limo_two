@@ -81,8 +81,8 @@
                   </ul>
               </li>
 
-              <li class="nav-item has-treeview {{ isActive(["user.create","users.ostanUsers"],'menu-open') }}">
-                  <a href="#" class="nav-link {{ isActive(["user.create","users.ostanUsers"]) }}">
+              <li class="nav-item has-treeview {{ isActive(["azmoon.index","result.index"],'menu-open') }}">
+                  <a href="#" class="nav-link {{ isActive(["azmoon.index","result.index"]) }}">
                       <p>
                           آزمون
                           <i class="right fa fa-angle-left"></i>
@@ -103,7 +103,6 @@
                       </li>
                   </ul>
               </li>
-
 
           </ul>
         </nav>

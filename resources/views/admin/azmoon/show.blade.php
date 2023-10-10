@@ -11,13 +11,11 @@
     @endif
 
     <div class="card card-primary">
-
         <!-- card-header -->
         <div class="card-header">
             <h3 class="card-title">تنظیمات آزمون</h3>
         </div>
         <!-- /.card-header -->
-
         <!-- form start -->
         <form role="form" method="post" action="{{ route('azmoon.store') }}" enctype="multipart/form-data">
             @csrf
@@ -34,19 +32,18 @@
                         <div class="row">
                             <div class="col-10">
                                 <input type="text" name="name" class="form-control" id="name" placeholder="نام آزمون"
-                                       value="{{ $azmoon->name }}">
+                                       value="{{ $azmoon->name }}" disabled>
                             </div>
-                            <div class="col-2">
+                            {{--<div class="col-2">
                                 <a onclick="updateTitle()" href="" style="color: black">
                                     <ion-icon name="checkmark-done-circle"
                                               style="margin-top: 5px; margin-left: 20px; width: 30px; height: 30px; color: dodgerblue"></ion-icon>
                                 </a>
-                            </div>
+                            </div>--}}
                         </div>
                         </div>
 
-
-                        <div class="form-group col-12">
+                        {{--<div class="form-group col-12">
                             <label for="question_number">چه تعدادی از سوالات برای کاربر نمایش داده شود؟</label>
                             <div class="row">
                                 <div class="col-10">
@@ -59,7 +56,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
 
                     </div>
 
@@ -76,11 +73,11 @@
                             >اضافه کردن سوال تشریحی +</a>
                         </div>
 
-                        <div class="row justify-content-end mt-2">
+                        {{--<div class="row justify-content-end mt-2">
                             <a href="#" class="btn btn-outline-success" style="border-radius: 25px"
                                data-target="#excelModal" id="openExcel" data-toggle="modal"
                             > <i class="fa fa-file-excel-o"></i> وارد کردن سوال با اکسل +</a>
-                        </div>
+                        </div>--}}
                     </div>
 
 
@@ -119,11 +116,19 @@
                                            data-target="#deleteModal" class="delete" data-toggle="modal">
                                             <ion-icon name="trash"></ion-icon>
                                         </a>
+                                        @if($question->type == 0)
                                         <a onclick="updateQuestion({{$question}})" href=""
                                            style="margin-top: 15px; margin-left: 20px; color: black"
                                            data-target="#updateModal" class="update" data-toggle="modal">
                                             <ion-icon name="create"></ion-icon>
                                         </a>
+                                        @else
+                                            <a onclick="updateTashrihiQuestion({{$question}})" href=""
+                                               style="margin-top: 15px; margin-left: 20px; color: black"
+                                               data-target="#update_explanatory_modal" class="update" data-toggle="modal">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -290,6 +295,59 @@
             </div>
         </form>
 
+{{-- update tashrihi question--}}
+
+        <form method="post" action="{{route('tashrihi.question.update')}}" id="form">
+            @csrf
+            <!-- Modal -->
+            <div class="modal" tabindex="-1" role="dialog" id="update_explanatory_modal"  style="margin-top: 100px">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+
+                        <div class="alert alert-danger" style="display:none"></div>
+
+                        <div class="modal-header justify-content-between">
+                            <h5 class="modal-title">ویرایش سوال تشریحی</h5>
+                        </div>
+
+                        <input hidden id="azmoon_id" name="azmoon_id" value="{{ $azmoon->id }}">
+                        <input hidden id="tashrihi_question_id" name="tashrihi_question_id" value="">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="question">صورت سوال :</label>
+                                    <input type="text" class="form-control" name="tashrihi_question_update" id="tashrihi_question_update">
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="question">پاسخ صحیح را وارد کنید :</label>
+                                    <textarea name="tashrihi_true_answer_update" id="tashrihi_true_answer_update" rows="3" cols="50"></textarea>
+                                </div>
+
+                                {{--<div class="form-group col-md-6">
+                                    <label for="end">گزینه صحیح :</label>
+                                    <select name="answer" id="asnwer">
+                                        @for($i=1; $i<5; $i++)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>--}}
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left: 10px">
+                                لغو
+                            </button>
+                            <button type="submit" class="btn btn-success" id="ajaxSubmit">ویرایش</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         @if(sizeof($questions) != 0)
             <form method="POST" action="{{ route('question.destroy', ['question' => $question->id]) }}" id="form">
                 @csrf
@@ -323,7 +381,6 @@
                                 <button type="submit" class="btn btn-danger" id="ajaxSubmit">حذف</button>
                             </div>
 
-
                         </div>
                     </div>
                 </div>
@@ -343,6 +400,7 @@
                                 <h5 class="modal-title">اضافه کردن سوال</h5>
                             </div>
 
+                            <input hidden id="update_question_id" name="question_id" value="">
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -435,6 +493,7 @@
                     </div>
                 </div>
             </div>
+
         </form>
 
     </div>
@@ -455,6 +514,16 @@
         document.getElementById("option_3_update").value = question['option_3'];
         document.getElementById("option_4_update").value = question['option_4'];
         document.getElementById("answer_update").value = question['answer'];
+        document.getElementById("update_question_id").value = question['id'];
+
+        console.log(number);
+    }
+    function updateTashrihiQuestion(question) {
+        console.log(question)
+        document.getElementById("tashrihi_question_update").value = question['question'];
+        document.getElementById("tashrihi_true_answer_update").value = question['tashrihi_answer'];
+        document.getElementById("tashrihi_question_id").value = question['id'];
+
         console.log(number);
     }
 

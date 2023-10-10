@@ -245,9 +245,12 @@
                                     <p style="margin-right: 25px; margin-left: 25px">تعداد سوالات تستی بدون پاسخ: {{ $result->empty_answer }}</p>
                                     <p style="margin-right: 25px; margin-left: 25px">تعداد سوالات تشریحی: {{ $result->azmoon()->first()->questions()->where('type',1)->count() }}</p>
 
-                                    <span class="badge badge-info">
-                                        <p style="margin-right: 25px; margin-left: 25px">نمره نهایی: {{ $score_of_20 }}</p>
-                                    </span>
+
+                                        <p style="margin-right: 25px; margin-left: 25px"><span class="badge badge-info" style="font-size: initial;
+     font-weight: initial;">
+                                                نمره نهایی: {{ $score_of_20 }}
+                                        </span></p>
+
                                     <div class="row col-12" style="margin-right: 10px; margin-left: 50px;">
 
                                     </div>
@@ -285,7 +288,7 @@
 <!-- Main Footer -->
 <footer style="text-align: center" class="p-2">
     <!-- To the right -->
-    توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.
+{{--    توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.--}}
     <!-- Default to the left -->
 
 </footer>

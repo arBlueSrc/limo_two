@@ -131,10 +131,16 @@
                         <div class=" col-sm-12 col-lg-4 col-md-6" style="border-radius: 10px">
                             <div class="card m-2">
                                 <div class="  d-flex align-content-center flex-wrap">
-                                    <img class="w-30" style="width: 75px" src="{{asset('images/exam.png')}}"/>
+                                    <img class="w-30" style="width: 75px ;max-height: 100px;" src="{{asset('images/exam.png')}}"/>
                                     <div style="margin-right: 15px;margin-top: 10px;">
                                         <strong
                                             style="margin-right: 15px;margin-top: 10px; color: black;">{{ $azmoon->name }}</strong>
+
+                                        <div class="" style="margin-right: 15px;margin-top:15px;">
+                                            <span>تاریخ برگزاری</span>
+                                            <span class="badge badge-info"style="font-size: initial;font-weight: bold">{{ jdate($azmoon->start_time)->format("Y/m/d H:i") }}</span>
+                                        </div>
+
                                         @php
                                             $time1 = new DateTime($azmoon->start_time);
                                             $time2 = new DateTime($azmoon->end_time);
@@ -150,10 +156,14 @@
                                                 : {{ $min }} دقیقه</p>
                                         @else
                                             <p style="margin: 15px; color: black">زمان آزمون
-                                                : {{ $min }} دقیقه و {{ $hour }} ساعت</p>
+                                                : {{ $hour }} ساعت و {{ $min }} دقیقه  </p>
                                         @endif
+
                                     </div>
+
+
                                 </div>
+
 
                                 <div class="d-flex justify-content-center ">
                                     <a class="btn btn-outline-info w-100 m-2"
@@ -178,7 +188,7 @@
     <!-- Main Footer -->
     <footer style="text-align: center" class="p-2">
         <!-- To the right -->
-        توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.
+{{--        توسعه توسط تیم نسرآزمون - تمامی حقوق محفوظ می باشد.--}}
         <!-- Default to the left -->
 
     </footer>
