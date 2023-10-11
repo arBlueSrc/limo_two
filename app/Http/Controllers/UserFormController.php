@@ -25,7 +25,6 @@ class UserFormController extends Controller
         $family = FamilyResult::where('user_id', Auth()->user()->id)->get();
 
         if (sizeof($single) <= 3 || sizeof($group) == 0 || sizeof($family) == 0) {
-
             $deactive_item1 = 0;
             $deactive_item2 = 0;
             $deactive_item3 = 0;
@@ -35,12 +34,9 @@ class UserFormController extends Controller
             if (sizeof($family) != 0) $deactive_item3 = 1;
 
             return view('choose.choose', compact('deactive_item1', 'deactive_item2', 'deactive_item3'));
-
         } else {
-
             Auth::logout();
             return view('form.registerBefore');
-
         }
 
     }

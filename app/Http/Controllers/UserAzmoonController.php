@@ -36,6 +36,9 @@ class UserAzmoonController extends Controller
     }
     public function questions(Azmoon $azmoon)
     {
+        $request=request();
+//        dd($request->get('page'));
+
         $user_id = auth()->user()->id;
 
         $now = Carbon::now();
@@ -96,6 +99,7 @@ class UserAzmoonController extends Controller
         }
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
         $questions = Question::where('parent_azmoon', $azmoon->id)->get();
+//        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
 
 //        dd($questions);
 //        dd($questions);

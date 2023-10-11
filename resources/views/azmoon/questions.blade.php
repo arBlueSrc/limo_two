@@ -226,9 +226,7 @@
                                         </div>--}}
                                         </div>
 
-
                                     </div>
-
 
                                 </div>
                             @endforeach
@@ -237,7 +235,7 @@
 
 
 
-
+                        {{ $questions->render() }}
                         </div>
 
                     </div>
