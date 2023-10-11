@@ -104,7 +104,7 @@
                     {{--<input type="hidden" name="_token" value="ceFb1ZCAkeAy7BVevVpnnLMG3EN7uPSi828MEwzk">            <input type="hidden" name="_method" value="POST">--}}
                     @csrf
                     @method('post')
-                    <input type="hidden" name="azmoon_id" value="{{ $azmoon->id }}">
+                    <input type="hidden" name="azmoon_id" value="{{ $azmoon->id }}" id="azmoon_id">
 
                     {{-- main azmoon begin --}}
                     <div class="card-body" id="card">
@@ -157,11 +157,11 @@
                                         <div class="col-6">
                                             <div class="col-lg-12">
                                                 <div class="input-group">
-                                                    <input type="hidden" name="question_id[]" value="{{ $question->id }}">
+                                                    <input type="hidden" name="question_id[]" id="current_question_id" value="{{ $question->id }}">
                                                 @if($question->type == 0)
 
 
-                                                    <div class="form-group">
+                                                    <div class="form-group" id="checkboxes">
                                                         <div class="form-check">
                                                             <input class="form-check-input" id="q1" name="q{{ $question->id }}" type="checkbox" value="1">
                                                             <label class="form-check-label" for="q1">{{ $question->option_1 }}</label>
@@ -181,7 +181,7 @@
 
                                                     </div>
                                                     @elseif($question->type == 1)
-                                                        <input type="hidden" name="text_question_id[]" value="{{ $question->id }}">
+                                                        <input type="hidden" name="text_question_id[]" value="{{ $question->id }}" id="current_question_id">
                                                         <div class="form-group col-12">
                                                             <label for="question">پاسخ را وارد کنید :</label>
                                                             <textarea name="q{{ $question->id }}" class="p-2" name="answer" rows="3" cols="90"></textarea>
@@ -235,7 +235,7 @@
 
 
 
-{{--                        {{ $questions->render() }}--}}
+{{--                        {{ $questions->links() }}--}}
                         </div>
 
                     </div>
@@ -560,6 +560,65 @@
 
         }, 1000);
 
+
+
+
+        //pagination question ajax request
+
+        $('.page-link').click(function (){
+            console.log('aaaa');
+            question_id=$('#current_question_id').val();
+            azmoon_id={{ $azmoon->id }}
+            alert(question_id);
+
+            /*$("#checkboxes").children("input:checked").map(function() {
+                // return this.name;
+                alert('vvvv');
+            });*/
+            // var selected = [];
+            var selected_answer;
+
+            $('#checkboxes input:checked').each(function() {
+                // selected.push($(this).attr('value'));
+                selected_answer=$(this).attr('value');
+                // selected.push($(this).attr('value'));
+
+            });
+
+            // alert(selected_answer);
+
+            /*$.ajaxSetup({
+                headers : {
+                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                    'Content-Type' : 'application/json'
+                }
+            })
+
+            $.ajax({
+                type : 'POST',
+                {{--url : '{{ url("/"); }}/update',--}}
+                url : '{{ route('ajax.answer.update') }}',
+                data : JSON.stringify({question_id: question_id,answer:selected_answer,azmoon_id:azmoon_id}),
+                success : function(data) {
+                    alert(data);
+                    // console.log(data);
+                    var len = data.length;
+
+                    // $("#mosque").empty();
+                    // for( var i = 0; i<len; i++){
+                    //     var id = data[i]['id'];
+                    //     var shahrestan = data[i]['shahrestan'];
+                    //     var hoze = data[i]['hoze'];
+                    //     var masjed = data[i]['masjed'];
+                    //     // console.log(sharestan_holder);
+                    //
+                    //     $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                    //
+                    // }
+                }
+                // console.log(data);
+            });
+        });*/
     </script>
 
 

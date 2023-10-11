@@ -27,7 +27,9 @@ class UserAzmoonController extends Controller
         foreach ($azmoons as $azmoon){
             $now = Carbon::now();
 //            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
-            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+
+//            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+            if ($now->isAfter($azmoon->end_time)  ) {
                 $azmoons->forget($index);
             }
             $index++;
@@ -100,7 +102,6 @@ class UserAzmoonController extends Controller
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
         $questions = Question::where('parent_azmoon', $azmoon->id)->get();
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
-
 //        dd($questions);
 //        dd($questions);
         /*if ($azmoon->randomic){
@@ -237,5 +238,17 @@ class UserAzmoonController extends Controller
 
         $azmoon = 1;
         return view('azmoon.user-results', compact('results', 'azmoon','user'));
+    }
+
+    public function ajaxAnswerUpdate(Request $request)
+    {
+//        return $request->input('question_id')."/".$request->input('answer');
+        $user=SingleResult::where('phone',auth()->user()->mobile)->first();
+        $question_id=$request->input('question_id');
+        $answer=$request->input('answer');
+        $azmoon_id=$request->input('azmoon_id');
+//        return $azmoon_id;
+
+        $last_answer=Answer::where('user_id',$user->id)->where('azmoon_id',$azmoon_id)->where('question_id',);
     }
 }
