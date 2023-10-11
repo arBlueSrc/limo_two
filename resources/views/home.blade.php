@@ -93,7 +93,7 @@
 {{--                    <p data-aos="fade-up">ثبت نام فقط برای شهر تهران بزرگ امکان پذیر است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
                     <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
-                       style="font-family: Shabnam;">شروع</a>
+                       style="font-family: Shabnam;">ورود</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
                        class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"

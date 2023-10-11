@@ -136,7 +136,6 @@
                                 <label class="col-lg-2" for="name" style="padding-bottom: 10px">مجموعا : {{ $azmoon_question_count }} سوال</label>
                             </div>
 
-
                             @foreach($questions as $question)
                             <div class="card" style="border-radius: 10px">
                                 <div class="row">
@@ -158,33 +157,35 @@
                                             <div class="col-lg-12">
                                                 <div class="input-group">
                                                     <input type="hidden" name="question_id[]" id="current_question_id" value="{{ $question->id }}">
+                                                    @php
+                                                        $user_last_answer=\App\Models\Answer::where('user_id',$login_user->id)->where('azmoon_id',$azmoon->id)->where('question_id',$question->id)->first()
+                                                    @endphp
                                                 @if($question->type == 0)
 
 
                                                     <div class="form-group" id="checkboxes">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" id="q1" name="q{{ $question->id }}" type="checkbox" value="1">
+                                                            <input class="form-check-input" id="q1" name="q{{ $question->id }}" type="checkbox" @checked($user_last_answer && $user_last_answer->user_answer == 1) value="1">
                                                             <label class="form-check-label" for="q1">{{ $question->option_1 }}</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" id="q2" name="q{{ $question->id }}" type="checkbox" value="2">
+                                                            <input class="form-check-input" id="q2" name="q{{ $question->id }}" type="checkbox" @checked($user_last_answer && $user_last_answer->user_answer == 2) value="2">
                                                             <label class="form-check-label" for="q2">{{ $question->option_2 }}</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" id="q3" name="q{{ $question->id }}" type="checkbox" value="3">
+                                                            <input class="form-check-input" id="q3" name="q{{ $question->id }}" type="checkbox" @checked($user_last_answer && $user_last_answer->user_answer == 3) value="3">
                                                             <label class="form-check-label" for="q3">{{ $question->option_3 }}</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" id="q4" name="q{{ $question->id }}" type="checkbox" value="4">
+                                                            <input class="form-check-input" id="q4" name="q{{ $question->id }}" type="checkbox" @checked($user_last_answer && $user_last_answer->user_answer == 4) value="4">
                                                             <label class="form-check-label" for="q4">{{ $question->option_4 }}</label>
                                                         </div>
-
                                                     </div>
                                                     @elseif($question->type == 1)
-                                                        <input type="hidden" name="text_question_id[]" value="{{ $question->id }}" id="current_question_id">
+{{--                                                        <input type="hidden" name="text_question_id[]" value="{{ $question->id }}" id="current_question_id">--}}
                                                         <div class="form-group col-12">
                                                             <label for="question">پاسخ را وارد کنید :</label>
-                                                            <textarea name="q{{ $question->id }}" class="p-2" name="answer" rows="3" cols="90"></textarea>
+                                                            <textarea name="q{{ $question->id }}" class="p-2" id="textarea_input" name="answer" rows="3" cols="90">{{ $user_last_answer ? $user_last_answer->user_answer :'' }}</textarea>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -235,7 +236,7 @@
 
 
 
-{{--                        {{ $questions->links() }}--}}
+                        {{ $questions->links() }}
                         </div>
 
                     </div>
@@ -569,7 +570,8 @@
             console.log('aaaa');
             question_id=$('#current_question_id').val();
             azmoon_id={{ $azmoon->id }}
-            alert(question_id);
+            question_type={{ $question->type }}
+            // alert(question_type);
 
             /*$("#checkboxes").children("input:checked").map(function() {
                 // return this.name;
@@ -578,29 +580,44 @@
             // var selected = [];
             var selected_answer;
 
-            $('#checkboxes input:checked').each(function() {
-                // selected.push($(this).attr('value'));
-                selected_answer=$(this).attr('value');
-                // selected.push($(this).attr('value'));
+            if(question_type == 0) {
 
-            });
+                $('#checkboxes input:checked').each(function () {
+                    // selected.push($(this).attr('value'));
+                    selected_answer = $(this).attr('value');
+                    // selected.push($(this).attr('value'));
+                });
+
+                // selected_answer = $('#answer_input').attr('value');
+            }
+            else if(question_type == 1){
+                    selected_answer=$('#textarea_input').val();
+                    // alert(selected_answer)
+            }
+
+
+
+            if(!selected_answer){
+                selected_answer=null;
+            }
 
             // alert(selected_answer);
-
-            /*$.ajaxSetup({
-                headers : {
-                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                    'Content-Type' : 'application/json'
+        // if(selected_answer) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Content-Type': 'application/json'
                 }
             })
 
             $.ajax({
-                type : 'POST',
+                type: 'POST',
                 {{--url : '{{ url("/"); }}/update',--}}
-                url : '{{ route('ajax.answer.update') }}',
-                data : JSON.stringify({question_id: question_id,answer:selected_answer,azmoon_id:azmoon_id}),
-                success : function(data) {
-                    alert(data);
+                url: '{{ route('ajax.answer.update') }}',
+                data: JSON.stringify({question_id: question_id, answer: selected_answer, azmoon_id: azmoon_id}),
+                success: function (data) {
+                    // alert(data);
+                    // alert('success');
                     // console.log(data);
                     var len = data.length;
 
@@ -618,7 +635,8 @@
                 }
                 // console.log(data);
             });
-        });*/
+        // }
+        });
     </script>
 
 

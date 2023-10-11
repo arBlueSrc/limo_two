@@ -100,8 +100,8 @@ class UserAzmoonController extends Controller
             return redirect()->back()->with('message', 'زمان شما برای شرکت در این آزمون به پایان رسیده است.');
         }
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
-        $questions = Question::where('parent_azmoon', $azmoon->id)->get();
-//        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
+//        $questions = Question::where('parent_azmoon', $azmoon->id)->get();
+        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
 //        dd($questions);
 //        dd($questions);
         /*if ($azmoon->randomic){
@@ -121,8 +121,9 @@ class UserAzmoonController extends Controller
             }
             dd($questions);
         }*/
+        $login_user=SingleResult::where('phone',auth()->user()->mobile)->first();
         $azmoon_question_count = Question::where('parent_azmoon', $azmoon->id)->count();
-        return view('azmoon.questions', compact('end_user_time','questions', 'azmoon', 'azmoon_question_count', 'time_remain'));
+        return view('azmoon.questions', compact('end_user_time','questions', 'azmoon', 'azmoon_question_count', 'time_remain','login_user'));
     }
 
     public function answerHnadler(Request $request)
@@ -142,7 +143,8 @@ class UserAzmoonController extends Controller
 //        $user_id = auth()->user()->id;
         $user_id=SingleResult::where('phone',auth()->user()->mobile)->first()->id;
 //        dd($user_id);
-        if ( Result::where('user_id',$user_id)->where('azmoon_id',$azmoon->id)->count() || Answer::where('azmoon_id', $request->azmoon_id)->where('user_id', $user_id)->count()) {
+//        if ( Result::where('user_id',$user_id)->where('azmoon_id',$azmoon->id)->count() || Answer::where('azmoon_id', $request->azmoon_id)->where('user_id', $user_id)->count()) {
+        if ( Result::where('user_id',$user_id)->where('azmoon_id',$azmoon->id)->count()  ) {
             //user already did this exam
             return redirect(route('azmoons.index'))->with('message', 'شما قبلا در این آزمون شرکت کرده اید.');
         }
@@ -246,9 +248,31 @@ class UserAzmoonController extends Controller
         $user=SingleResult::where('phone',auth()->user()->mobile)->first();
         $question_id=$request->input('question_id');
         $answer=$request->input('answer');
+
+//        return $answer;
+
         $azmoon_id=$request->input('azmoon_id');
 //        return $azmoon_id;
+//        return $answer;
 
-        $last_answer=Answer::where('user_id',$user->id)->where('azmoon_id',$azmoon_id)->where('question_id',);
+        $last_answer=Answer::where('user_id',$user->id)->where('azmoon_id',$azmoon_id)->where('question_id',$question_id)->first();
+
+        if (!$answer && $last_answer){
+            $last_answer->delete();
+        }
+        elseif($answer) {
+            if ($last_answer) {
+                $last_answer->update([
+                    'user_answer' => $answer
+                ]);
+            } else {
+                Answer::create([
+                    'user_id' => $user->id,
+                    'azmoon_id' => $azmoon_id,
+                    'question_id' => $question_id,
+                    'user_answer' => $answer,
+                ]);
+            }
+        }
     }
 }
