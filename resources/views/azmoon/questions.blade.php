@@ -140,7 +140,7 @@
                             <div class="card" style="border-radius: 10px">
                                 <div class="row">
                                     <div class="col-6">
-                                        <h6 style="margin: 15px; color: black">سوال شماره {{ $loop->index+1 }} )</h6>
+                                        <h6 style="margin: 15px; color: black">سوال شماره {{ $questions->currentPage() }} )</h6>
                                     </div>
                                     <div class="col-6" style="text-align: left">
                                         <div class="row justify-content-end">
