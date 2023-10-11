@@ -235,7 +235,7 @@
 
 
 
-                        {{ $questions->render() }}
+{{--                        {{ $questions->render() }}--}}
                         </div>
 
                     </div>
