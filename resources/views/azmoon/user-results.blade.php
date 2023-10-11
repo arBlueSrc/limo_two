@@ -209,11 +209,10 @@
                         <div class="form-group col-12">
 
                             <div class="row justify-content-end">
-                                <label class="col-lg-10 justify-content-end" for="name" style="padding-bottom: 10px">عنوان آزمون : {{ $result->azmoon->name }}</label>
+                                <label class="col-lg-10 justify-content-end" for="name" style="padding-bottom: 10px">عنوان آزمون : {{ $result->azmoon->name ?? "" }}</label>
 {{--                                <label class="col-lg-2" for="name" style="padding-bottom: 10px"> تعداد کل سوالات :  {{ $result->azmoon()->questionCount() ?? "" }} </label>--}}
                                 <label class="col-lg-2" for="name" style="padding-bottom: 10px"> تعداد کل سوالات :  {{ /*$result->true_answer+$result->wrong_answer+$result->empty_answer*/ $result->azmoon()->first()->questions()->count() }} </label>
                             </div>
-
 
                             {{--@foreach($questions as $question)--}}
                             <div class="card" style="border-radius: 10px">

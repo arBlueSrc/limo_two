@@ -117,7 +117,10 @@
                         <br><br>
                         <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>
                         <br>
-                        @if($deactive_item1 == 0)
+                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"
+                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>
+                        <br>
+                        {{--@if($deactive_item1 == 0)
                             <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
                                class="btn-get-started" style="font-family: Shabnam">فردی</a>
                             <br>
@@ -130,7 +133,7 @@
                         @if($deactive_item3 == 0)
                             <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"
                                class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
-                        @endif
+                        @endif--}}
                     </div>
                 </div>
             </div>

@@ -94,10 +94,11 @@ class UserAzmoonController extends Controller
         if ($now->isAfter($end_user_time)){
             return redirect()->back()->with('message', 'زمان شما برای شرکت در این آزمون به پایان رسیده است.');
         }
-
+//        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
         $questions = Question::where('parent_azmoon', $azmoon->id)->get();
-//        dd($questions);
 
+//        dd($questions);
+//        dd($questions);
         /*if ($azmoon->randomic){
             srand($user->id.$azmoon->id);
             $random_number_range = range(1, $questions->count());
@@ -228,6 +229,7 @@ class UserAzmoonController extends Controller
     {
         $user=SingleResult::where('phone',auth()->user()->mobile)->first();
         $results = Result::where('user_id', $user->id)->get();
+//        dd($results);
 
         $azmoon = 1;
         return view('azmoon.user-results', compact('results', 'azmoon','user'));
