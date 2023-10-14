@@ -27,8 +27,8 @@ class UserAzmoonController extends Controller
         foreach ($azmoons as $azmoon){
             $now = Carbon::now();
 //            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
-//            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
-            if ($now->isAfter($azmoon->end_time)  ) {
+            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+//            if ($now->isAfter($azmoon->end_time)  ) {
                 $azmoons->forget($index);
             }
             $index++;
@@ -46,6 +46,15 @@ class UserAzmoonController extends Controller
 
         $startTime = Carbon::parse($azmoon->start_time);
         $finishTime = Carbon::parse($azmoon->end_time);
+
+
+        $user_logined=SingleResult::where('phone',auth()->user()->mobile)->get();
+        $user_majors=$user_logined->pluck('major');
+
+        if (!$user_majors->contains($azmoon->major_id)){
+            return redirect()->back()->with('message','شما در این آزمون ثبت نام نکرده اید.امکان شرکت در این آزمون برای شما وجود ندارد.');
+        }
+
 
         //check azmoon time
         if ($now->isBefore($azmoon->start_time)) {
