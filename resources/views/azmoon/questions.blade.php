@@ -235,8 +235,10 @@
                             </div>
 
 
-
-                        {{ $questions->links() }}
+                <div class="pagination-container d-flex justify-content-center align-items-center">
+                    <label class="ml-3">لیست سوالات :</label>
+                                        {{ $questions->links() }}
+                </div>
                         </div>
 
                     </div>

@@ -27,7 +27,6 @@ class UserAzmoonController extends Controller
         foreach ($azmoons as $azmoon){
             $now = Carbon::now();
 //            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
-
 //            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
             if ($now->isAfter($azmoon->end_time)  ) {
                 $azmoons->forget($index);
@@ -101,7 +100,9 @@ class UserAzmoonController extends Controller
         }
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get();
+
         $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
+
 //        dd($questions);
 //        dd($questions);
         /*if ($azmoon->randomic){

@@ -36,5 +36,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is_participant',function (User $user){
             return $user->role == 0;
         });
+        /*Gate::define('can_participate_azmoon',function (User $user){
+
+        });*/
     }
 }
