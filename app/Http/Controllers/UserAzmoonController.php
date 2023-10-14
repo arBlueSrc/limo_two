@@ -37,6 +37,7 @@ class UserAzmoonController extends Controller
     }
     public function questions(Azmoon $azmoon)
     {
+        return redirect()->back()->with("message",'در حال حاظر امکان شرکت در آزمون وجود ندارد');
         $request=request();
 //        dd($request->get('page'));
 

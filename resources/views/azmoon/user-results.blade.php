@@ -238,7 +238,7 @@
 
                                     @endphp
 {{--                                    <p style="margin-right: 25px; margin-left: 25px">نمره:  %{{ $result->percent }}  </p>--}}
-                                    <p style="margin-right: 25px; margin-left: 25px"> نمره از بیست:<span class="badge badge-secondary"> {{ $score_of_20 }} </span> </p>
+                                    <p style="margin-right: 25px; margin-left: 25px"> نمره سوالات تستی از بیست:<span class="badge badge-secondary"> {{ $score_of_20 }} </span> </p>
                                     <p style="margin-right: 25px; margin-left: 25px">تعداد سوالات تستی درست: {{ $result->true_answer }}</p>
                                     <p style="margin-right: 25px; margin-left: 25px">تعداد سوالات تستی غلط: {{ $result->wrong_answer }}</p>
                                     <p style="margin-right: 25px; margin-left: 25px">تعداد سوالات تستی بدون پاسخ: {{ $result->empty_answer }}</p>
@@ -247,7 +247,7 @@
 
                                         <p style="margin-right: 25px; margin-left: 25px"><span class="badge badge-info" style="font-size: initial;
      font-weight: initial;">
-                                                نمره نهایی: {{ $score_of_20 }}
+                                                نمره نهایی: {{ "نامشخص" }}
                                         </span></p>
 
                                     <div class="row col-12" style="margin-right: 10px; margin-left: 50px;">
@@ -268,6 +268,10 @@
 
                     </div>
 
+            </div>
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ "نمره نهایی شما پس از تصحیح سوالات تشریحی محاسبه می گردد." }}
             </div>
 
 
