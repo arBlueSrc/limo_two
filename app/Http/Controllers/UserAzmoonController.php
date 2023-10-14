@@ -26,8 +26,8 @@ class UserAzmoonController extends Controller
         $index = 0;
         foreach ($azmoons as $azmoon){
             $now = Carbon::now();
-//            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
-            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+            if ($now->isBefore($azmoon->start_time) || $now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
+//            if ($now->isAfter($azmoon->end_time) || !$user_majors->contains($azmoon->major_id)) {
 //            if ($now->isAfter($azmoon->end_time)  ) {
                 $azmoons->forget($index);
             }
