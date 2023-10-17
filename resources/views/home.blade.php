@@ -28,8 +28,8 @@
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('landing_assets/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('landing_assets/assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('landing_assets/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('landing_assets/assets/vendor/aos/aos.css') }}" rel="stylesheet">--}}
+{{--    <link href="{{ asset('landing_assets/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('landing_assets/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
@@ -71,7 +71,7 @@
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center" dir="rtl">
 
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
 
         <a href="#" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
@@ -79,20 +79,20 @@
             <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
         </a>
 
-    </div>
+
 
 </header><!-- End Header -->
-
+<div class="container-fluid container-xl d-flex align-items-center justify-content-center mt-3">
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="hero">
 
     <div class="info d-flex align-items-center">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-8 text-center" dir="rtl">
-                    <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
-                    <br>
-                    <br><br>
+                <div class="col text-center" dir="rtl">
+                    <div class="mb-3">
+                        <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
+                    </div>
+
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     {{--<div class="alert alert-warning alert-dismissible " style="text-align: right !important;">
                         <h5><i class="icon fa fa-warning"></i> توجه!</h5>
@@ -179,7 +179,7 @@
                 <!-- /.card-body -->
             </div>
 
-            <div class="alert alert-warning alert-dismissible mt-3" style="text-align: right !important; direction: rtl">
+            <div class="alert alert-warning mt-3" style="text-align: right !important; direction: rtl">
                 <h5><i class="icon fa fa-warning"></i> توجه !</h5>
                 <ul>
                     <li>زمان آزمون مطابق با جدول بالا می باشد و در رشته های مختلف متفاوت است.</li>
@@ -200,8 +200,8 @@
         <div class="carousel-item active" style="background: black"></div>
     </div>
 
-</section><!-- End Hero Section -->
-
+<!-- End Hero Section -->
+</div>
 
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -209,7 +209,7 @@
 
 <!-- Vendor JS Files -->
 <script src="{{ asset('landing_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('landing_assets/assets/vendor/aos/aos.js') }}"></script>
+{{--<script src="{{ asset('landing_assets/assets/vendor/aos/aos.js') }}"></script>--}}
 <script src="{{ asset('landing_assets/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ asset('landing_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('landing_assets/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
