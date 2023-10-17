@@ -78,7 +78,8 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth', 'can:is_participant'])->group(function () {
 
         Route::get('/participate', [\App\Http\Controllers\ParticipateController::class, 'index'])->name('participate');
-        Route::get('/printLoh/{name}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
+        Route::get('/printLoh/{id}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
+//        Route::post('/printLoh/{id}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
 
     });
 

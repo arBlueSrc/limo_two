@@ -157,6 +157,7 @@
                                         @endforeach
 
                                     </li>
+
                                     <li class="list-group-item">
                                         <a class="float-right"><b>گروهی : </b>{{ $family_count }}</a>
                                         @foreach($family_forms as $item)
@@ -164,6 +165,7 @@
                                             <span class="badge badge-success">{{ $item->name }}</span>
                                         @endforeach
                                     </li>
+
                                     <li class="list-group-item">
                                         <a class="float-right"><b>خانوادگی : </b>{{ $group_count }}</a>
                                         @foreach($group_forms as $item)
@@ -174,6 +176,7 @@
                                             <span class="badge badge-primary">فرد سوم: {{ $item->third_name }}</span>
                                         @endforeach
                                     </li>
+
                                 </ul>
 
 
@@ -288,10 +291,17 @@
 
                                         <div class="tab-pane" id="settings">
 
+                                        @foreach($single_results as $single_result)
+                                            <div class="mt-2" style="font-weight: bold !important;">
+                                                <a href="{{ route('printLoh',['id' => $single_result->id ]) }}"
+                                                   class="btn btn-primary btn-sm text-white col-4" style=" font-weight: bold">پرینت تقدیرنامه</a>
+                                            </div>
+                                            {{--<a href="{{ route('printLoh',['name' => $single_result ]) }}"
+                                               class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>
 
-                                            {{--<a href="{{ route('printLoh',['name' => $name ]) }}"
-                                               class="btn btn-primary btn-sm text-white col-12" style="font-family: Shabnam">پرینت تقدیرنامه</a>
-
+                                            <a href="{{ route('printLoh',['name' => $name ]) }}"
+                                               class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>--}}
+                                        @endforeach
                                             <br>
 
                                             <div class="msg_hide"> برای مشاهده لوح سپاس باید از طریق کامپیوتر وارد شوید </div>
@@ -301,7 +311,7 @@
                                                 <div class="bg"> <img src="{{ asset("images/loh.jpg") }}"> </div>
                                                 <div class="name"> {{ $name }} </div>
 
-                                            </form>--}}
+                                            </form>
                                             <div class="alert alert-info alert-dismissible">
 {{--                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
                                                 <h5><i class="icon fa fa-info"></i> توجه!</h5>

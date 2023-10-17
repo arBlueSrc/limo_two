@@ -14,7 +14,6 @@ class ParticipateController extends Controller
 {
     public function index()
     {
-
         $single_forms = SingleResult::where('user_id', auth()->user()->id)->get();
         $family_forms = FamilyResult::where('user_id', auth()->user()->id)->get();
         $group_forms = GroupResult::where('user_id', auth()->user()->id)->get();
@@ -40,13 +39,17 @@ class ParticipateController extends Controller
             $name = GroupResult::where('user_id', auth()->user()->id)->first()->name_group;
         }
 
+        $single_results=SingleResult::where('phone',auth()->user()->mobile)->get();
+
         return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name',
-        'single_forms', 'family_forms', 'group_forms'));
-
+        'single_forms', 'family_forms', 'group_forms','single_results'));
     }
-
-    public function printLoh($name)
+    public function printLoh(SingleResult $singleResult)
     {
-        return view('participate.loh', compact('name'));
+        dd($singleResult);
+//        $user=auth()->user()->mobile;
+//        single_results=SingleResult::where('mobile',)
+        return view('participate.loh', compact('name','singleResult'));
+
     }
 }
