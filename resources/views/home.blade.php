@@ -53,7 +53,7 @@
     @font-face {
         font-family: Shabnam;
         font-weight: bold;
-        src: url('landing_assets/fonts/Shabnam.ttf');
+        src: url('landing_assets/fonts/ShabnamBold.ttf');
     }
 
     .h1, h2, h3, h4, h5, div {
@@ -101,7 +101,6 @@
 
 
 
-
 {{--                    <p data-aos="fade-up">ثبت نام فقط برای شهر تهران بزرگ امکان پذیر است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
 {{--                    <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
                     {{--<a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
@@ -110,43 +109,87 @@
                        class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
                        class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
-
                 </div>
-
-
             </div>
 
 
-
-
-            {{--<div class="card table-azmoon mt-3">
+            <div class="card table-azmoon mt-3">
                 <div class="card-header">
                     <h3 class="card-title">زمان برگزاری آزمون ها</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    <table class="table table-condensed">
+                    <table class="table table-condensed mb-0">
                         <tbody><tr>
                             <th style="width: 10px">#</th>
-                            <th>فعالیت</th>
-                            <th>پیشرفت</th>
-                            <th style="width: 40px">درصد</th>
+                            <th>عنوان</th>
+                            <th>تاریخ</th>
+                            <th style="width: 40px">ساعت برگزاری</th>
                         </tr>
                         <tr>
-                            <td>۱.</td>
-                            <td>آپدیت نرم افزار</td>
+                            <td>1.</td>
+                            <td>مفاهيم سوره اعلی  زیر 16 سال</td>
                             <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                </div>
+                                سه شنبه ۲ آبان‌
                             </td>
-                            <td><span class="badge bg-danger">۵۵%</span></td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>مفاهیم سوره مؤمنون بالای 16 سال</td>
+                            <td>
+                                سه شنبه ۲ آبان‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰  تا ۲۲:۰۰</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>حفظ و ترجمه 40 حدیث بالای 16 سال</td>
+                            <td>
+                                چهارشنبه ۳ آبان‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>کتاب صراط  بالای 16 سال</td>
+                            <td>
+                                چهارشنبه ۳ آبان‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰ تا ۲۲:۰۰</span></td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>مفاهیم نامه 53 نهج البلاغه بالای 16 سال</td>
+                            <td>
+                                پنجشنبه ۴ آبان‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>مفاهیم  دعای 20 صحیفه سجادیه</td>
+                            <td>
+                                پنجشنبه ۴ آبان‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰ تا ۲۲:۰۰</span></td>
                         </tr>
                         </tbody></table>
                 </div>
                 <!-- /.card-body -->
-            </div>--}}
+            </div>
 
+            <div class="alert alert-warning alert-dismissible mt-3" style="text-align: right !important; direction: rtl">
+                <h5><i class="icon fa fa-warning"></i> توجه !</h5>
+                <ul>
+                    <li>زمان آزمون مطابق با جدول بالا می باشد و در رشته های مختلف متفاوت است.</li>
+                    <li>پس از ورود کردن شماره تماسی که با آن ثبت‌نام کرده اید به صفحه شخصی خود وارد شده و وارد آزمون خود شوید.</li>
+                    <li>زمان آزمون محدود است و فقط در ساعات تعیین شده میتوانید وارد شوید و به سوالات پاسخ دهید.</li>
+                    <li>مهلت پاسخگویی به تمام سوالات فقط پانزده دقیقه می باشد.</li>
+                    <li>تعداد سوالات ۲۰ سوال تستی و دو سوال تشریحی می باشد.</li>
+                    <li>آزمون دارای نمره منفی (یک سوم نمره منفی) می باشد.</li>
+                </ul>
+            </div>
 
 
 
@@ -185,7 +228,6 @@
 
         let userAgent = navigator.userAgent;
         let browserName;
-
 
         if (userAgent.match(/chrome|chromium|crios/i)) {
             window.tabs.create({
