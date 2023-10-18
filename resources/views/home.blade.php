@@ -11,7 +11,7 @@
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
-    {{--    {{ asset('landing_assets/') }}--}}
+{{--        {{ asset('landing_assets/') }}--}}
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +28,8 @@
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('landing_assets/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('landing_assets/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-{{--    <link href="{{ asset('landing_assets/assets/vendor/aos/aos.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('landing_assets/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('landing_assets/assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing_assets/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('landing_assets/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
@@ -103,12 +103,15 @@
 
 {{--                    <p data-aos="fade-up">ثبت نام فقط برای شهر تهران بزرگ امکان پذیر است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
 {{--                    <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
-                    {{--<a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started"
-                       style="font-family: Shabnam;">ورود</a>--}}
+
+                    <div class="py-5">
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded"
+                       style="font-family: Shabnam;">ورود</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
-                       class="btn-get-started" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                       class="btn-get-started btn btn-outline-success btn-lg" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
-                       class="btn-get-started" style="font-family: Shabnam">ارتباط با ما</a>
+                       class="btn-get-started btn btn-outline-success btn-lg" style="font-family: Shabnam">ارتباط با ما</a>
+                    </div>
                 </div>
             </div>
 
@@ -209,7 +212,7 @@
 
 <!-- Vendor JS Files -->
 <script src="{{ asset('landing_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-{{--<script src="{{ asset('landing_assets/assets/vendor/aos/aos.js') }}"></script>--}}
+<script src="{{ asset('landing_assets/assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('landing_assets/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ asset('landing_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('landing_assets/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>

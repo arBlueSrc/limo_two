@@ -217,12 +217,12 @@
                                                     <img class="img-circle img-bordered-sm"
                                                          src="{{ asset('images/logo.png') }}" alt="user image">
                                                     <span class="username">
-                          <a href="#">
-                              @if($msg->sender_id == null)
-                                  دارلقران بسیج
-                              @endif
-                          </a>
-                        </span>
+                                                  <a href="#">
+                                                      @if($msg->sender_id == null)
+                                                          دارلقران بسیج
+                                                      @endif
+                                                  </a>
+                                                    </span>
                                                     <span
                                                         class="description">ارسال شده در {{ jdate($msg->created_at)->format(' Y/m/d ') }}</span>
                                                 </div>
@@ -231,15 +231,15 @@
                                                     {{ $msg->message }}
                                                 </p>
 
-                                                <p>
+                                               {{-- <p>--}}
                                                     <a href="https://eitaa.com/quran_120" class="link-black text-sm mr-2"><i
                                                             class="fa fa-share mr-1"></i> پیام به پشتیبانی در ایتا </a>
-
                                             </div>
                                             <!-- /.post -->
-
                                         </div>
                                         <!-- /.tab-pane -->
+                                    @endforeach
+
 
                                         <div class="tab-pane" id="timeline">
                                             <!-- The timeline -->
@@ -293,8 +293,14 @@
 
                                         @foreach($single_results as $single_result)
                                             <div class="mt-2" style="font-weight: bold !important;">
-                                                <a href="{{ route('printLoh',['id' => $single_result->id ]) }}"
-                                                   class="btn btn-primary btn-sm text-white col-4" style=" font-weight: bold">پرینت تقدیرنامه</a>
+                                                <form action="{{ route('printLoh') }}" id="loh-print" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="name" value="{{$single_result->name}}">
+                                                    <input type="hidden" name="identifier" value="{{$single_result->id}}">
+                                                    <button type="submit" class="btn btn-primary btn-sm text-white col-4">چاپ تقدیرنامه {{ $single_result->name }}</button>
+                                                {{--<a href="{{ route('printLoh',['single_result' => $single_result->id ]) }}"
+                                                   class="btn btn-primary btn-sm text-white col-4" style=" font-weight: bold"> چاپ تقدیرنامه {{ $single_result->name }}</a>--}}
+                                                </form>
                                             </div>
                                             {{--<a href="{{ route('printLoh',['name' => $single_result ]) }}"
                                                class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>
@@ -326,7 +332,7 @@
 
                                     </div>
 
-                                @endforeach
+{{--                                @endforeach--}}
 
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->

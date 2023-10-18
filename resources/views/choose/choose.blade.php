@@ -115,7 +115,7 @@
                         <br>
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="20%">
                         <br><br>
-                        <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>
+{{--                        <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>--}}
                         <br>
 {{--                        @if(auth()->user()->isSuperAdmin())--}}
                         {{--<a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"

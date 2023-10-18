@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <style>
     @media print {
         body {
@@ -42,8 +41,18 @@
     .main .name {
         font-family: 'Shekasteh_beta';
         position: absolute;
-        top: 11.85cm;
-        right: 6.7cm;
+        top: 12.85cm;
+        right: 5.9cm;
+        text-align: right;
+        direction: rtl;
+        font-size: 33px;
+        width: 15cm;
+        color: #000;
+    }
+    .main .identifier{
+        position: absolute;
+        top: 9.15cm;
+        right: 9.8cm;
         text-align: right;
         direction: rtl;
         font-size: 33px;
@@ -78,16 +87,14 @@
     <link rel="stylesheet" href="{{ asset('dist/css/bootstrap-rtl.min.css') }}">
     <style></style>
 </head>
-<body onload="window.print()">
+{{--<body onload="window.print()">--}}
 <div class="over"></div>
 <div class="msg_hide"> برای مشاهده لوح سپاس باید از طریق دسکتاپ وارد شوید</div>
 <form class="main">
-
-    <div class="bg"><img src="{{ asset("images/loh.jpg") }}"></div>
+    <div class="bg"><img src="{{ asset("images/loh2.png") }}"></div>
+    <div class="identifier"> {{ $identifier }} </div>
     <div class="name"> {{ $name }} </div>
-
 </form>
-
-<script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
+{{--<script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
 </body>
 </html>

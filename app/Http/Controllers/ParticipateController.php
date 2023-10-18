@@ -44,12 +44,14 @@ class ParticipateController extends Controller
         return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name',
         'single_forms', 'family_forms', 'group_forms','single_results'));
     }
-    public function printLoh(SingleResult $singleResult)
+    public function printLoh(Request $request)
     {
-        dd($singleResult);
+        $name=$request->name;
+        $identifier=$request->identifier;
+//        $single_result=$request->single_result;
+//        dd($request->single_result);
 //        $user=auth()->user()->mobile;
 //        single_results=SingleResult::where('mobile',)
-        return view('participate.loh', compact('name','singleResult'));
-
+        return view('participate.loh', compact('name','identifier'));
     }
 }
