@@ -105,12 +105,12 @@
 {{--                    <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
 
                     <div class="py-5">
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded"
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded mx-2"
                        style="font-family: Shabnam;">ورود</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
-                       class="btn-get-started btn btn-outline-success btn-lg" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                       class="btn-get-started btn btn-outline-success btn-lg mx-2" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
-                       class="btn-get-started btn btn-outline-success btn-lg" style="font-family: Shabnam">ارتباط با ما</a>
+                       class="btn-get-started btn btn-outline-success btn-lg mx-2" style="font-family: Shabnam">ارتباط با ما</a>
                     </div>
                 </div>
             </div>
