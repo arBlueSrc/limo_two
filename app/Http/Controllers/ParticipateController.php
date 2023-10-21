@@ -48,6 +48,7 @@ class ParticipateController extends Controller
     {
         $name=$request->name;
         $identifier=$request->identifier;
+        $identifier=convertToPersianNumber($identifier);
 //        $single_result=$request->single_result;
 //        dd($request->single_result);
 //        $user=auth()->user()->mobile;

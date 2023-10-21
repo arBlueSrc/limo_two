@@ -92,7 +92,6 @@
                     <div class="mb-3">
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
                     </div>
-
                     <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     {{--<div class="alert alert-warning alert-dismissible " style="text-align: right !important;">
                         <h5><i class="icon fa fa-warning"></i> توجه!</h5>
