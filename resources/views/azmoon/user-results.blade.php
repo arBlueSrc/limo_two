@@ -230,7 +230,7 @@
                                          </div>--}}
                                     </div>
                                     @php
-                                        $score_of_20= ($result->true_answer - $result->wrong_answer * .25);
+                                        $score_of_20= ($result->true_answer - $result->wrong_answer * .33);
                                         if ($score_of_20 < 0){
                                             $score_of_20=0;
                                         }

@@ -11,6 +11,7 @@ use App\Models\SingleResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use stdClass;
 
 class UserAzmoonController extends Controller
@@ -37,7 +38,7 @@ class UserAzmoonController extends Controller
     }
     public function questions(Azmoon $azmoon)
     {
-        return redirect()->back()->with("message",'در حال حاظر امکان شرکت در آزمون وجود ندارد');
+//        return redirect()->back()->with("message",'در حال حاظر امکان شرکت در آزمون وجود ندارد');
         $request=request();
 //        dd($request->get('page'));
 
@@ -49,8 +50,15 @@ class UserAzmoonController extends Controller
         $finishTime = Carbon::parse($azmoon->end_time);
 
 
-        $user_logined=SingleResult::where('phone',auth()->user()->mobile)->get();
-        $user_majors=$user_logined->pluck('major');
+//        $login_user=SingleResult::where('phone',auth()->user()->mobile)->get();
+        $login_user=SingleResult::where('phone',auth()->user()->mobile)->get();
+        $user=$login_user->first();
+//        $user=SingleResult::where('phone',auth()->user()->mobile)->first();
+//        $login_user=$user;
+//        dd($user);
+//        $user_logined=$user;
+        $user_majors=$login_user->pluck('major');
+//        dd($user_majors);
 
         if (!$user_majors->contains($azmoon->major_id)){
             return redirect()->back()->with('message','شما در این آزمون ثبت نام نکرده اید.امکان شرکت در این آزمون برای شما وجود ندارد.');
@@ -68,8 +76,8 @@ class UserAzmoonController extends Controller
 
         //check user do exam
 
-        $user = auth()->user();
-        $user=SingleResult::where('phone',auth()->user()->mobile)->first();
+//        $user = auth()->user();
+//        $user=SingleResult::where('phone',auth()->user()->mobile)->first();
 
             if (Result::where('user_id',$user->id)->where('azmoon_id',$azmoon->id)->count()) {
                 return redirect()->back()->with('message', 'شما قبلا در این آزمون شرکت کرده اید.');
@@ -80,8 +88,6 @@ class UserAzmoonController extends Controller
                     return redirect()->back()->with('message', 'شما قبلا در این آزمون شرکت کرده اید.');
                 }*/
             }
-
-
         //check user start time
         $now = Carbon::now();
         $log_azmoon = LogAzmoon::where('azmoon_id',$azmoon->id)->where('user_id',$user->id)->first();
@@ -111,10 +117,13 @@ class UserAzmoonController extends Controller
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get()->shuffle($user->id)->pluck('id');
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get();
 
-        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
+//        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
 
-//        dd($questions);
-//        dd($questions);
+        $questions = Cache::remember('questions',3600,function () use ($azmoon){
+           return Question::where('parent_azmoon',$azmoon->id)->get();
+        });
+        $questions=$questions->paginate(1);
+
         /*if ($azmoon->randomic){
             srand($user->id.$azmoon->id);
             $random_number_range = range(1, $questions->count());
@@ -132,9 +141,9 @@ class UserAzmoonController extends Controller
             }
             dd($questions);
         }*/
-        $login_user=SingleResult::where('phone',auth()->user()->mobile)->first();
+//        $login_user=$user;
         $azmoon_question_count = Question::where('parent_azmoon', $azmoon->id)->count();
-        return view('azmoon.questions', compact('end_user_time','questions', 'azmoon', 'azmoon_question_count', 'time_remain','login_user'));
+        return view('azmoon.questions', compact('end_user_time','questions', 'azmoon', 'azmoon_question_count', 'time_remain','user'));
     }
 
     public function answerHnadler(Request $request)

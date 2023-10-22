@@ -158,7 +158,7 @@
                                                 <div class="input-group">
                                                     <input type="hidden" name="question_id[]" id="current_question_id" value="{{ $question->id }}">
                                                     @php
-                                                        $user_last_answer=\App\Models\Answer::where('user_id',$login_user->id)->where('azmoon_id',$azmoon->id)->where('question_id',$question->id)->first()
+                                                        $user_last_answer=\App\Models\Answer::where('user_id',$user->id)->where('azmoon_id',$azmoon->id)->where('question_id',$question->id)->first()
                                                     @endphp
                                                 @if($question->type == 0)
 

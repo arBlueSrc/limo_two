@@ -27,3 +27,4 @@ function convertToPersianNumber($str){
     return $convertedStr;
 }
 
+

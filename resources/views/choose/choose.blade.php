@@ -117,11 +117,11 @@
                         <br><br>
 {{--                        <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>--}}
                         <br>
-{{--                        @if(auth()->user()->isSuperAdmin())--}}
-                        {{--<a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"
-                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>--}}
+                        @if(auth()->user()->isSuperAdmin())
+                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"
+                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>
                         <br>
-{{--                        @endif--}}
+                        @endif
                         {{--@if($deactive_item1 == 0)
                             <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
                                class="btn-get-started" style="font-family: Shabnam">فردی</a>
