@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use App\MyClasses\SmsIR_VerificationCode;
 use App\Providers\RouteServiceProvider;
+use BadFunctionCallException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -99,7 +101,13 @@ class AuthenticatedSessionController extends Controller
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);*/
+
+
+
                 $user = User::where('mobile', session('register_data')['mobile'])->first();
+//                dd($user->mobile);
+
+
             if (!$user){
                 $user=User::create([
                     'mobile'=>session('register_data')['mobile']
@@ -107,9 +115,36 @@ class AuthenticatedSessionController extends Controller
             }
 //            dd($otp_code);
 //            echo $otp_code;
-                $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
+//                $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
 //dd('aaa');
+
+
+            //send sms sms.ir
+            try {
+                date_default_timezone_set("Asia/Tehran");
+                // your sms.ir panel configuration
+                $APIKey = "755fc457df1274c68b61c457";
+                $SecretKey = "lms.N@sra";
+
+                // your code
+                $Code = $otp_code;
+
+                // your mobile number
+                $MobileNumber = $user->mobile;
+
+                $sms_handler = new SmsIR_VerificationCode();
+
+                $sms_handler->constructor($APIKey, $SecretKey);
+                $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+
+            } catch (BadFunctionCallException  $e) {
+                echo 'Error VerificationCode : ' . $e->getMessage();
+            }
+
+//            dd('send by');
         }
+
+
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');
         if ($now->isAfter($otp_expire_time)) {
@@ -172,13 +207,36 @@ class AuthenticatedSessionController extends Controller
             $contents = file_get_contents($getUrl, false);*/
 
 //            dd($otp_code);
+
             $user=User::where('mobile',session('register_data')['mobile'])->first();
             if (!$user){
                 $user=User::create([
                     'mobile'=>session('register_data')['mobile']
                 ]);
             }
-            $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
+            //send sms sms.ir
+            try {
+                date_default_timezone_set("Asia/Tehran");
+                // your sms.ir panel configuration
+                $APIKey = "755fc457df1274c68b61c457";
+                $SecretKey = "lms.N@sra";
+
+                // your code
+                $Code = $otp_code;
+                // your mobile number
+                $MobileNumber = $user->mobile;
+
+                $sms_handler = new SmsIR_VerificationCode();
+                $sms_handler->constructor($APIKey, $SecretKey);
+                $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+
+            } catch (BadFunctionCallException  $e) {
+                echo 'Error VerificationCode : ' . $e->getMessage();
+            }
+
+//dd('send by');
+//            $response=$user->notify(new \App\Notifications\SendCodeNotification($otp_code));
+
             return back()->with('message', 'کد با موفقیت برای شما ارسال شد');
         }
 //        $user=User::where('mobile','09380969944')->first();

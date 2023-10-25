@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFormController;
 use App\Models\User;
+use App\MyClasses\SmsIR_VerificationCode;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -148,12 +149,34 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
-
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
 Route::post('update-question-answers',[\App\Http\Controllers\UserAzmoonController::class,'ajaxAnswerUpdate'])->name('ajax.answer.update');
+
+
+
+Route::get('test2',function (){
+
+    try {
+        date_default_timezone_set("Asia/Tehran");
+        // your sms.ir panel configuration
+        $APIKey = "755fc457df1274c68b61c457";
+        $SecretKey = "lms.N@sra";
+
+        // your code
+        $Code = "111111";
+
+        // your mobile number
+        $MobileNumber = '09380969944';
+
+        $sms_handler = new SmsIR_VerificationCode();
+
+        $sms_handler->constructor($APIKey, $SecretKey);
+        $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+    } catch (BadFunctionCallException  $e) {
+        echo 'Error VerificationCode : ' . $e->getMessage();
+    }
+});
 
 /*Route::get('/aaa', function (){
     $user=auth()->user();
@@ -168,8 +191,6 @@ for ($i=1;i<100;i++){
     sleep(1);
 }
 });*/
-
-
 require __DIR__ . '/auth.php';
 
 
