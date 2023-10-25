@@ -118,10 +118,22 @@ class UserAzmoonController extends Controller
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->get();
 
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
+//        dd(Cache::get('questions')->first()->parent_azmoon);
+        if($azmoon->id == Cache::get('questions')->first()->parent_azmoon){
+            $questions=Cache::get('questions');
+        }
+        else{
+            // delete old cache and save new cache
+            Cache::forget('questions');
+            $questions = Cache::remember('questions',3600,function () use ($azmoon){
+                return Question::where('parent_azmoon',$azmoon->id)->get();
+            });
+        }
 
-        $questions = Cache::remember('questions',3600,function () use ($azmoon){
+        /*$questions = Cache::remember('questions',3600,function () use ($azmoon){
            return Question::where('parent_azmoon',$azmoon->id)->get();
-        });
+        });*/
+
         $questions=$questions->paginate(1);
 
         /*if ($azmoon->randomic){
