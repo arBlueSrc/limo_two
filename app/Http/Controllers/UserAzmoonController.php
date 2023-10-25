@@ -119,7 +119,7 @@ class UserAzmoonController extends Controller
 
 //        $questions = Question::where('parent_azmoon', $azmoon->id)->paginate(1);
 //        dd(Cache::get('questions')->first()->parent_azmoon);
-        if( Cache::has('questions') && $azmoon->id == Cache::get('questions')->first()  ){
+        if( Cache::has('questions') && $azmoon->id == Cache::get('questions')->first()->parent_azmoon  ){
             $questions=Cache::get('questions');
         }
         else{
