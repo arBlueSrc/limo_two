@@ -138,8 +138,6 @@ Route::middleware('auth')->group(function () {
 //    Route::get('/showFormEdit', [UserFormController::class, 'showFormEdit'])->name('showFormEdit');
 
 });
-
-
 Route::middleware('auth')->group(function () {
     Route::get('azmoons', [\App\Http\Controllers\UserAzmoonController::class, 'index'])->name('azmoons.index');
     Route::get('azmoons/questions/{azmoon}', [\App\Http\Controllers\UserAzmoonController::class, 'questions'])->name('azmoon.questions');
@@ -147,7 +145,6 @@ Route::middleware('auth')->group(function () {
     Route::get('azmoon/result/{azmoon_id}',[\App\Http\Controllers\UserAzmoonController::class,'userResult'])->name('user.azmoon.result');
     Route::get('azmoons/result',[\App\Http\Controllers\UserAzmoonController::class,'userResults'])->name('user.results');
 });
-
 
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
