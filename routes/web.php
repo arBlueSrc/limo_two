@@ -152,7 +152,7 @@ Route::post('update-question-answers',[\App\Http\Controllers\UserAzmoonControlle
 
 
 
-Route::get('test2',function (){
+/*Route::get('test2',function (){
 
     try {
         date_default_timezone_set("Asia/Tehran");
@@ -173,7 +173,7 @@ Route::get('test2',function (){
     } catch (BadFunctionCallException  $e) {
         echo 'Error VerificationCode : ' . $e->getMessage();
     }
-});
+});*/
 
 /*Route::get('/aaa', function (){
     $user=auth()->user();
