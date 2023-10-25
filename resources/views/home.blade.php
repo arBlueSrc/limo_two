@@ -128,24 +128,9 @@
                             <th>تاریخ</th>
                             <th style="width: 40px">ساعت برگزاری</th>
                         </tr>
+
                         <tr>
                             <td>1.</td>
-                            <td>مفاهيم سوره اعلی  زیر 16 سال</td>
-                            <td>
-                                سه شنبه ۲ آبان‌
-                            </td>
-                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>مفاهیم سوره مؤمنون بالای 16 سال</td>
-                            <td>
-                                سه شنبه ۲ آبان‌
-                            </td>
-                            <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰  تا ۲۲:۰۰</span></td>
-                        </tr>
-                        <tr>
-                            <td>3.</td>
                             <td>حفظ و ترجمه 40 حدیث بالای 16 سال</td>
                             <td>
                                 چهارشنبه ۳ آبان‌
@@ -153,7 +138,7 @@
                             <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
                         </tr>
                         <tr>
-                            <td>4.</td>
+                            <td>2.</td>
                             <td>کتاب صراط  بالای 16 سال</td>
                             <td>
                                 چهارشنبه ۳ آبان‌
@@ -161,7 +146,7 @@
                             <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰ تا ۲۲:۰۰</span></td>
                         </tr>
                         <tr>
-                            <td>5.</td>
+                            <td>3.</td>
                             <td>مفاهیم نامه 53 نهج البلاغه بالای 16 سال</td>
                             <td>
                                 پنجشنبه ۴ آبان‌
@@ -169,12 +154,28 @@
                             <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۱۸:۰۰ تا ۱۹:۰۰</span></td>
                         </tr>
                         <tr>
-                            <td>6.</td>
+                            <td>4.</td>
                             <td>مفاهیم  دعای 20 صحیفه سجادیه</td>
                             <td>
                                 پنجشنبه ۴ آبان‌
                             </td>
                             <td><span class="badge bg-success" style="font-size: .8rem">ساعت ۲۱:۰۰ تا ۲۲:۰۰</span></td>
+                        </tr>
+                         <tr>
+                            <td>5.</td>
+                            <td>مفاهيم سوره اعلی  زیر 16 سال</td>
+                            <td>
+                                اعلام میگردد
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">اعلام میگردد‌</span></td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>مفاهیم سوره مؤمنون بالای 16 سال</td>
+                            <td>
+                                اعلام میگردد‌
+                            </td>
+                            <td><span class="badge bg-success" style="font-size: .8rem">اعلام میگردد‌</span></td>
                         </tr>
                         </tbody></table>
                 </div>
