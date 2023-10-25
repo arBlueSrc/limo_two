@@ -140,10 +140,8 @@ class AuthenticatedSessionController extends Controller
             } catch (BadFunctionCallException  $e) {
                 echo 'Error VerificationCode : ' . $e->getMessage();
             }
-
 //            dd('send by');
         }
-
 
         $now = Carbon::now();
         $otp_expire_time = session('otp.otp_expired_at');

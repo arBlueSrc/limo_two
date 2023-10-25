@@ -38,7 +38,6 @@ class UserFormController extends Controller
             Auth::logout();
             return view('form.registerBefore');
         }
-
     }
 
     public function showFormEdit()

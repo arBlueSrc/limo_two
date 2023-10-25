@@ -9,17 +9,13 @@ class SmsIR_VerificationCode
 	protected function getAPIVerificationCodeUrl() {
 		return "http://RestfulSms.com/api/VerificationCode";
 	}
-
 	protected function getApiTokenUrl(){
 		return "http://RestfulSms.com/api/Token";
 	}
-
-
     public function __construct()
     {
         // parent::__construct();
     }
-
 	public function constructor($APIKey,$SecretKey){
 		$this->APIKey = $APIKey;
 		$this->SecretKey = $SecretKey;
