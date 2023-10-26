@@ -392,7 +392,6 @@
                         </div>
 
                     </div>--}}
-<hr>
                         <button class="btn btn-warning w-100 mt-5" type="submit">اتمام آزمون</button>
                 </form>
 
