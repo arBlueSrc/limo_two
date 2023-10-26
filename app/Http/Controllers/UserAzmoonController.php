@@ -160,6 +160,7 @@ class UserAzmoonController extends Controller
 
     public function answerHnadler(Request $request)
     {
+
         $now = Carbon::now();
         $now2 = $now->subMinutes(2);
         $azmoon = Azmoon::find($request->azmoon_id);
@@ -276,6 +277,11 @@ class UserAzmoonController extends Controller
 
     public function ajaxAnswerUpdate(Request $request)
     {
+
+        /*return response()->json([
+            "a"=>"b"
+        ]);*/
+//        return 'hey';
 //        return $request->input('question_id')."/".$request->input('answer');
         $user=SingleResult::where('phone',auth()->user()->mobile)->first();
         $question_id=$request->input('question_id');
@@ -290,6 +296,7 @@ class UserAzmoonController extends Controller
         $last_answer=Answer::where('user_id',$user->id)->where('azmoon_id',$azmoon_id)->where('question_id',$question_id)->first();
 
         if (!$answer && $last_answer){
+//            dd('hhh');
             $last_answer->delete();
         }
         elseif($answer) {
@@ -306,5 +313,6 @@ class UserAzmoonController extends Controller
                 ]);
             }
         }
+        return response()->json(['response' => 'This is post method']);
     }
 }

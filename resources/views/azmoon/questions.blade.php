@@ -1,4 +1,6 @@
-<html lang="en" class="hydrated" style="height: auto;"><head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<html lang="en" class="hydrated" style="height: auto;">
+<head>
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>--}}
     <script>
         function myFunction(number) {
             document.getElementById("question_id").value = number;
@@ -153,7 +155,7 @@
 
                                     <div class="row col-12" style="margin-right: 10px; margin-left: 50px;">
 
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <div class="col-lg-12">
                                                 <div class="input-group">
                                                     <input type="hidden" name="question_id[]" id="current_question_id" value="{{ $question->id }}">
@@ -235,11 +237,21 @@
                             </div>
 
 
-                <div class="pagination-container d-flex justify-content-center align-items-center">
-                    <label class="ml-3">لیست سوالات :</label>
-                                        {{ $questions->links() }}
-                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="ml-3">لیست سوالات :</label>
+                                    </div>
+                                </div>
+
                         </div>
+                            <div class="w-100"></div>
+
+                            <div class="pagination-container d-flex justify-content-center align-items-center">
+
+                                <div class="container">
+                                    {{ $questions->links() }}
+                                </div>
+                            </div>
 
                     </div>
 
@@ -568,7 +580,11 @@
 
         //pagination question ajax request
 
-        $('.page-link').click(function (){
+        $('.page-link').click(function (event){
+
+            // event.preventDefault();
+            let selected_answer;
+            // alert('clicked')
             console.log('aaaa');
             question_id=$('#current_question_id').val();
             azmoon_id={{ $azmoon->id }}
@@ -580,7 +596,7 @@
                 alert('vvvv');
             });*/
             // var selected = [];
-            var selected_answer;
+            // var selected_answer;
 
             if(question_type == 0) {
 
@@ -596,12 +612,13 @@
                     selected_answer=$('#textarea_input').val();
                     // alert(selected_answer)
             }
+// alert(selected_answer)
 
 
-
-            if(!selected_answer){
+            if(selected_answer === undefined){
                 selected_answer=null;
             }
+            // console.log(selected_answer)
 
             // alert(selected_answer);
         // if(selected_answer) {
@@ -621,7 +638,9 @@
                     // alert(data);
                     // alert('success');
                     // console.log(data);
+
                     var len = data.length;
+
 
                     // $("#mosque").empty();
                     // for( var i = 0; i<len; i++){
@@ -639,6 +658,7 @@
             });
         // }
         });
+
     </script>
 
 
