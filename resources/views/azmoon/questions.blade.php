@@ -187,7 +187,7 @@
 {{--                                                        <input type="hidden" name="text_question_id[]" value="{{ $question->id }}" id="current_question_id">--}}
                                                         <div class="form-group col-12">
                                                             <label for="question">پاسخ را وارد کنید :</label>
-                                                            <textarea name="q{{ $question->id }}" class="p-2" id="textarea_input" name="answer" rows="3" cols="90">{{ $user_last_answer ? $user_last_answer->user_answer :'' }}</textarea>
+                                                            <textarea name="q{{ $question->id }}" class="p-2" id="textarea_input" name="answer" rows="3" cols="23">{{ $user_last_answer ? $user_last_answer->user_answer :'' }}</textarea>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -392,8 +392,8 @@
                         </div>
 
                     </div>--}}
-
-                        <button class="btn btn-warning w-100" type="submit">اتمام آزمون</button>
+<hr>
+                        <button class="btn btn-warning w-100 mt-5" type="submit">اتمام آزمون</button>
                 </form>
 
 
