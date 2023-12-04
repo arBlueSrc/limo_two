@@ -162,13 +162,10 @@ class AuthenticatedSessionController extends Controller
     }
     public function resendCode(Request $request)
     {
-
 //        $user=User::where('mobile',session('register_data')['mobile'])->first();
 //        dd($user);
 
 //        dd(session()->all());
-
-
         if (session()->missing('register_data') || (session()->has('register_data.step') && session('register_data')['step'] < 3)) {
             return redirect(route('login'));
         }
@@ -292,7 +289,6 @@ class AuthenticatedSessionController extends Controller
                   'status' => 1,
               ]);
             }
-
             session()->forget(['register_data', 'otp']);
             session()->flush();
 
