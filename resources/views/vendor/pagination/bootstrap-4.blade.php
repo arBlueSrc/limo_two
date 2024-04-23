@@ -9,7 +9,7 @@
                 </li>
             @else
                 <li class="page-item mt-2">
-                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">سوال قبل</a>
+                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')"> قبل</a>
                 </li>
             @endif
 
@@ -41,7 +41,7 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item mt-2">
-                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">سوال بعد</a>
+                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')"> بعد</a>
                 </li>
             @else
                 <li class="page-item disabled mt-2" aria-disabled="true" aria-label="@lang('pagination.next')">

@@ -7,7 +7,6 @@
     </style>
 @endpush
 @push('scripts')
-
     <script>
         function setDelete(user) {
             document.getElementById("delete_id").value = user['id'];
@@ -81,14 +80,9 @@
                     });
                 }
                 // console.log(data);
-
             });
-
-
             // alert( this.value );
         });
-
-
         $('#child_shahrestans').on('change', function() {
             // alert( this.value );
             let shahrestan_id= $('#child_shahrestans').val();
@@ -116,9 +110,9 @@
                         var shahrestan = data[i]['shahrestan'];
                         var hoze = data[i]['hoze'];
                         var masjed = data[i]['masjed'];
-                        /* if(i == 0){
-                             $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
-                         }*/
+                       /* if(i == 0){
+                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                        }*/
 
                         $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
 
@@ -155,79 +149,78 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
-                        <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allfamilies.download' : 'excel.allfamilies.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
+                        <form action="{{ route('excel.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
+                            @isset($selected)
+                            <input type="hidden" name="ostan" value="{{ $selected['ostan'] ?? ""  }}">
+                            <input type="hidden" name="shahrestan" value="{{ $selected['shahrestan'] ?? ""  }}">
+                            <input type="hidden" name="mosque" value="{{ $selected['mosque']  ?? "" }}" >
+                            @endisset
                             <div class="row">
                                 <a  href="#" onclick="document.getElementById('excel_form').submit()"  class="btn btn-outline-success" style="border-radius: 25px"
-                                > خروجی اکسل <i class="fa fa-file-excel-o" ></i>
-                                </a>
+                                > خروجی اکسل <i class="fa fa-file-excel-o" ></i></a>
                             </div>
                         </form>
                     </div>
-
-                    @can('is_superadmin')
-                        <form action="{{ route('family.search') }}" method="post">
+                    <form action="{{ route('users.search') }}" method="post">
                         @csrf
                         @method('POST')
-                        <div class="my-form-container row mt-2">
-                            @if(!auth()->user()->isOstaniAdmin())
-                            <div class="form-group col-md-3">
-                                <label>استان</label>
-                                <select name="ostan" id="ostans" class="form-control">
-                                    <option value="">همه</option>
-                                    @foreach($ostans as $ostan)
-                                        <option value="{{ $ostan->id }}" @if( isset($selected['ostan']) && $selected['ostan'] == $ostan->id ) selected @endif >{{ $ostan->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @endif
-                            <div class="form-group col-md-3">
-                                <label>شهرستان</label>
-                                <select name="shahrestan" id="child_shahrestans" class="form-control">
-                                    <option value="">همه</option>
-                                    @foreach($shahrestans as $shahrestan)
-                                        <option value="{{ $shahrestan->id }}" @if( isset($selected['shahrestan']) && ($selected['shahrestan']== $shahrestan->id) ) selected @endif >{{ $shahrestan->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>مسجد</label>
-                                <select name="mosque" id="mosque" class="form-control">
-                                    <option value="">همه</option>
-                                    @isset($masjeds)
-                                        @foreach($masjeds as $masjed)
-                                            <option value="{{ $masjed->id }}" @if( isset($selected['mosque']) && ($selected['mosque']== $masjed->id) ) selected @endif >{{ 'حوزه :'. $masjed->hoze .' - مسجد : '. $masjed->masjed }}</option>
-                                        @endforeach
-                                    @endisset
-                                </select>
-                            </div>
-                            <div class="form-group d-flex align-items-end mr-2">
-                                <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
-                            </div>
-
+                    <div class="my-form-container row">
+                        @if(!auth()->user()->isOstaniAdmin())
+                        <div class="form-group col-md-3">
+                            <label>استان</label>
+                            <select name="ostan" id="ostans" class="form-control">
+                                <option value="">همه</option>
+                                @foreach($ostans as $ostan)
+                                    <option value="{{ $ostan->id }}" @if( isset($selected['ostan']) && $selected['ostan'] == $ostan->id ) selected @endif >{{ $ostan->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+                        <div class="form-group col-md-3">
+                            <label>شهرستان</label>
+                            <select name="shahrestan" id="child_shahrestans" class="form-control">
+                                <option value="">همه</option>
+                                @foreach($shahrestans as $shahrestan)
+                                    <option value="{{ $shahrestan->id }}" @if( isset($selected['shahrestan']) && ($selected['shahrestan']== $shahrestan->id) ) selected @endif >{{ $shahrestan->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>مسجد</label>
+                            <select name="mosque" id="mosque" class="form-control">
+                                <option value="">همه</option>
+                                @isset($masjeds)
+                                @foreach($masjeds as $masjed)
+                                    <option value="{{ $masjed->id }}" @if( isset($selected['mosque']) && ($selected['mosque']== $masjed->id) ) selected @endif >{{ 'حوزه :'. $masjed->hoze .' - مسجد : '. $masjed->masjed }}</option>
+                                @endforeach
+                                @endisset
+                            </select>
+                        </div>
+                        <div class="form-group d-flex align-items-end mr-2">
+                            <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
                         </div>
 
-                    </form>
-                    @endcan
+                    </div>
 
+                    </form>
                     <div class="filter-result-container py-3">
-                        @isset($selected['ostan'])
-                            <span>کلید جستجو : </span>
-                            استان :
-                            <span class="text-bold badge badge-primary font-"> {{ \App\Models\Ostan::find($selected['ostan'])->name }}</span>
-                        @endisset
-                        @isset($selected['shahrestan'])
-                            - شهرستان :
-                            <span class="text-bold badge badge-warning"> {{ \App\Models\Shahrestan::find($selected['shahrestan'])->name  }}</span>
-                        @endisset
-                        @isset($selected['mosque'])
-                            - حوزه :
-                            <span class="text-bold badge badge-danger"> {{ \App\Models\masjed::find($selected['mosque'])->hoze  }}</span>
-                            - مسجد :
-                            <span class="text-bold badge badge-success"> {{ \App\Models\masjed::find($selected['mosque'])->masjed  }}</span>
-                        @endisset
+                    @isset($selected['ostan'])
+                    <span>کلید جستجو : </span>
+                        استان :
+                    <span class="text-bold badge badge-primary font-"> {{ \App\Models\Ostan::find($selected['ostan'])->name }}</span>
+                    @endisset
+                    @isset($selected['shahrestan'])
+                        - شهرستان :
+                        <span class="text-bold badge badge-warning"> {{ \App\Models\Shahrestan::find($selected['shahrestan'])->name  }}</span>
+                    @endisset
+                    @isset($selected['mosque'])
+                        - حوزه :
+                        <span class="text-bold badge badge-danger"> {{ \App\Models\masjed::find($selected['mosque'])->hoze  }}</span>
+                        - مسجد :
+                        <span class="text-bold badge badge-success"> {{ \App\Models\masjed::find($selected['mosque'])->masjed  }}</span>
+                    @endisset
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -236,23 +229,21 @@
                         <tbody>
                         <tr>
                             <th style="width: 5%; alignment: center">ردیف</th>
-                            <th>نام خانواده</th>
-                            <th>نام پدر خانواده</th>
+                            <th>نام و خانوادگی</th>
+                            <th>شماره تماس</th>
                             <th>استان</th>
                             <th>شهرستان</th>
-                            <th>مسجد</th>
                             <th style="width: 20%; alignment: center">عملیات</th>
                         </tr>
                         @foreach ($users as $key => $user)
                             <tr>
                                 <td style="width: 5%; alignment: center" class="text-center">{{ $users->firstItem()+$key }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->father_name }}</td>
-                                <td>{{ $user->ostan()->first()->name }}</td>
-                                <td>{{ $user->shahrestan()->first()->name }}</td>
-                                <td>{{ "حوزه : ". $user->mosque()->first()->hoze . " - مسجد : ". $user->mosque()->first()->masjed }}</td>
+                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->ostan()->first()?->name }}</td>
+                                <td>{{ $user->shahrestan()->first()?->name ?? "" }}</td>
                                 <td>
-                                    <a style="margin: 5px" href="{{ route('family.show', ['user' => $user->id]) }}">
+                                    <a style="margin: 5px" href="{{ route('user.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>
                                     </a>
                                     {{--<a style="margin: 5px" href="{{ route('form.edit', ['user' => $user->id]) }}">

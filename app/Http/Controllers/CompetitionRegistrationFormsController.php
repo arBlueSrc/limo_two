@@ -45,6 +45,8 @@ class CompetitionRegistrationFormsController extends Controller
         return $childShahrestans;
     }
 
+
+
     public function getRelatedMasjeds(Request $request)
     {
 
@@ -58,9 +60,6 @@ class CompetitionRegistrationFormsController extends Controller
         ]);
 
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
-//        return $shahrestan_name;
-
-//        dd($shahrestan_name);
 
         $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
 

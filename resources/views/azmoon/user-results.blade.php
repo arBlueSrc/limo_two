@@ -201,7 +201,6 @@
                                     <a href="#" class="btn btn-outline-info" style="border-radius: 25px" data-target="#myModal" id="open" data-toggle="modal">اضافه کردن سوال +</a>
                                 </div>
                             </div>--}}
-
                         </div>
                         @foreach($results as $result)
                         <hr class="solid">

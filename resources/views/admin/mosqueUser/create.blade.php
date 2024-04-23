@@ -81,15 +81,15 @@
     @endif
     <div class="card card-info">
         <div class="card-header">
-            <h3 class="card-title">ایجاد کاربر جدید</h3>
+            <h3 class="card-title">ایجاد مدیر مسجد جدید</h3>
         </div>
         <!-- /.card-header -->
 
         <!-- form start -->
         <form role="form" method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
+
             @csrf
             <div class="card-body">
-
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="name">نام و نام خانوادگی</label>
@@ -109,8 +109,7 @@
                     <div class="form-group col-6">
                         <label for="role">نقش</label>
                         <select  name="role" id="user_role" class="form-control">
-                            <option value="2">مدیر استانی</option>
-                            <option value="4">مدیر شهرستانی</option>
+                            <option value="3">مدیر مسجد</option>
                         </select>
                     </div>
                 </div>
@@ -129,6 +128,14 @@
                         <select  name="shahrestan_id" id="child_shahrestans" class="form-control">
                             @foreach($shahrestans as $shahrestan)
                                 <option value="{{ $shahrestan->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $shahrestan->name }}</option>
+                            @endforeach>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="username">مسجد</label>
+                        <select  name="masjed_id" id="masjeds" class="form-control">
+                            @foreach($masjeds as $masjed)
+                                <option value="{{ $masjed->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $masjed->hoze . " " . $masjed->masjed }}</option>
                             @endforeach>
                         </select>
                     </div>
@@ -225,35 +232,91 @@
 
                     $("#child_shahrestans").empty();
                     for( var i = 0; i<len; i++){
+
+                        if(i==0){
+                            getMasjeds(data[i]['id']);
+                        }
+
                         var id = data[i]['id'];
                         var name = data[i]['name'];
 
                         $("#child_shahrestans").append("<option value='"+id+"'>"+name+"</option>");
 
                     }
+
                 }
-                // console.log(data);
+
 
             });
         });
-        // console.log($('#user_role').val());
 
-/*if($('#user_role').val()==7){
-    $('#darolghoran').fadeIn();
-    $('#need-money').addClass('d-flex');
-}
-        //show it when the checkbox is clicked
-        $('#user_role').on('change', function () {
-            // alert(this.value )
-            if (this.value == 7) {
-                // console.log('aaa');
-                $('#darolghoran').fadeIn();
-                $('#need-money').addClass('d-flex');
-            } else {
-                // console.log('bbb');
-                $('#darolghoran').hide();
-                $('#need-money').removeClass('d-flex');
-            }
-        });*/
+
+
+        $('#child_shahrestans').on('change', function() {
+
+            let shahrestan_id= this.value;
+
+            $.ajaxSetup({
+                headers : {
+                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                    'Content-Type' : 'application/json'
+                }
+            })
+            $.ajax({
+                type : 'POST',
+                url : '{{ url("/"); }}/get-related-masjeds',
+                data : JSON.stringify( { shahrestan_id: shahrestan_id}),
+                success : function(data) {
+                    var len = data.length;
+
+                    $("#masjeds").empty();
+                    for( var i = 0; i<len; i++){
+
+                        var id = data[i]['id'];
+                        var masjed = data[i]['masjed'];
+                        var hoze = data[i]['hoze'];
+
+                        $("#masjeds").append("<option value='"+id+"'>"+masjed+" "+hoze+"</option>");
+
+                    }
+                }
+
+
+            });
+        });
+
+        function getMasjeds(shahrestanid) {
+
+            let shahrestan_id = shahrestanid;
+
+            $.ajaxSetup({
+                headers : {
+                    'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                    'Content-Type' : 'application/json'
+                }
+            })
+            $.ajax({
+                type : 'POST',
+                url : '{{ url("/"); }}/get-related-masjeds',
+                data : JSON.stringify( { shahrestan_id: shahrestan_id}),
+                success : function(data) {
+                    var len = data.length;
+
+                    $("#masjeds").empty();
+                    for( var i = 0; i<len; i++){
+
+                        var id = data[i]['id'];
+                        var masjed = data[i]['masjed'];
+                        var hoze = data[i]['hoze'];
+
+                        $("#masjeds").append("<option value='"+id+"'>"+masjed+" "+hoze+"</option>");
+
+                    }
+                }
+
+            });
+
+        }
+
     </script>
 @endpush

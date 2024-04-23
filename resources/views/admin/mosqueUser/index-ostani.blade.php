@@ -161,7 +161,7 @@
                         <tbody>
                         <tr>
                             <th style="width: 5%; alignment: center">ردیف</th>
-                            <th>نام و نام خانوادگی</th>
+                            <th>نام و خانوادگی</th>
                             <th>استان</th>
                             <th>شهرستان</th>
                             <th hidden style="width: 20%; alignment: center">عملیات</th>
@@ -170,7 +170,7 @@
                             <tr>
                                 <td style="width: 5%; alignment: center"
                                     class="text-center">{{ $users->firstItem()+$key }}</td>
-                                <td>{{ $user->name . " " . $user->family }}</td>
+                                <td>{{ $user->name }}</td>
                                 <td>{{ $user->ostan()->first()?->name }}</td>
                                 <td>{{ $user->shahrestan()->first()?->name ?? "" }}</td>
                                 <td hidden>

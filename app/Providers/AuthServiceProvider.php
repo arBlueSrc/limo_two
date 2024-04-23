@@ -30,8 +30,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is_superadmin',function (User $user){
             return $user->role == 1;
         });
+        Gate::define('is_miniadmin',function (User $user){
+            return $user->role == 1 || $user->role==2 || $user->role==3 || $user->role==4;
+        });
         Gate::define('is_ostani_admin',function (User $user){
-           return $user->role == 1 || $user->role==2;
+           return $user->role==2;
+        });
+        Gate::define('is_masjed_admin',function (User $user){
+            return $user->role==3;
+        });
+        Gate::define('is_shahrestan_admin',function (User $user){
+            return $user->role==4;
         });
         Gate::define('is_participant',function (User $user){
             return $user->role == 0;

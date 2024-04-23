@@ -28,6 +28,12 @@ class UserController extends Controller
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
             $selected['ostan'] = $ostans->first()->id;
+        } else if ($current_user->isMosjedAdmin()) {
+            // ostani admin
+            $users = SingleResult::where('mosque_id', $current_user->masjed_id)->paginate(10);
+            $ostans = Ostan::where('id', $current_user->ostan_id)->get();
+            $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
+            $selected['ostan'] = $current_user->ostan_id;
         } else {
             $users = SingleResult::paginate(10);
             $ostans = Ostan::all();
@@ -37,7 +43,7 @@ class UserController extends Controller
     }
 
     public function ostanUsers(){
-        $users = User::where('role',2)->paginate(10);
+        $users = User::where('role',2)->orWhere('role',4)->paginate(10);
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
         return view('admin.user.index-ostani', compact('users', 'ostans', 'shahrestans'));
@@ -75,6 +81,7 @@ class UserController extends Controller
             $user->mobile = $request->mobile;
             $user->role = $request->role;
             $user->ostan_id = $request->ostan_id;
+            $user->masjed_id = $request->masjed_id;
             $user->shahrestan_id = $request->shahrestan_id;
             $user->birthday = $birth_date;
             $user->update();
@@ -85,6 +92,7 @@ class UserController extends Controller
                 'mobile' => $request->mobile,
                 'role' => $request->role,
                 'ostan_id' => $request->ostan_id,
+                'masjed_id' => $request->masjed_id,
                 'shahrestan_id' => $request->shahrestan_id,
                 'birthday' => $birth_date
             ]);
@@ -308,5 +316,19 @@ class UserController extends Controller
         $request->session()->keep(['ostan', 'shahrestan', 'mosque']);
         return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
     }
+
+
+    public function mosqueUserList()
+    {
+
+        $ostans = Ostan::all();
+        $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+        $users = User::where('role', 3)->paginate(10);
+        $masjeds = masjed::all();
+
+        return view('admin.mosqueUser.index', compact('users','ostans','shahrestans','masjeds'));
+
+    }
+
 }
 

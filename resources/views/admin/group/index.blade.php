@@ -166,7 +166,9 @@
                             </div>
                         </form>
                     </div>
-                    <form action="{{ route('group.search') }}" method="post">
+
+                    @can('is_superadmin')
+                        <form action="{{ route('group.search') }}" method="post">
                         @csrf
                         @method('POST')
                         <div class="my-form-container row mt-2">
@@ -208,6 +210,8 @@
                         </div>
 
                     </form>
+                    @endcan
+
                     <div class="filter-result-container py-3">
                         @isset($selected['ostan'])
                             <span>کلید جستجو : </span>

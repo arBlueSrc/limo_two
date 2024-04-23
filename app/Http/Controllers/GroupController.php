@@ -26,8 +26,13 @@ class GroupController extends Controller
             $shahrestans=Shahrestan::where('ostan',$current_user->ostan_id)->get();
             $request->ostan=auth()->user()->ostan_id;
             $selected['ostan'] = $ostans->first()->id;
-        }
-        else{
+        } else if ($current_user->isMosjedAdmin()) {
+            // ostani admin
+            $users = GroupResult::where('mosque_id', $current_user->masjed_id)->paginate(10);
+            $ostans = Ostan::where('id', $current_user->ostan_id)->get();
+            $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
+            $selected['ostan'] = $current_user->ostan_id;
+        } else{
         $users = GroupResult::paginate(10);
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();

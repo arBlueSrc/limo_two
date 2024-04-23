@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->group(function () {
 
-    Route::middleware(['auth', 'can:is_ostani_admin'])->group(function () {
+    Route::middleware(['auth', 'can:is_miniadmin'])->group(function () {
 
         Route::get('/', function () {
             return view('admin.index');
@@ -58,13 +58,14 @@ Route::prefix('admin')->group(function () {
 
         //user
         Route::resource('user', 'App\Http\Controllers\UserController');
+        Route::resource('mosque-user', 'App\Http\Controllers\MosqueUserController');
         Route::get('users/ostanUsers', [UserController::class, 'ostanUsers'])->name('users.ostanUsers');
+        Route::get('mosque-users/ostanUsers', [UserController::class, 'mosqueUserList'])->name('mosque-user-list');
         Route::post('users/search', [UserController::class, 'filterUsers'])->name('users.search');
         Route::get('users/search/show', [UserController::class, 'filterUsersShow'])->name('users.search.show');
         Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
         Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
         Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
-
 
         //family routes
         Route::get('family', [\App\Http\Controllers\FamilyController::class, 'index'])->name('family.index');
@@ -78,10 +79,8 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware(['auth', 'can:is_participant'])->group(function () {
         Route::get('/participate', [\App\Http\Controllers\ParticipateController::class, 'index'])->name('participate');
-//        Route::get('/printLoh/{single_result}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
         Route::post('/printLoh', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
-//        Route::post('/printLoh/{id}', [\App\Http\Controllers\ParticipateController::class, 'printLoh'])->name('printLoh');
-    });
+     });
 
     //azmoon
     Route::resource('azmoon', 'App\Http\Controllers\AzmoonController');
@@ -98,6 +97,7 @@ Route::prefix('admin')->group(function () {
     //result
     Route::resource('result', 'App\Http\Controllers\ResultController');
     Route::get('results/exportExcel', 'App\Http\Controllers\ResultController@exportExcel')->name('azmoons.exportExcel');
+
 });
 
 
@@ -151,43 +151,6 @@ Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class
 Route::post('update-question-answers',[\App\Http\Controllers\UserAzmoonController::class,'ajaxAnswerUpdate'])->name('ajax.answer.update');
 
 
-
-/*Route::get('test2',function (){
-
-    try {
-        date_default_timezone_set("Asia/Tehran");
-        // your sms.ir panel configuration
-        $APIKey = "755fc457df1274c68b61c457";
-        $SecretKey = "lms.N@sra";
-
-        // your code
-        $Code = "111111";
-
-        // your mobile number
-        $MobileNumber = '09380969944';
-
-        $sms_handler = new SmsIR_VerificationCode();
-
-        $sms_handler->constructor($APIKey, $SecretKey);
-        $res=$sms_handler->VerificationCode($Code, $MobileNumber);
-    } catch (BadFunctionCallException  $e) {
-        echo 'Error VerificationCode : ' . $e->getMessage();
-    }
-});*/
-
-/*Route::get('/aaa', function (){
-    $user=auth()->user();
-    $user=User::where('mobile','09380969944')->first();
-//    auth()->login($user);
-//    $response=$user->notify(new \App\Notifications\SendCodeNotification(rand(1111,9999)));
-    Notification::send($user,new \App\Notifications\SendCodeNotification(rand(1111,9999)));
-});
-/*Route::get('/a', function (){
-for ($i=1;i<100;i++){
-    echo $i;
-    sleep(1);
-}
-});*/
 require __DIR__ . '/auth.php';
 
 

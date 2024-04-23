@@ -41,6 +41,14 @@ class User extends Authenticatable
         return $this->role == 2;
     }
 
+    public function isMosjedAdmin(){
+        return $this->role == 3;
+    }
+
+    public function isShahrestanAdmin(){
+        return $this->role == 4;
+    }
+
     public function isSuperAdmin()
     {
         return $this->role == 1;
@@ -49,8 +57,10 @@ class User extends Authenticatable
     public function ostan(){
         return $this->belongsTo(Ostan::class,);
     }
+
     public function shahrestan()
     {
         return $this->belongsTo(Shahrestan::class);
     }
+
 }

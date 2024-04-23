@@ -91,7 +91,7 @@
                    class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
             @endif
 
-            @if(auth()->user()->role == 1  || auth()->user()->role == 2)
+            @if(auth()->user()->role == 1  || auth()->user()->role == 2   || auth()->user()->role == 3 || auth()->user()->role == 4)
                 <a href="{{ route('admin') }}"
                    class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
             @endif
