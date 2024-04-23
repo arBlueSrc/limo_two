@@ -45,7 +45,7 @@
 
     @media (min-width: 1401px) {
         .h-custom {
-            height: 160vh !important;
+            height: 210vh !important;
         }
     }
 
@@ -114,6 +114,41 @@
                                 <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این فیلد را خالی بگذارید)</label>
                                 <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
                             </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="job">شغل</label>
+                                <input type="text" id="job" name="job" class="form-control"/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <div class="form-group">
+                                    <label for="role">جنسیت</label>
+                                    <select  name="gender" id="gender" class="form-control mt-2">
+                                        <option value="1">مرد</option>
+                                        <option value="0">زن</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <div class="form-group">
+                                    <label for="role">تحصیلات</label>
+                                    <select  name="degree" id="degree" class="form-control mt-2">
+                                        <option value="1">دانش آموز</option>
+                                        <option value="0">سیکل</option>
+                                        <option value="0">دیپلم</option>
+                                        <option value="0">فوق دیپلم</option>
+                                        <option value="0">کارشناسی</option>
+                                        <option value="0">کارشناسی ارشد</option>
+                                        <option value="0">دکتری</option>
+                                        <option value="0">حوزوی سطح 1</option>
+                                        <option value="0">حوزوی سطح 2</option>
+                                        <option value="0">حوزوی سطح 3</option>
+                                        <option value="0">حوزوی سطح 4</option>
+                                        <option value="0">نامشخص</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <label class="form-label" for="Date_of_birth">تاریخ تولد*</label>
                                 <div class="col-sm-4">
@@ -150,7 +185,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-4 mt-4">
                                 <label class="form-label" for="City">استان*</label>
 
                                 <select  name="ostan_id" id="ostans" class="form-control masjed-event">
@@ -170,10 +205,10 @@
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mosque">انتخاب مسجد محل آزمون*</label>
 {{--                                <input type="text" id="mosque" name="mosque" class="form-control"/>--}}
-                                <select  name="mosque" id="mosque" class="form-control">
-                                {{--@foreach($mosques as $mosuque)
-                                    <option value="{{ $shahrestan->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $shahrestan->name }}</option>
-                                @endforeach--}}
+                                <select  name="masjed_id" id="masjeds" class="form-control">
+                                    @foreach($masjeds as $masjed)
+                                        <option value="{{ $masjed->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $masjed->hoze . " " . $masjed->masjed }}</option>
+                                    @endforeach>
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
@@ -271,11 +306,12 @@
                 for( var i = 0; i<len; i++){
 
                     var id = data[i]['id'];
-                    if(i==0){
-                        sharestan_holder=id;
-                        // console.log(id);
-                    }
                     var name = data[i]['name'];
+
+                    if(i==0){
+                        getMasjeds(data[i]['id']);
+                        sharestan_holder=id;
+                    }
 
                     $("#child_shahrestans").append("<option value='"+id+"'>"+name+"</option>");
 
@@ -324,10 +360,9 @@
 
 
     $('#child_shahrestans').on('change', function() {
-        // alert( this.value );
-        let shahrestan_id= $('#child_shahrestans').val();
-        // alert( ostan_id);
-        // console.log(shahrestan_id);
+
+         let shahrestan_id= $('#child_shahrestans').val();
+
 
         $.ajaxSetup({
             headers : {
@@ -360,57 +395,39 @@
     });
 
 
-    /*var form = '#add-user-form';
+    function getMasjeds(shahrestanid) {
 
-    $(form).on('submit', function (event) {
+        let shahrestan_id = shahrestanid;
 
-        event.preventDefault();
-
+        $.ajaxSetup({
+            headers : {
+                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                'Content-Type' : 'application/json'
+            }
+        })
         $.ajax({
-            url: "{{ route('checkResponseGroup') }}",
-            method: 'POST',
-            dataType: 'JSON',
-            data: new FormData(this),
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            cache: false,
-            processData: false,
-            success: function (response) {
-                //$(form).trigger("reset");
-                $("#myModal").modal();
-                document.getElementById('lottie').play();
-            },
-            error: function (response) {
-                //alert(response.message);
-                console.log(response.message);
-                alert("لطفا موارد ستاره دار را پر کنید.");
+            type : 'POST',
+            url : '{{ url("/"); }}/get-related-masjeds',
+            data : JSON.stringify( { shahrestan_id: shahrestan_id}),
+            success : function(data) {
+                var len = data.length;
+
+                $("#masjeds").empty();
+                for( var i = 0; i<len; i++){
+
+                    var id = data[i]['id'];
+                    var masjed = data[i]['masjed'];
+                    var hoze = data[i]['hoze'];
+
+                    $("#masjeds").append("<option value='"+id+"'>"+masjed+" "+hoze+"</option>");
+
+                }
             }
+
         });
 
-    });
+    }
 
-
-    $(document).ready(function () {
-
-        $("#twitter").on('click', function () {
-            if ($('#twitter').is(":checked")) {
-                $("#twitter_account").show(500);
-            } else {
-                $("#twitter_account").hide(500);
-            }
-        });
-
-        $("#instagram").on('click', function () {
-            if ($('#instagram').is(":checked")) {
-                $("#instagram_account").show(500);
-            } else {
-                $("#instagram_account").hide(500);
-            }
-        });
-
-    });*/
 
 </script>
 

@@ -11,11 +11,12 @@ use Illuminate\Http\Request;
 class CompetitionRegistrationFormsController extends Controller
 {
     public function individualForm(){
-//        $ostans = Ostan::all();
-        $ostans = Ostan::where('id',8)->get();
+        $ostans = Ostan::get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         $majors=Major::all();
-        return view('form.IndividualForm',compact('ostans','shahrestans','majors'));
+        $masjeds = masjed::all();
+
+        return view('form.IndividualForm',compact('ostans','shahrestans','majors','masjeds'));
     }
 
     public function groupForm(){
