@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="{{ asset('assets/docs/ghaleb.xlsx') }}" type="button" class="btn btn-success">دانلود قالب اکسل</a>
+                    <a href="{{ asset('files/ghaleb.xlsx') }}" type="button" class="btn btn-success">دانلود قالب اکسل</a>
                 </div>
                 <div class="alert alert-primary col-md-6 mt-2">
 {{--                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
