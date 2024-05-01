@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Cryptommer\Smsir\Smsir;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -103,27 +104,16 @@ class AuthenticatedSessionController extends Controller
 
 
 
-                $user = User::where('mobile', session('register_data')['mobile'])->first();
-//                dd($user->mobile);
-
+            $user = User::where('mobile', session('register_data')['mobile'])->first();
 
             if (!$user){
                 $user=User::create([
                     'mobile'=>session('register_data')['mobile']
                 ]);
             }
-//            dd($otp_code);
-//            echo $otp_code;
-//                $response = $user->notify(new \App\Notifications\SendCodeNotification($otp_code));
-//dd('aaa');
-
 
             //send sms sms.ir
             try {
-                date_default_timezone_set("Asia/Tehran");
-                // your sms.ir panel configuration
-                $APIKey = "755fc457df1274c68b61c457";
-                $SecretKey = "lms.N@sra";
 
                 // your code
                 $Code = $otp_code;
@@ -131,15 +121,14 @@ class AuthenticatedSessionController extends Controller
                 // your mobile number
                 $MobileNumber = $user->mobile;
 
-                $sms_handler = new SmsIR_VerificationCode();
-
-                $sms_handler->constructor($APIKey, $SecretKey);
-                $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+                $send = smsir::Send();
+                $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
+                $parameters = array($parameter) ;
+                $send->Verify($MobileNumber, "100000", $parameters);
 
             } catch (BadFunctionCallException  $e) {
                 echo 'Error VerificationCode : ' . $e->getMessage();
             }
-//            dd('send by');
         }
 
         $now = Carbon::now();

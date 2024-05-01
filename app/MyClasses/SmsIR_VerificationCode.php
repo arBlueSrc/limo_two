@@ -32,7 +32,6 @@ class SmsIR_VerificationCode
 			$url = $this->getAPIVerificationCodeUrl();
 			$VerificationCode = $this->execute($postData, $url, $token);
 			$object = json_decode($VerificationCode);
-//            dd($object);
 			if(is_object($object)){
 				$array = get_object_vars($object);
 				if(is_array($array)){

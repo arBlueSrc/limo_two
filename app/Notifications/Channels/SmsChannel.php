@@ -12,7 +12,22 @@ class SmsChannel
 
         $otp_code = $notification->toSms($notifiable)[0];
         $mobile=$notification->toSms($notifiable)[1];
-        //send sms here
+
+
+        return $this->sendSmsPeyk($otp_code, $mobile, $notifiable);
+
+    }
+
+    /**
+     * @param mixed $otp_code
+     * @param mixed $mobile
+     * @param $notifiable
+     * @return \Illuminate\Http\RedirectResponse|true
+     * @throws Exception
+     */
+    public function sendSmsPeyk(mixed $otp_code, mixed $mobile, $notifiable): \Illuminate\Http\RedirectResponse|bool
+    {
+//send sms here
 // send code to user
         //API Url
         $i = 1;
@@ -21,7 +36,7 @@ class SmsChannel
             $dataArray = array(
                 'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                 'number' => "660005",
-                'text' => "کد تایید : " .$otp_code,
+                'text' => "کد تایید : " . $otp_code,
                 'mobiles' => $mobile ?? $notifiable->mobile,
                 'clientIDs' => 1,
             );
@@ -29,23 +44,23 @@ class SmsChannel
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
             $contents = file_get_contents($getUrl, false);
-            if ($error=json_decode($contents)->Error) {
+            if ($error = json_decode($contents)->Error) {
 //                dd($error->ID);
-                if ($error->ID==1){
-                    return redirect()->back()->with('sms_error',$error->Message);
+                if ($error->ID == 1) {
+                    return redirect()->back()->with('sms_error', $error->Message);
 //                    return $error->ID;
                 }
-                $status=false;
+                $status = false;
             } else {
-                $status=true;
+                $status = true;
                 break;
             }
             $i++;
             sleep(.5);
         }
-        if ($status){
+        if ($status) {
             return true;
-        }else{
+        } else {
             throw new Exception ('The message params are not valid');
         }
         /*catch(HttpException $e){
@@ -62,4 +77,5 @@ class SmsChannel
         /*if(json_decode($contents)){
         }*/
     }
+
 }
