@@ -66,6 +66,9 @@ Route::prefix('admin')->group(function () {
         Route::get('users/exportExcel', [UserController::class, 'exportExcel'])->name('users.exportExcel');
         Route::get('form/edit', [UserFormController::class, 'edit'])->name('form.edit');
         Route::post('form/update', [UserFormController::class, 'update'])->name('form.update');
+        Route::get('masjeds/upload-excel',[\App\Http\Controllers\MosqueUserController::class,'uploadMasjedFile'])->name('masjeds.upload.excel');
+        Route::post('masjeds/upload-excel',[\App\Http\Controllers\MosqueUserController::class,'saveMasjedFile'])->name('upload-excel.save');
+
 
         //family routes
         Route::get('family', [\App\Http\Controllers\FamilyController::class, 'index'])->name('family.index');

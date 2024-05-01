@@ -9,5 +9,5 @@ class masjed extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["ostan"];
+    protected $fillable = ["ostan","shahrestan","hoze","gender","masjed"];
 }

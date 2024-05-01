@@ -57,6 +57,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+
                                 <li class="nav-item">
                                     <a href="{{ route('mosque-user.create') }}"
                                        class="nav-link {{ isActive("mosque-user.create") }}">
@@ -64,6 +65,15 @@
                                         <p>ثبت نام مدیران مساجد</p>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('masjeds.upload.excel') }}"
+                                       class="nav-link {{isActive("masjeds.upload.excel") }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>وارد کردن از طریق اکسل</p>
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a href="{{ route('mosque-user-list') }}"
                                        class="nav-link {{ isActive("mosque-user-list") }}">
@@ -71,6 +81,7 @@
                                         <p>لیست مدیران مساجد</p>
                                     </a>
                                 </li>
+
                             </ul>
                         </li>
                     @endcan
