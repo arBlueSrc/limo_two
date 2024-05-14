@@ -32,6 +32,12 @@ class GroupController extends Controller
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
             $selected['ostan'] = $current_user->ostan_id;
+        } else if ($current_user->isShahrestanAdmin()) {
+            // ostani admin
+            $users = GroupResult::where('shahrestan_id', $current_user->shahrestan_id)->paginate(10);
+            $ostans = Ostan::where('id', $current_user->ostan_id)->get();
+            $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
+            $selected['ostan'] = $current_user->ostan_id;
         } else{
         $users = GroupResult::paginate(10);
         $ostans = Ostan::all();

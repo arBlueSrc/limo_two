@@ -75,7 +75,7 @@
 
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
+            <h1 style="font-family: Shabnam; margin-right: 20px;">مسابقات قرآن<span>.</span></h1>
         </a>
 
         <div class="row">
@@ -116,16 +116,16 @@
                         <br>
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="20%">
                         <br><br>
-{{--                        <h4 data-aos="fade-down" class="text-muted" text>بخش مورد نظر برای ثبت نام را انتخاب کنید </h4ُ>--}}
+                            <h4 data-aos="fade-down" class="text-muted">بخش مورد نظر برای ثبت نام را انتخاب کنید. توجه داشته باشید که می توانید در دو رشته از رشته های زیر شرکت کنید. </h4ُ>
                         <br>
 {{--                        @if(auth()->user()->isSuperAdmin())--}}
-                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"
-                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>
-                        <br>
+{{--                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"--}}
+{{--                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>--}}
+{{--                        <br>--}}
 {{--                        @endif--}}
-                        {{--@if($deactive_item1 == 0)
+                        @if($deactive_item1 == 0)
                             <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started" style="font-family: Shabnam">فردی</a>
+                               class="btn-get-started mt-5" style="font-family: Shabnam">فردی</a>
                             <br>
                         @endif
                         @if($deactive_item2 == 0)
@@ -136,7 +136,7 @@
                         @if($deactive_item3 == 0)
                             <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"
                                class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
-                        @endif--}}
+                        @endif
                     </div>
                 </div>
             </div>

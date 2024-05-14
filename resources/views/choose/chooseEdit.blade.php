@@ -76,7 +76,7 @@
 
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
+            <h1 style="font-family: Shabnam; margin-right: 20px;">مسابقات قرآن<span>.</span></h1>
         </a>
 
         <div class="row">

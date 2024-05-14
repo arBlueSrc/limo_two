@@ -76,7 +76,7 @@
         <a href="#" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 style="font-family: Shabnam">مسابقات قرآن<span>.</span></h1>
+            <h1 style="font-family: Shabnam; margin-right: 20px;">مسابقات قرآن<span>.</span></h1>
         </a>
 
 
@@ -92,7 +92,8 @@
                     <div class="mb-3">
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
                     </div>
-                    <h3 data-aos="fade-down">ثبت نام سی و یک امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
+                    <h3 data-aos="fade-down" class="mt-4">ثبت نام سی و یک امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
+                    <p data-aos="fade-down">تاریخ شروع ثبت نام : 6 خرداد</p>
                     {{--<div class="alert alert-warning alert-dismissible " style="text-align: right !important;">
                         <h5><i class="icon fa fa-warning"></i> توجه!</h5>
                         به دلیل استقبال گسترده و عدم امکان شرکت در آزمون برای تمامی شرکت کنندگان , تمامی آزمون های امروز لغو و نتایج آنها محاسبه نخواهد شد.زمان برگزاری آزمون مجدد در همین سامانه اعلام می شود.
@@ -104,8 +105,8 @@
 {{--                    <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
 
                     <div class="py-5">
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded m-2"
-                       style="font-family: Shabnam;">ورود</a>
+{{--                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded m-2"--}}
+{{--                       style="font-family: Shabnam;">ورود</a>--}}
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
                        class="btn-get-started btn btn-outline-success btn-lg m-2" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
