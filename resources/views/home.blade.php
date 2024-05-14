@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>مسابقات قرآن</title>
-    <meta content="ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج" name="description">
+    <meta content="ثبت نام سی و یک امین دوره مسابقات سراسری قرآن و عترت بسیج" name="description">
     <meta content="مسابقات قرآن,مسابقات قرآن بسیج,مسابقات قرآن,قرآن بسیج" name="keywords">
 
     <!-- Favicons -->
@@ -85,14 +85,14 @@
 <div class="container-fluid container-xl d-flex align-items-center justify-content-center mt-3">
 <!-- ======= Hero Section ======= -->
 
-    <div class="info d-flex align-items-center">
+    <div class="info d-flex align-items-center" style="margin-top: 200px">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col text-center" dir="rtl">
                     <div class="mb-3">
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="30%">
                     </div>
-                    <h3 data-aos="fade-down">ثبت نام سی امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
+                    <h3 data-aos="fade-down">ثبت نام سی و یک امین دوره مسابقات سراسری قرآن و عترت بسیج</h3>
                     {{--<div class="alert alert-warning alert-dismissible " style="text-align: right !important;">
                         <h5><i class="icon fa fa-warning"></i> توجه!</h5>
                         به دلیل استقبال گسترده و عدم امکان شرکت در آزمون برای تمامی شرکت کنندگان , تمامی آزمون های امروز لغو و نتایج آنها محاسبه نخواهد شد.زمان برگزاری آزمون مجدد در همین سامانه اعلام می شود.
@@ -104,18 +104,18 @@
 {{--                    <p data-aos="fade-up">ثبت نام به پایان رسیده است. زمان  دقیق  مسابقات  به زودی بصورت  پیامک  از  طرف مجریان مسابقات، اطلاع رسانی می شود.</p>--}}
 
                     <div class="py-5">
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded mx-2"
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('login') }}" class="btn-get-started btn btn-outline-success btn-lg rounded m-2"
                        style="font-family: Shabnam;">ورود</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ asset('files/ayinnameh.pdf')  }}"
-                       class="btn-get-started btn btn-outline-success btn-lg mx-2" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
+                       class="btn-get-started btn btn-outline-success btn-lg m-2" style="font-family: Shabnam" target=”_blank”>آیین نامه</a>
                     <a data-aos="fade-up" data-aos-delay="200" href="https://eitaa.com/quran_120"
-                       class="btn-get-started btn btn-outline-success btn-lg mx-2" style="font-family: Shabnam">ارتباط با ما</a>
+                       class="btn-get-started btn btn-outline-success btn-lg m-2" style="font-family: Shabnam">ارتباط با ما</a>
                     </div>
                 </div>
             </div>
 
 
-            <div class="card table-azmoon mt-3">
+            <div class="card table-azmoon mt-3" hidden>
                 <div class="card-header">
                     <h3 class="card-title">زمان برگزاری آزمون ها</h3>
                 </div>
@@ -182,7 +182,7 @@
                 <!-- /.card-body -->
             </div>
 
-            <div class="alert alert-warning mt-3" style="text-align: right !important; direction: rtl">
+            <div class="alert alert-warning mt-3" style="text-align: right !important; direction: rtl" hidden>
                 <h5><i class="icon fa fa-warning"></i> توجه !</h5>
                 <ul>
                     <li>زمان آزمون مطابق با جدول بالا می باشد و در رشته های مختلف متفاوت است.</li>
