@@ -47,8 +47,9 @@
     }
 
     @media (min-width: 1401px) {
+    @media (min-width: 1401px) {
         .h-custom {
-            height: 160vh !important;
+            height: 260vh !important;
         }
     }
 
@@ -95,7 +96,9 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 d-flex justify-content-center">فرم ثبت نام بخش
                             گروهی
                         </h3>
+
                         @if ($errors->any())
+
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -222,6 +225,28 @@
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="LFName3">شماره تماس نفر سوم*</label>
                                 <input type="text" id="third_persons_name_phone_number" name="third_persons_phone"
+                                       class="form-control"/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="FLName3">نام و نام خانوادگی نفر چهارم*</label>
+                                <input type="text" id="forth_persons_name" name="forth_persons_name"
+                                       class="form-control"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="LFName3">شماره تماس نفر چهارم*</label>
+                                <input type="text" id="forth_persons_name_phone_number" name="forth_persons_phone"
+                                       class="form-control"/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="FLName3">نام و نام خانوادگی نفر پنجم*</label>
+                                <input type="text" id="fifth_persons_name" name="fifth_persons_name"
+                                       class="form-control"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="LFName3">شماره تماس نفر پنجم*</label>
+                                <input type="text" id="fifth_persons_name_phone_number" name="fifth_persons_phone"
                                        class="form-control"/>
                             </div>
                             <br>

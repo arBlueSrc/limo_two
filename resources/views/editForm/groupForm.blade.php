@@ -227,6 +227,27 @@
                                 <input type="text" id="third_persons_name_phone_number" name="third_persons_phone"
                                        class="form-control" value="{{ $group_result->third_phone }}"/>
                             </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="FLName3">نام و نام خانوادگی نفر چهارم*</label>
+                                <input type="text" id="forth_persons_name" name="forth_persons_name"
+                                       class="form-control"  value="{{ $group_result->forth_name }}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="LFName3">شماره تماس نفر چهارم*</label>
+                                <input type="text" id="forth_persons_name_phone_number" name="forth_persons_phone"
+                                       class="form-control"  value="{{ $group_result->forth_phone }}"/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="FLName3">نام و نام خانوادگی نفر پنجم*</label>
+                                <input type="text" id="fifth_persons_name" name="fifth_persons_name"
+                                       class="form-control"  value="{{ $group_result->fifth_name }}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="LFName3">شماره تماس نفر پنجم*</label>
+                                <input type="text" id="fifth_persons_name_phone_number" name="fifth_persons_phone"
+                                       class="form-control" value="{{ $group_result->fifth_phone }}"/>
+                            </div>
 
                             <button type="submit" class="btn btn-success block">به روزرسانی</button>
 
