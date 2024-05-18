@@ -51,21 +51,19 @@ class UserController extends Controller
     public function ostanUsers(){
         $users = User::where('role',2)->orWhere('role',4)->paginate(10);
         $ostans = Ostan::all();
+        return view('admin.user.index-ostani', compact('users', 'ostans'));
+    }
+
+    public function shahrestanUsers(){
+        $users = User::where('role',2)->orWhere('role',4)->paginate(10);
+        $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-        return view('admin.user.index-ostani', compact('users', 'ostans', 'shahrestans'));
+        return view('admin.user.index-shahrestani', compact('users', 'ostans', 'shahrestans'));
     }
 
     public function create()
     {
         $this->authorize('is_superadmin');
-        /*$login_user=auth()->user();
-        if ($login_user->isOstaniAdmin()){
-            $ostans=Ostan::find($login_user->ostan_id);
-        }
-        else {
-            $ostans = Ostan::all();
-        }*/
-//        $roles = Role::all();
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
         return view('admin.user.create', compact('ostans', 'shahrestans'));
@@ -116,6 +114,14 @@ class UserController extends Controller
         User::destroy($request->input('delete_id'));
         return back();
     }
+
+    public function deleteUser(Request $request)
+    {
+        User::destroy($request->user);
+        return back();
+    }
+
+
 
     public function exportExcel()
     {

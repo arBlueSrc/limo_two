@@ -59,7 +59,9 @@ Route::prefix('admin')->group(function () {
         //user
         Route::resource('user', 'App\Http\Controllers\UserController');
         Route::resource('mosque-user', 'App\Http\Controllers\MosqueUserController');
+        Route::post('users/delete', [UserController::class, 'deleteUser'])->name('users.deleteUser');
         Route::get('users/ostanUsers', [UserController::class, 'ostanUsers'])->name('users.ostanUsers');
+        Route::get('users/shahrestanUsers', [UserController::class, 'shahrestanUsers'])->name('users.shahrestanUsers');
         Route::get('mosque-users/ostanUsers', [UserController::class, 'mosqueUserList'])->name('mosque-user-list');
         Route::post('users/search', [UserController::class, 'filterUsers'])->name('users.search');
         Route::get('users/search/show', [UserController::class, 'filterUsersShow'])->name('users.search.show');
@@ -69,7 +71,6 @@ Route::prefix('admin')->group(function () {
         Route::get('masjeds/upload-excel',[\App\Http\Controllers\MosqueUserController::class,'uploadMasjedFile'])->name('masjeds.upload.excel');
         Route::post('masjeds/upload-excel',[\App\Http\Controllers\MosqueUserController::class,'saveMasjedFile'])->name('upload-excel.save');
 
-
         //family routes
         Route::get('family', [\App\Http\Controllers\FamilyController::class, 'index'])->name('family.index');
         Route::post('family/search', [\App\Http\Controllers\FamilyController::class, 'filterUsers'])->name('family.search');
@@ -78,7 +79,6 @@ Route::prefix('admin')->group(function () {
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
 
     });
-
 
     Route::middleware(['auth', 'can:is_participant'])->group(function () {
         Route::get('/participate', [\App\Http\Controllers\ParticipateController::class, 'index'])->name('participate');

@@ -163,7 +163,7 @@
                             <th style="width: 5%; alignment: center">ردیف</th>
                             <th>نام و نام خانوادگی</th>
                             <th>استان</th>
-{{--                            <th>شهرستان</th>--}}
+                            <th>شهرستان</th>
                             <th style="width: 20%; alignment: center">عملیات</th>
                         </tr>
                         @foreach ($users as $key => $user)
@@ -172,14 +172,14 @@
                                     class="text-center">{{ $users->firstItem()+$key }}</td>
                                 <td>{{ $user->name . " " . $user->family }}</td>
                                 <td>{{ $user->ostan()->first()?->name }}</td>
-{{--                                <td>{{ $user->shahrestan()->first()?->name ?? "" }}</td>--}}
+                                <td>{{ $user->shahrestan()->first()?->name ?? "" }}</td>
                                 <td>
                                     <form id="delete-form-{{ $user->id }}" action="{{ route('users.deleteUser', ['user' => $user->id]) }}"
                                           method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                     <a style="margin: 5px"
-                                           onclick="event.preventDefault();
+                                       onclick="event.preventDefault();
                                             document.getElementById('delete-form-{{ $user->id }}').submit();">
                                         <ion-icon name="trash"></ion-icon>
                                     </a>

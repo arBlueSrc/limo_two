@@ -27,7 +27,7 @@
                         <li class="nav-item has-treeview {{ isActive(["user.create","users.ostanUsers"],'menu-open') }}">
                             <a href="#" class="nav-link {{ isActive(["user.create","users.ostanUsers"]) }}">
                                 <p>
-                                    مدیریت مدیران استانی
+                                     مدیران استانی و شهرستانی
                                     <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
@@ -35,7 +35,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('user.create') }}" class="nav-link {{ isActive("user.create") }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>ثبت نام مدیران استانی</p>
+                                        <p>ثبت نام مدیران</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -45,8 +45,16 @@
                                         <p>لیست مدیران استانی</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('users.shahrestanUsers') }}"
+                                       class="nav-link {{ isActive("users.shahrestanUsers") }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست مدیران شهرستانی</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
+
 
                         <li class="nav-item has-treeview {{ isActive(["mosque-user.create","mosque-user.ostanUsers"],'menu-open') }}">
                             <a href="#"
