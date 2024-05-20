@@ -27,7 +27,7 @@
         </div>
 
         <div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between">
-            <div>
+            <div style="order:10;">
                 <p class="small text-muted">
                     {!! __('Showing') !!}
                     <span class="fw-semibold">{{ $paginator->firstItem() }}</span>
@@ -40,7 +40,7 @@
             </div>
 
             <div>
-                <ul class="pagination">
+                <ul class="pagination" style="order: 5;">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())
                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -82,6 +82,7 @@
                         </li>
                     @endif
                 </ul>
+{{--                <button type="button" class="btn btn-block btn-primary btn-lg">Primary</button>--}}
             </div>
         </div>
     </nav>

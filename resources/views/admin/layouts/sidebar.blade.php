@@ -129,6 +129,12 @@
                     </li>
 
 
+
+
+
+
+
+
                     @can('is_superadmin')
 
                         <li class="nav-item has-treeview {{ isActive(["azmoon.index","result.index"],'menu-open') }}">
@@ -156,6 +162,24 @@
                             </ul>
                         </li>
                     @endcan
+
+
+                    <li class="nav-item has-treeview {{ isActive(["users.filter.sms","group.index",'family.index'],'menu-open') }}">
+                        <a href="#" class="nav-link {{ isActive(["users.filter.sms","group.index",'family.index']) }}">
+                            <p>
+                                مدیریت پیام کوتاه
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('users.filter.sms') }}" class="nav-link {{ isActive("users.filter.sms") }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>ارسال به کاربران</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </nav>

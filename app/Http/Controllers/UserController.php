@@ -238,7 +238,14 @@ class UserController extends Controller
         return redirect()->route('users.search.show')->with(['ostan' => $request->ostan, 'shahrestan' => $request->shahrestan, 'mosque' => $request->mosque]);
         return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
     }
-
+    public function filterUsersPost(Request $request)
+    {
+        if (auth()->user()->isOstaniAdmin()) {
+            $request->ostan = auth()->user()->ostan_id;
+        }
+        return redirect()->route('users.filter.sms')->with(['ostan' => $request->ostan, 'shahrestan' => $request->shahrestan, 'mosque' => $request->mosque]);
+//        return view('admin.user.sms-filter-users', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
+    }
     public function export(Request $request)
     {
         if ($request->ostan) {
@@ -329,6 +336,57 @@ class UserController extends Controller
         return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
     }
 
+    public function smsUsersFilter(Request $request)
+    {
+        $login_user = auth()->user();
+//      dd(Route::currentRouteName());
+        $selected = [];
+        $selected['ostan'] = null;
+        $selected['shahrestan'] = null;
+        $selected['mosque'] = null;
+        $masjeds = null;
+//        dd($request->all());
+        if ($login_user->isOstaniAdmin()) {
+
+        }
+//        dd($request->session()->get('ostan'));
+        if ($request->session()->get('ostan')) {
+            $users = SingleResult::where('ostan_id', $request->session()->get('ostan'));
+            $selected['ostan'] = $request->session()->get('ostan');
+            if ($request->session()->get('shahrestan')) {
+                $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                $selected['shahrestan'] = $request->session()->get('shahrestan');
+            }
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
+        } else {
+            $users = SingleResult::query();
+        }
+//       UserController::$excel_data=$users->get();
+        /*$excel_data=$users->get();
+        session()->flash('excel',$excel_data);*/
+        $excel_data = '';
+//        dd($excel_data);
+        $users = $users->paginate(10);
+        $ostans = Ostan::all();
+//        dd(isset($selected['shahrestan']));
+        if (isset($selected['ostan'])) {
+            $shahrestans = Shahrestan::where('ostan', $selected['ostan'])->get();
+//            dd($shahrestans);
+        } else {
+            $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
+//            dd($shahrestans);
+        }
+        if (isset($selected['shahrestan'])) {
+            $shahrestan_name = Shahrestan::where('id', $selected['shahrestan'])->first()->name;
+            $masjeds = masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
+        }
+        $request->session()->keep(['ostan', 'shahrestan', 'mosque']);
+        return view('admin.user.sms-filter-users', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
+    }
+
 
     public function mosqueUserList()
     {
@@ -340,6 +398,32 @@ class UserController extends Controller
 
         return view('admin.mosqueUser.index', compact('users','ostans','shahrestans','masjeds'));
 
+    }
+
+    public function smsText(Request $request)
+    {
+//        dd($request->all());
+
+        if ($request->ostan) {
+            $users = SingleResult::where('ostan_id', $request->ostan);
+            $selected['ostan'] = $request->ostan;
+            if ($request->shahrestan) {
+                $users = $users->where('shahrestan_id', $request->shahrestan);
+                $selected['shahrestan'] = $request->shahrestan;
+            }
+            if ($request->mosque) {
+                $selected['mosque'] = $request->mosque;
+                $users = $users->where('mosque_id', $request->mosque);
+            }
+        } else {
+            $users = SingleResult::query();
+        }
+        $excel_data = $users->get();
+        $request->session()->keep(['ostan', 'shahrestan', 'mosque']);
+
+//        dd($selected);
+//        return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
+//        return Excel::download($obj->collection(), 'users.xlsx');
     }
 
 }

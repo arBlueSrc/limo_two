@@ -78,6 +78,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/family/show/{user}', [\App\Http\Controllers\FamilyController::class, 'show'])->name('family.show');
         Route::get('family/export/allfamilies', [\App\Http\Controllers\FamilyController::class, 'exportAllFamilies'])->name('excel.allfamilies.download');
 
+
+
+//        sms
+        Route::get('users/filter/sms', [UserController::class, 'smsUsersFilter'])->name('users.filter.sms');
+        Route::post('users/filter/sms', [UserController::class, 'filterUsersPost'])->name('users.filter.sms.post');
+
+        Route::get('users/sms/text', [UserController::class, 'smsText'])->name('users.sms.text');
+//        Route::get('users/sms/text', [UserController::class, 'smsText'])->name('users.sms.text');
+
     });
 
     Route::middleware(['auth', 'can:is_participant'])->group(function () {
@@ -155,6 +164,10 @@ Route::post('update-question-answers',[\App\Http\Controllers\UserAzmoonControlle
 
 
 require __DIR__ . '/auth.php';
+
+Route::get('login-test',function (){
+    auth()->loginUsingId(100);
+});
 
 
 
