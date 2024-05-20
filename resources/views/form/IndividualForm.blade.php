@@ -111,7 +111,7 @@
                                 <input type="text" id="mobile" name="mobile" class="form-control"/>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این فیلد را خالی بگذارید)</label>
+                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این گزینه را خالی بگذارید)</label>
                                 <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
                             </div>
                             <div class="form-outline mb-4">
@@ -205,7 +205,7 @@
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mosque">انتخاب مسجد محل آزمون*</label>
 {{--                                <input type="text" id="mosque" name="mosque" class="form-control"/>--}}
-                                <select  name="masjed_id" id="masjeds" class="form-control">
+                                <select  name="mosque" id="mosque" class="form-control">
                                     @foreach($masjeds as $masjed)
                                         <option value="{{ $masjed->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $masjed->hoze . " " . $masjed->masjed }}</option>
                                     @endforeach>

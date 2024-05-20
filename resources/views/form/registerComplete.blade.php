@@ -72,7 +72,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center" dir="rtl">
                     <h2 data-aos="fade-down">مخاطب عزیز</h2>
-                    <p data-aos="fade-up">اطلاعات شما با موفقیت در سامانه ثبت گردید. برای شما پیامک تاییدیه ارسال خواهد شد. با تشکر.</p>
+                    <p data-aos="fade-up">اطلاعات شما با موفقیت در سامانه ثبت گردید.  با تشکر.</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ url('/') }}" class="btn-get-started" style="font-family: Shabnam">متوجه شدم</a>
                 </div>
             </div>
