@@ -13,15 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-       /* Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('family');
+            $table->integer('type');
+            $table->string('mobile');
+            $table->string('national_code');
+            $table->integer('role');
+            $table->integer('status');
+            $table->bigInteger('ostan_id');
+            $table->bigInteger('shahrestan_id');
+            $table->bigInteger('masjed_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('birthday');
             $table->timestamps();
-        });*/
+        });
     }
 
     /**
