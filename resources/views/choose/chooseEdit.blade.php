@@ -81,19 +81,9 @@
 
         <div class="row">
 
-            <form action="{{route('logout')}}" method="post" class="col-5">
-                @csrf
-                <button class="btn btn-danger btn-sm text-white ml-3">خروج</button>
-            </form>
-
             @if(auth()->user()->role == 0)
-                <a href="{{ route('participate') }}"
-                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
-            @endif
-
-            @if(auth()->user()->role == 1  || auth()->user()->role == 2   || auth()->user()->role == 3 || auth()->user()->role == 4)
-                <a href="{{ route('admin') }}"
-                   class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
+                <a href="{{ route('show_form') }}"
+                   class="btn btn-primary btn-sm text-white" style="font-family: Shabnam">برگشت</a>
             @endif
 
         </div>
@@ -113,7 +103,13 @@
 
                     <div class="alert" role="alert">
 
-                        <h4 data-aos="fade-down" class="text-muted"> فرم مورد نظر را برای ویرایش انتخاب کنید </h4>
+                        <h4 data-aos="fade-down" class="text-muted">
+                            @if(sizeof($single_forms) == 0 && sizeof($group_forms) == 0 && sizeof($family_forms) == 0)
+                                هنوز فرمی ثبت نکرده اید
+                                @else
+                                فرم مورد نظر را برای ویرایش انتخاب کنید
+                            @endif
+                        </h4>
                         <br>
 
                         @foreach($single_forms as $single_item)

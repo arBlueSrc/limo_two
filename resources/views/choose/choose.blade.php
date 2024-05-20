@@ -78,16 +78,52 @@
             <h1 style="font-family: Shabnam; margin-right: 20px;">مسابقات قرآن<span>.</span></h1>
         </a>
 
-        <div class="row">
+        <div class="row width-toolbar" >
 
-            <form action="{{route('logout')}}" method="post" class="col-5">
+            <style>
+                @media only screen and (max-width: 768px) {
+                    .exit-icon {
+                        display: block;
+                    }
+                    .exit-button {
+                        display: none;
+                    }
+                    .width-toolbar {
+                        width: 300px;
+                    }
+                }
+
+                @media only screen and (min-width: 768px) {
+                    .exit-icon {
+                        display: none;
+                    }
+                    .exit-button {
+                        display: block;
+                    }
+                    .width-toolbar {
+                        width: 400px;
+                    }
+                }
+            </style>
+
+            <form action="{{route('logout')}}" method="post" class="col-2 exit-icon" style="margin-left: 15px; margin-top: 5px">
+                @csrf
+                <img class="text-white " src="{{ asset('images/logout.png') }}" width="40px"  >
+            </form>
+
+            <form action="{{route('logout')}}" method="post" class="col-2 exit-button">
                 @csrf
                 <button class="btn btn-danger btn-sm text-white ml-3">خروج </button>
             </form>
 
             @if(auth()->user()->role == 0)
             <a href="{{ route('participate') }}"
-               class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">حساب کاربری</a>
+               class="btn btn-primary btn-sm text-white col-3" style="font-family: Shabnam">حساب کاربری</a>
+            @endif
+
+            @if(auth()->user()->role == 0)
+            <a href="{{ route('showFormEdit') }}"
+               class="btn btn-primary btn-sm text-white col-6 " style="font-family: Shabnam; margin-right: 5px">ویرایش فرم های ثبت شده</a>
             @endif
 
 
