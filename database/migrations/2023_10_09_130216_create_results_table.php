@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('true_answer');
             $table->integer('wrong_answer');
             $table->integer('empty_answer');
-            $table->integer('true_answer');
             $table->integer('percent');
             $table->timestamps();
         });
