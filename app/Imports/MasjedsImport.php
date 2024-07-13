@@ -31,13 +31,12 @@ class MasjedsImport implements ToModel
         } else{
 
             $masjed = Masjed::create([
-                'ostan'=>$row[1],
-                'shahrestan'=>$row[2],
-                'hoze'=>$row[3],
-                'gender'=>$row[4],
-                'masjed'=>$row[5],
+                'ostan'=>"test",
+                'shahrestan'=>"test",
+                'hoze'=>"test",
+                'gender'=>"test",
+                'masjed'=>"test",
             ]);
-
 
             $check_user_exist = User::where("mobile",'LIKE','%'.$row[7].'%')->exists();
 
