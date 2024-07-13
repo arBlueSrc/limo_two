@@ -41,9 +41,10 @@ class MasjedsImport implements ToModel
             $shahrestan = Shahrestan::where('name', $row[2])->first();
 
             if ($ostan == null){
-                dd("اسم استان در ردیف ".$row[0]." خطا دارد.") ;
+                dd("اسم استان در ردیف ".$row[0]." خطا دارد.");
                 return null;
             }
+
             if ($shahrestan == null){
 
                 $shahrestan = Shahrestan::create([
@@ -76,8 +77,6 @@ class MasjedsImport implements ToModel
                 ]);
 
             }
-
-
 
             return $masjed;
         }
