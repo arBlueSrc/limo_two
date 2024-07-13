@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\Masjed;
-use App\Models\Mojri;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\User;
