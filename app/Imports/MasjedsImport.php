@@ -31,11 +31,11 @@ class MasjedsImport implements ToModel
         } else{
 
             $masjed = Masjed::create([
-                'ostan'=>"test",
-                'shahrestan'=>"test",
-                'hoze'=>"test",
-                'gender'=>"test",
-                'masjed'=>"test",
+                'ostan'=>$row[1],
+                'shahrestan'=>$row[2],
+                'hoze'=>$row[3],
+                'gender'=>$row[4],
+                'masjed'=>$row[5],
             ]);
 
             $check_user_exist = User::where("mobile",'LIKE','%'.$row[7].'%')->exists();
@@ -44,7 +44,7 @@ class MasjedsImport implements ToModel
             $shahrestan = Shahrestan::where('name', $row[2])->first();
 
             if ($ostan == null){
-                dd("اسم استان در ردیف ".$row[0]." خطا دارد.");
+//                dd("اسم استان در ردیف ".$row[0]." خطا دارد.");
                 return null;
             }
 
