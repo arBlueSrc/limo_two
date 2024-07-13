@@ -394,7 +394,7 @@ class UserController extends Controller
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
         $users = User::where('role', 3)->paginate(10);
-        $masjeds = Masjed::all();
+        $masjeds = \App\Models\Masjed::all();
 
         return view('admin.mosqueUser.index', compact('users','ostans','shahrestans','masjeds'));
 
