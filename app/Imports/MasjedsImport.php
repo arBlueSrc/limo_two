@@ -48,7 +48,7 @@ class MasjedsImport implements ToModel
 
                 $shahrestan = Shahrestan::create([
                     "name" => $row[2],
-                    "ostan" => $row[1],
+                    "ostan" => $ostan->id,
                     "amar_code" => "100"
                 ]);
                 //dd("اسم شهرستان در ردیف ".$row[0]." خطا دارد.") ;
