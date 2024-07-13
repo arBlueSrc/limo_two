@@ -18,6 +18,8 @@ class MasjedsImport implements ToModel
     public function model(array $row)
     {
 
+        $message = "";
+
         if ($row[1] == "استان"){
             return null;
         }
@@ -36,7 +38,9 @@ class MasjedsImport implements ToModel
                 'masjed'=>$row[5],
             ]);
 
-            $check_user_exist = User::where("mobile", $row[7])->exists();
+
+            $check_user_exist = User::where("mobile",'LIKE','%'.$row[7].'%')->exists();
+
             $ostan = Ostan::where('name', $row[1])->first();
             $shahrestan = Shahrestan::where('name', $row[2])->first();
 
@@ -58,7 +62,7 @@ class MasjedsImport implements ToModel
 
             if ($check_user_exist){
 
-                User::where("mobile", $row[7])->first()->update([
+                User::where("mobile",'LIKE','%'.$row[7].'%')->first()->update([
                     'masjed_id'=>$masjed->id,
                     'ostan_id'=>$ostan->id,
                     'shahrestan_id'=>$shahrestan->id,
