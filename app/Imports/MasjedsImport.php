@@ -45,8 +45,14 @@ class MasjedsImport implements ToModel
                 return null;
             }
             if ($shahrestan == null){
-                dd("اسم شهرستان در ردیف ".$row[0]." خطا دارد.") ;
-                return null;
+
+                $shahrestan = Shahrestan::create([
+                    "name" => $row[2],
+                    "ostan" => $ostan,
+                    "amar_code" => "100"
+                ]);
+                //dd("اسم شهرستان در ردیف ".$row[0]." خطا دارد.") ;
+//                return null;
             }
 
             if ($check_user_exist){
