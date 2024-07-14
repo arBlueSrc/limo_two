@@ -116,7 +116,21 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="job">شغل</label>
-                                <input type="text" id="job" name="job" class="form-control"/>
+                                <select  id="job" name="job" class="form-control mt-2">
+                                    <option value="طلبه">طلبه</option>
+                                    <option value="دانشجو">دانشجو</option>
+                                    <option value="دانش آموز">دانش آموز</option>
+                                    <option value="کارگر">کارگر</option>
+                                    <option value="خانه دار">خانه دار</option>
+                                    <option value="کارمند">کارمند</option>
+                                    <option value="پزشک">پزشک</option>
+                                    <option value="بازاری">بازاری</option>
+                                    <option value="فرهنگی">فرهنگی</option>
+                                    <option value="استاد حوزه یا دانشگاه">استاد حوزه یا دانشگاه</option>
+                                    <option value="هنرمند">هنرمند</option>
+                                    <option value="بازنشسته">بازنشسته</option>
+                                    <option value="مهندس">مهندس</option>
+                                </select>
                             </div>
 
                             <div class="form-outline mb-4">
