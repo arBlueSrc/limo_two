@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\FamilyResult;
+use App\Models\Masjed;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -29,7 +30,7 @@ class FamilyResultExport implements FromCollection,withHeadings,withMapping
             $row->ostan()->first()->name ?? "",
             $row->shahrestan()->first()->name ?? "",
             $row->mosque()->first()->hoze,
-            $row->mosque()->first()->masjed,
+            $row->mosque()->first()->Masjed,
             $row->father_name,
             $row->father_national_code,
             jdate($row->birthdate)->format('Y-m-d'),

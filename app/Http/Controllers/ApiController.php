@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\MosExport;
 use App\Exports\MosShahrExport;
 use App\Exports\SingleResultExport;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +75,7 @@ class ApiController extends Controller
             ->groupBy('mosque_id')
             ->get();
 
-        $mosqs = masjed::get();
+        $mosqs = Masjed::get();
 
 //        $mos_group_hoze = DB::table('masjeds')
 //            ->select('mosque_id', DB::raw('count(mosque_id) as total'))

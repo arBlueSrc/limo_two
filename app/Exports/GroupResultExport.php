@@ -4,7 +4,7 @@ namespace App\Exports;
 
 use App\Models\GroupResult;
 use App\Models\Major;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -34,7 +34,7 @@ class GroupResultExport implements FromCollection,withHeadings,withMapping
             $row->ostan()->first()->name ?? "",
             $row->shahrestan()->first()->name ?? "",
             $row->mosque()->first()->hoze,
-            $row->mosque()->first()->masjed,
+            $row->mosque()->first()->Masjed,
             $row->type == 1 ?  "شرکت به صورت مدل اول (هر فرد یک تکلیف)" : "شرکت به صورت مدل دوم (حفظ گروهی سوره مبارکه الرحمن)",
             $row->head_name,
             $row->head_national_code,

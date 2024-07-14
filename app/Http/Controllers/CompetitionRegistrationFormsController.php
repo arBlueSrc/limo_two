@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Major;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class CompetitionRegistrationFormsController extends Controller
         $ostans = Ostan::get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         $majors=Major::all();
-        $masjeds = masjed::all();
+        $masjeds = Masjed::all();
 
         return view('form.IndividualForm',compact('ostans','shahrestans','majors','masjeds'));
     }
@@ -62,7 +62,7 @@ class CompetitionRegistrationFormsController extends Controller
 
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
 
-        $masjeds=masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
+        $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
 
         return $masjeds;
     }

@@ -24,7 +24,7 @@ class GroupResult extends Model
 
     public function mosque()
     {
-        return $this->belongsTo(masjed::class,'mosque_id');
+        return $this->belongsTo(Masjed::class,'mosque_id');
     }
     /*public function major()
     {

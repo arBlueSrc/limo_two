@@ -6,7 +6,7 @@ use App\Exports\FamilyResultExport;
 use App\Exports\GroupResultExport;
 use App\Models\FamilyResult;
 use App\Models\GroupResult;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
@@ -121,7 +121,7 @@ class GroupController extends Controller
         }
         if (isset($selected['shahrestan'])) {
             $shahrestan_name = Shahrestan::where('id', $selected['shahrestan'])->first()->name;
-            $masjeds = masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
+            $masjeds = Masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
         }
         $request->session()->keep(['ostan', 'shahrestan','mosque']);
 

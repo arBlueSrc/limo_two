@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SingleResultExport;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\MasjedsImport;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class MosqueUserController extends Controller
         $this->authorize('is_superadmin');
         $ostans = Ostan::all();
         $shahrestans = Shahrestan::where('ostan', $ostans->first()->id)->get();
-        $masjeds = masjed::all();
+        $masjeds = Masjed::all();
         return view('admin.mosqueUser.create', compact('ostans', 'shahrestans','masjeds'));
     }
 

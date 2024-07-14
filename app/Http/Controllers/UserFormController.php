@@ -6,7 +6,7 @@ use App\Models\FamilyResult;
 use App\Models\FamilyResultChildren;
 use App\Models\GroupResult;
 use App\Models\Major;
-use App\Models\masjed;
+use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
