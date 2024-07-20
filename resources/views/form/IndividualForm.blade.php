@@ -115,7 +115,7 @@
                                 <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="job">شغل</label>
+                                <label class="form-label" for="job">شغل*</label>
                                 <select  id="job" name="job" class="form-control mt-2">
                                     <option value="طلبه">طلبه</option>
                                     <option value="دانشجو">دانشجو</option>
@@ -135,7 +135,7 @@
 
                             <div class="form-outline mb-4">
                                 <div class="form-group">
-                                    <label for="role">جنسیت</label>
+                                    <label for="role">جنسیت*</label>
                                     <select  name="gender" id="gender" class="form-control mt-2">
                                         <option value="1">مرد</option>
                                         <option value="0">زن</option>
@@ -145,7 +145,7 @@
 
                             <div class="form-outline mb-4">
                                 <div class="form-group">
-                                    <label for="role">تحصیلات</label>
+                                    <label for="role">تحصیلات*</label>
                                     <select  name="degree" id="degree" class="form-control mt-2">
                                         <option value="1">دانش آموز</option>
                                         <option value="0">سیکل</option>
