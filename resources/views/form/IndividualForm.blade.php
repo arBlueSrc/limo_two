@@ -226,8 +226,8 @@
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="field_input">رشته*</label>
-                                <select name="major" id="field_input" class="form-control">
+                                <label class="form-label" for="major">رشته*</label>
+                                <select name="major" id="major" class="form-control">
 {{--                                    <option class="form-control" selected>رشته را انتخاب کنید</option>--}}
                                     @foreach($majors as $major)
                                     <option value="{{ $major->id }}">{{ $major->name ." / ".$major->des}}</option>
@@ -370,6 +370,42 @@
 
 
         // alert( this.value );
+    });
+
+
+    $('#gender').on('change', function() {
+
+        $("#major").empty();
+
+        let gender= $('#gender').val();
+
+        $.ajaxSetup({
+            headers : {
+                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                'Content-Type' : 'application/json'
+            }
+        })
+        $.ajax({
+            type : 'POST',
+            url : '{{ url("/"); }}/get-related-majors',
+            data : JSON.stringify( {gender: gender}),
+            success : function(data) {
+                 console.log(data);
+                var len = data.length;
+
+
+                for( var i = 0; i<len; i++){
+                    var id = data[i]['id'];
+                    var name = data[i]['name'];
+                    var des = data[i]['des'];
+
+                    $("#major").append("<option value='"+id+"'>"+name+" / "+ des +"</option>");
+
+                }
+            }
+            // console.log(data);
+
+        });
     });
 
 

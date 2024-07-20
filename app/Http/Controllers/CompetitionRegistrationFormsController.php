@@ -68,4 +68,23 @@ class CompetitionRegistrationFormsController extends Controller
     }
 
 
+    public function getRelatedMajors(Request $request)
+    {
+
+        if(! $request->ajax()) {
+            return response()->json([
+                'status' => 'not ajax request',
+            ]);
+        }
+        $data=$request->validate([
+            'gender'=>'required'
+        ]);
+
+
+        $majors=Major::where('gender',$data['gender'])->orWhere('gender','2')->get();
+
+        return $majors;
+    }
+
+
 }

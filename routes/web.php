@@ -160,6 +160,7 @@ Route::middleware('auth')->group(function () {
 
 Route::post('get-child-shahrestans',[CompetitionRegistrationFormsController::class,'getChildShahrestans']);
 Route::post('get-related-masjeds',[CompetitionRegistrationFormsController::class,'getRelatedMasjeds']);
+Route::post('get-related-majors',[CompetitionRegistrationFormsController::class,'getRelatedMajors']);
 Route::post('update-question-answers',[\App\Http\Controllers\UserAzmoonController::class,'ajaxAnswerUpdate'])->name('ajax.answer.update');
 
 
