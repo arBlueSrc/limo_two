@@ -87,32 +87,38 @@
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{ route('checkResponseSingle') }}" class="px-md-2" id="add-user-form" method="POST">
+                        <form action="{{ route('checkResponseSingle') }}" class="px-md-2" id="add-user-form"
+                              method="POST">
 
                             @csrf
                             @method("POST")
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="name">نام و نام خانوادگی*</label>
-                                <input type="text" id="name" name="name" class="form-control"  value="{{ old('name') }}"/>
+                                <input type="text" id="name" name="name" class="form-control"
+                                       value="{{ old('name') }}"/>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="national_code">کد ملی*</label>
-                                <input type="number" id="national_code" name="national_code" class="form-control" value="{{ old('national_code') }}"/>
+                                <input type="number" id="national_code" name="national_code" class="form-control"
+                                       value="{{ old('national_code') }}"/>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mobile">شماره تماس*</label>
-                                <input type="number" id="mobile" name="mobile" class="form-control"  value="{{ old('mobile') }}"/>
+                                <input type="number" id="mobile" name="mobile" class="form-control"
+                                       value="{{ old('mobile') }}"/>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این گزینه را خالی بگذارید)</label>
-                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"   value="{{ old('moaref_mobile') }}"/>
+                                <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این گزینه را
+                                    خالی بگذارید)</label>
+                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"
+                                       value="{{ old('moaref_mobile') }}"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="job">شغل*</label>
-                                <select  id="job" name="job" class="form-control mt-2">
+                                <select id="job" name="job" class="form-control mt-2">
                                     <option value="طلبه">طلبه</option>
                                     <option value="دانشجو">دانشجو</option>
                                     <option value="دانش آموز">دانش آموز</option>
@@ -132,7 +138,7 @@
                             <div class="form-outline mb-4">
                                 <div class="form-group">
                                     <label for="role">جنسیت*</label>
-                                    <select  name="gender" id="gender" class="form-control mt-2">
+                                    <select name="gender" id="gender" class="form-control mt-2">
                                         <option value="1">مرد</option>
                                         <option value="0">زن</option>
                                     </select>
@@ -142,7 +148,7 @@
                             <div class="form-outline mb-4">
                                 <div class="form-group">
                                     <label for="role">تحصیلات*</label>
-                                    <select  name="degree" id="degree" class="form-control mt-2">
+                                    <select name="degree" id="degree" class="form-control mt-2">
                                         <option value="1">دانش آموز</option>
                                         <option value="0">سیکل</option>
                                         <option value="0">دیپلم</option>
@@ -186,7 +192,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" id="year" class="form-control" >
+                                        <select name="year" id="year" class="form-control">
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1400; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -198,35 +204,38 @@
                             <div class="form-outline mb-4 mt-4">
                                 <label class="form-label" for="City">استان*</label>
 
-                                <select  name="ostan_id" id="ostans" class="form-control masjed-event">
+                                <select name="ostan_id" id="ostans" class="form-control masjed-event">
                                     @foreach($ostans as $ostan)
-                                        <option value="{{ $ostan->id }}" {{ $loop->first ? 'selected=selected' : '' }}>{{ $ostan->name }}</option>
+                                        <option
+                                            value="{{ $ostan->id }}" {{ $loop->first ? 'selected=selected' : '' }}>{{ $ostan->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="Township">شهرستان*</label>
-                                <select  name="shahrestan_id" id="child_shahrestans" class="form-control masjed-event">
+                                <select name="shahrestan_id" id="child_shahrestans" class="form-control masjed-event">
                                     @foreach($shahrestans as $shahrestan)
-                                        <option value="{{ $shahrestan->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $shahrestan->name }}</option>
+                                        <option
+                                            value="{{ $shahrestan->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $shahrestan->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mosque">انتخاب مسجد محل آزمون*</label>
-{{--                                <input type="text" id="mosque" name="mosque" class="form-control"/>--}}
-                                <select  name="mosque" id="mosque" class="form-control">
+                                {{--                                <input type="text" id="mosque" name="mosque" class="form-control"/>--}}
+                                <select name="mosque" id="mosque" class="form-control">
                                     @foreach($masjeds as $masjed)
-                                        <option value="{{ $masjed->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $masjed->hoze . " " . $masjed->masjed }}</option>
+                                        <option
+                                            value="{{ $masjed->id }}" {{ $loop->first ? "selected=selected" : '' }}>{{ $masjed->hoze . " " . $masjed->masjed }}</option>
                                     @endforeach>
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="major">رشته*</label>
                                 <select name="major" id="major" class="form-control">
-{{--                                    <option class="form-control" selected>رشته را انتخاب کنید</option>--}}
+                                    {{--                                    <option class="form-control" selected>رشته را انتخاب کنید</option>--}}
                                     @foreach($majors as $major)
-                                    <option value="{{ $major->id }}">{{ $major->name ." / ".$major->des}}</option>
+                                        <option value="{{ $major->id }}">{{ $major->name ." / ".$major->des}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -235,7 +244,8 @@
 
                             <div><h5 class="text-info">زمان دقیق آزمون به شما اطلاع رسانی خواهد شد </h5></div>
                             <div><h5 class="text-info">توجه: لطفا قبل از ذخیره اطلاعات و ثبت نام حتما <a
-                                        class="text-danger" href="{{ url('/files/single_rule.pdf') }}"> آیین نامه بخش فردی</a> را مطالعه کنید </h5></div>
+                                        class="text-danger" href="{{ url('/files/single_rule.pdf') }}"> آیین نامه بخش
+                                        فردی</a> را مطالعه کنید </h5></div>
                             <br>
                             <button type="submit" class="btn btn-success btn-lg mb-1">ذخیره</button>
 
@@ -293,66 +303,66 @@
 
 
 <script>
-    let sharestan_holder=0;
-    $('#ostans').on('change', function() {
+    let sharestan_holder = 0;
+    $('#ostans').on('change', function () {
         // alert( this.value );
-        let ostan_id= this.value;
+        let ostan_id = this.value;
         // alert( ostan_id);
 
         $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
             }
         })
         $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-child-shahrestans',
-            data : JSON.stringify( {ostan_id: ostan_id}),
-            success : function(data) {
+            type: 'POST',
+            url: '{{ url("/"); }}/get-child-shahrestans',
+            data: JSON.stringify({ostan_id: ostan_id}),
+            success: function (data) {
                 var len = data.length;
 
                 $("#child_shahrestans").empty();
-                for( var i = 0; i<len; i++){
+                for (var i = 0; i < len; i++) {
 
                     var id = data[i]['id'];
                     var name = data[i]['name'];
 
-                    if(i==0){
+                    if (i == 0) {
                         getMasjeds(data[i]['id']);
-                        sharestan_holder=id;
+                        sharestan_holder = id;
                     }
 
-                    $("#child_shahrestans").append("<option value='"+id+"'>"+name+"</option>");
+                    $("#child_shahrestans").append("<option value='" + id + "'>" + name + "</option>");
 
                 }
-                let shahrestan_id= sharestan_holder;
+                let shahrestan_id = sharestan_holder;
                 // alert( ostan_id);
                 // console.log(shahrestan_id);
 
                 $.ajaxSetup({
-                    headers : {
-                        'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                        'Content-Type' : 'application/json'
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'Content-Type': 'application/json'
                     }
                 })
                 $.ajax({
-                    type : 'POST',
-                    url : '{{ url("/"); }}/get-related-masjeds',
-                    data : JSON.stringify( {shahrestan_id: shahrestan_id}),
-                    success : function(data) {
+                    type: 'POST',
+                    url: '{{ url("/"); }}/get-related-masjeds',
+                    data: JSON.stringify({shahrestan_id: shahrestan_id}),
+                    success: function (data) {
                         // console.log(data);
                         var len = data.length;
 
                         $("#mosque").empty();
-                        for( var i = 0; i<len; i++){
+                        for (var i = 0; i < len; i++) {
                             var id = data[i]['id'];
                             var shahrestan = data[i]['shahrestan'];
                             var hoze = data[i]['hoze'];
                             var masjed = data[i]['masjed'];
                             // console.log(sharestan_holder);
 
-                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                            $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + "</option>");
 
                         }
                     }
@@ -369,69 +379,33 @@
     });
 
 
-    $('#gender').on('change', function() {
+    $('#gender').on('change', function () {
 
         $("#major").empty();
 
-        let gender= $('#gender').val();
+        let gender = $('#gender').val();
 
         $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
             }
         })
         $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-related-majors',
-            data : JSON.stringify( {gender: gender}),
-            success : function(data) {
-                 console.log(data);
-                var len = data.length;
-
-
-                for( var i = 0; i<len; i++){
-                    var id = data[i]['id'];
-                    var name = data[i]['name'];
-                    var des = data[i]['des'];
-
-                    $("#major").append("<option value='"+id+"'>"+name+" / "+ des +"</option>");
-
-                }
-            }
-            // console.log(data);
-
-        });
-    });
-
-
-    $('#year').on('change', function() {
-
-        $("#major").empty();
-
-        let year= $('#year').val();
-
-        $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
-            }
-        })
-        $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-related-majors-according-year',
-            data : JSON.stringify( {year: year}),
-            success : function(data) {
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-majors',
+            data: JSON.stringify({gender: gender}),
+            success: function (data) {
                 console.log(data);
                 var len = data.length;
 
 
-                for( var i = 0; i<len; i++){
+                for (var i = 0; i < len; i++) {
                     var id = data[i]['id'];
                     var name = data[i]['name'];
                     var des = data[i]['des'];
 
-                    $("#major").append("<option value='"+id+"'>"+name+" / "+ des +"</option>");
+                    $("#major").append("<option value='" + id + "'>" + name + " / " + des + "</option>");
 
                 }
             }
@@ -441,35 +415,69 @@
     });
 
 
+    $('#year').on('change', function () {
 
+        $("#major").empty();
 
-    $('#child_shahrestans').on('change', function() {
-
-         let shahrestan_id= $('#child_shahrestans').val();
-
+        let year = $('#year').val();
 
         $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
             }
         })
         $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-related-masjeds',
-            data : JSON.stringify( {shahrestan_id: shahrestan_id}),
-            success : function(data) {
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-majors-according-year',
+            data: JSON.stringify({year: year}),
+            success: function (data) {
+                console.log(data);
+                var len = data.length;
+
+
+                for (var i = 0; i < len; i++) {
+                    var id = data[i]['id'];
+                    var name = data[i]['name'];
+                    var des = data[i]['des'];
+
+                    $("#major").append("<option value='" + id + "'>" + name + " / " + des + "</option>");
+
+                }
+            }
+            // console.log(data);
+
+        });
+    });
+
+
+    $('#child_shahrestans').on('change', function () {
+
+        let shahrestan_id = $('#child_shahrestans').val();
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
+            }
+        })
+        $.ajax({
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-masjeds',
+            data: JSON.stringify({shahrestan_id: shahrestan_id}),
+            success: function (data) {
                 // console.log(data);
                 var len = data.length;
 
                 $("#mosque").empty();
-                for( var i = 0; i<len; i++){
+                for (var i = 0; i < len; i++) {
                     var id = data[i]['id'];
                     var shahrestan = data[i]['shahrestan'];
                     var hoze = data[i]['hoze'];
                     var masjed = data[i]['masjed'];
 
-                    $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                    $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + "</option>");
 
                 }
             }
@@ -484,26 +492,26 @@
         let shahrestan_id = shahrestanid;
 
         $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
             }
         })
         $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-related-masjeds',
-            data : JSON.stringify( { shahrestan_id: shahrestan_id}),
-            success : function(data) {
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-masjeds',
+            data: JSON.stringify({shahrestan_id: shahrestan_id}),
+            success: function (data) {
                 var len = data.length;
 
                 $("#masjeds").empty();
-                for( var i = 0; i<len; i++){
+                for (var i = 0; i < len; i++) {
 
                     var id = data[i]['id'];
                     var masjed = data[i]['masjed'];
                     var hoze = data[i]['hoze'];
 
-                    $("#masjeds").append("<option value='"+id+"'>"+masjed+" "+hoze+"</option>");
+                    $("#masjeds").append("<option value='" + id + "'>" + masjed + " " + hoze + "</option>");
 
                 }
             }

@@ -36,7 +36,7 @@
 
     @media all and (max-width: 600px) {
         .h-custom {
-            height: 250vh !important;
+            height: 350vh !important;
         }
     }
 
@@ -48,7 +48,7 @@
 
     @media (min-width: 1401px) {
         .h-custom {
-            height: 160vh !important;
+            height: 300vh !important;
         }
     }
 
@@ -212,6 +212,14 @@
                                     </select>
                                 </div>
                             </div>--}}
+
+
+                            <h2 class="mt-5" style="color: red">
+                                توجه:
+                            </h2>
+                            <h2>
+                                مسابقات در دو حالت "والدین" و "والدین به همراه فرزندان" برگزار می شود. در صورتیکه تمایل به ثبت نام در حال دوم را دارید اطلاعات فرزندان را پر کنید.
+                            </h2>
 
 
                             <div class="form-outline mb-4">

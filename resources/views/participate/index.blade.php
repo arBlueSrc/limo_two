@@ -275,7 +275,7 @@
                                                         <span class="time"><i
                                                                 class="fa fa-clock-o"></i> 5 روز پیش</span>
                                                         <h3 class="timeline-header no-border">تمامی مراحل ثبت نام در
-                                                            31 تیر از طریق پیامک اطلاع رسانی خواهد شد.
+                                                            31 مرداد از طریق پیامک اطلاع رسانی خواهد شد.
                                                         </h3>
                                                     </div>
                                                 </li>
@@ -321,7 +321,7 @@
                                             <div class="alert alert-info alert-dismissible">
 {{--                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
                                                 <h5><i class="icon fa fa-info"></i> توجه!</h5>
-                                                در صورت شرکت در مسابقات ۱۵مهرماه میتوانید با مراجعه به سایت لوح تقدیر خود را دریافت کنید.
+                                                در صورت شرکت در مسابقات میتوانید با مراجعه به سایت لوح تقدیر خود را دریافت کنید.
                                             </div>
 
 {{--        <div class="alert alert-info"> </div>--}}
