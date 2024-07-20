@@ -94,25 +94,21 @@
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="name">نام و نام خانوادگی*</label>
-                                <input type="text" id="name" name="name" class="form-control"/>
+                                <input type="text" id="name" name="name" class="form-control"  value="{{ old('name') }}"/>
                             </div>
-                            {{--<div class="form-outline mb-4">
-                                <label class="form-label" for="family">نام خانوادگی*</label>
-                                <input type="text" id="family" name="family" class="form-control"/>
-                            </div>--}}
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="aacode">کد ملی*</label>
-                                <input type="text" id="National" name="national_code" class="form-control"/>
+                                <label class="form-label" for="national_code">کد ملی*</label>
+                                <input type="number" id="national_code" name="national_code" class="form-control" value="{{ old('national_code') }}"/>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mobile">شماره تماس*</label>
-                                <input type="text" id="mobile" name="mobile" class="form-control"/>
+                                <input type="number" id="mobile" name="mobile" class="form-control"  value="{{ old('mobile') }}"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="mobile">شماره تماس معرف (در صورت نداشتن معرف این گزینه را خالی بگذارید)</label>
-                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"/>
+                                <input type="text" id="mobile" name="moaref_mobile" class="form-control"   value="{{ old('moaref_mobile') }}"/>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="job">شغل*</label>

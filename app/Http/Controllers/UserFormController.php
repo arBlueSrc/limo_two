@@ -11,6 +11,8 @@ use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
 use App\Models\User;
+use App\Rule\CodeMeliValidator;
+use App\Rule\PhoneNumberValidator;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,8 +64,8 @@ class UserFormController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'national_code' => 'required',
-            'mobile' => 'required',
+            'national_code' => ['required',new CodeMeliValidator()],
+            'mobile' => ['required',new PhoneNumberValidator()],
             'day' => 'required',
             'month' => 'required',
             'year' => 'required',
