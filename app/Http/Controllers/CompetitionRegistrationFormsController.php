@@ -87,4 +87,23 @@ class CompetitionRegistrationFormsController extends Controller
     }
 
 
+    public function getRelatedMajorsAccordingYear(Request $request)
+    {
+
+        if(! $request->ajax()) {
+            return response()->json([
+                'status' => 'not ajax request',
+            ]);
+        }
+
+        $data=$request->validate([
+            'year'=>'required'
+        ]);
+
+        $majors=Major::where('from_year',"<=",$data['year'])->Where('to_year',">=",$data['year'])->get();
+
+        return $majors;
+    }
+
+
 }

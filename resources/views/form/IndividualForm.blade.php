@@ -190,7 +190,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
 
-                                        <select name="year" class="form-control" >
+                                        <select name="year" id="year" class="form-control" >
                                             <option value="" class="form-control" selected>سال</option>
                                             @for($i=1400; $i>=1330;$i--)
                                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -407,6 +407,44 @@
 
         });
     });
+
+
+    $('#year').on('change', function() {
+
+        $("#major").empty();
+
+        let year= $('#year').val();
+
+        $.ajaxSetup({
+            headers : {
+                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
+                'Content-Type' : 'application/json'
+            }
+        })
+        $.ajax({
+            type : 'POST',
+            url : '{{ url("/"); }}/get-related-majors-according-year',
+            data : JSON.stringify( {year: year}),
+            success : function(data) {
+                console.log(data);
+                var len = data.length;
+
+
+                for( var i = 0; i<len; i++){
+                    var id = data[i]['id'];
+                    var name = data[i]['name'];
+                    var des = data[i]['des'];
+
+                    $("#major").append("<option value='"+id+"'>"+name+" / "+ des +"</option>");
+
+                }
+            }
+            // console.log(data);
+
+        });
+    });
+
+
 
 
     $('#child_shahrestans').on('change', function() {
