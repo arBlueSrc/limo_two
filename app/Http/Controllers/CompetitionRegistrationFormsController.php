@@ -58,24 +58,29 @@ class CompetitionRegistrationFormsController extends Controller
         }
         $data=$request->validate([
             'shahrestan_id'=>'required',
-            'gender'=>'required'
+            'gender'=>''
         ]);
 
 
-        switch ($data['gender']) {
-            case "1":
-                $gender_filter = "برادر";
-                break;
-            case "0":
-                $gender_filter = "خواهر";
-                break;
-            default:
-                $gender_filter = "برادر";
-        }
+
 
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
 
-        $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "برادر و خواهر"])->get();
+        if ($request->gender == null){
+            $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
+        }else{
+            switch ($data['gender']) {
+                case "1":
+                    $gender_filter = "برادر";
+                    break;
+                case "0":
+                    $gender_filter = "خواهر";
+                    break;
+                default:
+                    $gender_filter = "برادر";
+            }
+            $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "برادر و خواهر"])->get();
+        }
 
         return $masjeds;
     }
