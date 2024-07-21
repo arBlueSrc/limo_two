@@ -239,7 +239,7 @@
                             <tr>
                                 <td style="width: 5%; alignment: center" class="text-center">{{ $users->firstItem()+$key }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->mobile }}</td>
                                 <td>{{ $user->ostan()->first()?->name }}</td>
                                 <td>{{ $user->shahrestan()->first()?->name ?? "" }}</td>
                                 <td>
