@@ -57,12 +57,25 @@ class CompetitionRegistrationFormsController extends Controller
             ]);
         }
         $data=$request->validate([
-            'shahrestan_id'=>'required'
+            'shahrestan_id'=>'required',
+            'gender'=>'required'
         ]);
+
+
+        switch ($data['gender']) {
+            case "1":
+                $gender_filter = "برادر";
+                break;
+            case "0":
+                $gender_filter = "خواهر";
+                break;
+            default:
+                $gender_filter = "برادر";
+        }
 
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
 
-        $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
+        $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "برادر و خواهر"])->get();
 
         return $masjeds;
     }
@@ -76,34 +89,17 @@ class CompetitionRegistrationFormsController extends Controller
                 'status' => 'not ajax request',
             ]);
         }
+
         $data=$request->validate([
+            'year'=>'required',
             'gender'=>'required'
         ]);
 
-
-        $majors=Major::where('gender',$data['gender'])->orWhere('gender','2')->get();
-
-        return $majors;
-    }
-
-
-    public function getRelatedMajorsAccordingYear(Request $request)
-    {
-
-        if(! $request->ajax()) {
-            return response()->json([
-                'status' => 'not ajax request',
-            ]);
-        }
-
-        $data=$request->validate([
-            'year'=>'required'
-        ]);
-
-        $majors=Major::where('from_year',"<=",$data['year'])->Where('to_year',">=",$data['year'])->get();
+        $majors=Major::where('from_year',"<=",$data['year'])->Where('to_year',">=",$data['year'])->whereIn('gender',[$data['gender'], 2])->get();
 
         return $majors;
     }
+
 
 
 }

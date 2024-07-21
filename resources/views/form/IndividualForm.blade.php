@@ -382,8 +382,11 @@
     $('#gender').on('change', function () {
 
         $("#major").empty();
+        $("#mosque").empty();
 
         let gender = $('#gender').val();
+        let year = $('#year').val();
+        let shahrestan_id = $('#child_shahrestans').val();
 
         $.ajaxSetup({
             headers: {
@@ -391,10 +394,33 @@
                 'Content-Type': 'application/json'
             }
         })
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-masjeds',
+            data: JSON.stringify({shahrestan_id: shahrestan_id, gender: gender }),
+            success: function (data) {
+
+                // console.log(data);
+                var len = data.length;
+
+                $("#mosque").empty();
+                for (var i = 0; i < len; i++) {
+                    var id = data[i]['id'];
+                    var shahrestan = data[i]['shahrestan'];
+                    var hoze = data[i]['hoze'];
+                    var masjed = data[i]['masjed'];
+
+                    $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + "</option>");
+
+                }
+            }
+        });
+
         $.ajax({
             type: 'POST',
             url: '{{ url("/"); }}/get-related-majors',
-            data: JSON.stringify({gender: gender}),
+            data: JSON.stringify({year: year, gender: gender}),
             success: function (data) {
                 console.log(data);
                 var len = data.length;
@@ -408,10 +434,18 @@
                     $("#major").append("<option value='" + id + "'>" + name + " / " + des + "</option>");
 
                 }
+
+
+
             }
             // console.log(data);
 
         });
+
+
+
+
+
     });
 
 
@@ -420,6 +454,7 @@
         $("#major").empty();
 
         let year = $('#year').val();
+        let gender = $('#gender').val();
 
         $.ajaxSetup({
             headers: {
@@ -429,8 +464,8 @@
         })
         $.ajax({
             type: 'POST',
-            url: '{{ url("/"); }}/get-related-majors-according-year',
-            data: JSON.stringify({year: year}),
+            url: '{{ url("/"); }}/get-related-majors',
+            data: JSON.stringify({year: year, gender: gender}),
             success: function (data) {
                 console.log(data);
                 var len = data.length;
@@ -454,7 +489,7 @@
     $('#child_shahrestans').on('change', function () {
 
         let shahrestan_id = $('#child_shahrestans').val();
-
+        let gender = $('#gender').val();
 
         $.ajaxSetup({
             headers: {
@@ -465,7 +500,7 @@
         $.ajax({
             type: 'POST',
             url: '{{ url("/"); }}/get-related-masjeds',
-            data: JSON.stringify({shahrestan_id: shahrestan_id}),
+            data: JSON.stringify({shahrestan_id: shahrestan_id, gender: gender}),
             success: function (data) {
                 // console.log(data);
                 var len = data.length;
@@ -490,6 +525,7 @@
     function getMasjeds(shahrestanid) {
 
         let shahrestan_id = shahrestanid;
+        let gender = $('#gender').val();
 
         $.ajaxSetup({
             headers: {
@@ -500,7 +536,7 @@
         $.ajax({
             type: 'POST',
             url: '{{ url("/"); }}/get-related-masjeds',
-            data: JSON.stringify({shahrestan_id: shahrestan_id}),
+            data: JSON.stringify({shahrestan_id: shahrestan_id, gender:gender}),
             success: function (data) {
                 var len = data.length;
 
