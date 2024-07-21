@@ -86,21 +86,7 @@ class AuthenticatedSessionController extends Controller
                 'otp_code' => $otp_code,
                 'otp_expired_at' => $otp_expired_at
             ]]);
-            // send code to user
-            //API Url
-            /*$url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
-            $dataArray = array(
-                'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
-                'number' => "660005",
-                'text' => "کد تایید : " . $otp_code,
-                'mobiles' => session('register_data')['mobile'],
-                'clientIDs' => 1,
-            );
-            $data = http_build_query($dataArray);
 
-            $getUrl = $url . "?" . $data;
-//                                dd($getUrl);
-            $contents = file_get_contents($getUrl, false);*/
 
 
 
@@ -116,15 +102,32 @@ class AuthenticatedSessionController extends Controller
             try {
 
                 // your code
-                $Code = $otp_code;
+//                $Code = $otp_code;
+//
+//                // your mobile number
+//                $MobileNumber = $user->mobile;
+//
+//                $send = smsir::Send();
+//                $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
+//                $parameters = array($parameter) ;
+//                $send->Verify($MobileNumber, "100000", $parameters);
 
-                // your mobile number
-                $MobileNumber = $user->mobile;
 
-                $send = smsir::Send();
-                $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
-                $parameters = array($parameter) ;
-                $send->Verify($MobileNumber, "100000", $parameters);
+                // send code to user
+                //API Url
+                $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+                $dataArray = array(
+                    'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+                    'number' => "660005",
+                    'text' => "کد تایید : " . $otp_code,
+                    'mobiles' => session('register_data')['mobile'],
+                    'clientIDs' => 1,
+                );
+                $data = http_build_query($dataArray);
+
+                $getUrl = $url . "?" . $data;
+//                                dd($getUrl);
+                $contents = file_get_contents($getUrl, false);
 
             } catch (BadFunctionCallException  $e) {
                 echo 'Error VerificationCode : ' . $e->getMessage();
