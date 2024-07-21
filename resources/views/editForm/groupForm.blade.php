@@ -142,6 +142,15 @@
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
+                                <div class="form-group">
+                                    <label for="role">جنسیت*</label>
+                                    <select name="gender" id="gender" class="form-control mt-2">
+                                        <option value="1">مرد</option>
+                                        <option value="0">زن</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-outline mb-4">
                                 <label class="form-label" for="Mosque">انتخاب مسجد محل آزمون*</label>
                                 <select  name="mosque" id="mosque" class="form-control">
                                     @foreach($mosques as $mosuque)
@@ -384,6 +393,46 @@
 
         // alert( this.value );
     });
+
+
+    $('#gender').on('change', function () {
+
+        $("#mosque").empty();
+
+        let gender = $('#gender').val();
+        let shahrestan_id = $('#child_shahrestans').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-masjeds',
+            data: JSON.stringify({shahrestan_id: shahrestan_id, gender: gender }),
+            success: function (data) {
+
+                // console.log(data);
+                var len = data.length;
+
+                $("#mosque").empty();
+                for (var i = 0; i < len; i++) {
+                    var id = data[i]['id'];
+                    var shahrestan = data[i]['shahrestan'];
+                    var hoze = data[i]['hoze'];
+                    var masjed = data[i]['masjed'];
+
+                    $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + " - حوزه: " + hoze +"</option>");
+
+                }
+            }
+        });
+
+    });
+
 
 
     $('#child_shahrestans').on('change', function() {

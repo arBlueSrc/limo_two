@@ -147,6 +147,15 @@
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
+                                <div class="form-group">
+                                    <label for="role">جنسیت*</label>
+                                    <select name="gender" id="gender" class="form-control mt-2">
+                                        <option value="1">مرد</option>
+                                        <option value="0">زن</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-outline mb-4">
                                 <label class="form-label" for="Mosque">انتخاب مسجد محل آزمون*</label>
                                 <select  name="mosque" id="mosque" class="form-control">
                                 </select>
@@ -316,10 +325,12 @@
 <script>
 
 
-    /*$('#ostans').on('change', function () {
-        // alert( this.value );
-        let ostan_id = this.value;
-        // alert( ostan_id);
+
+    let sharestan_holder=0;
+
+    function loadMasjed() {
+
+        let ostan_id = $('#ostans').val();
 
         $.ajaxSetup({
             headers: {
@@ -329,87 +340,49 @@
         })
         $.ajax({
             type: 'POST',
-            url: '{{ url("/"); }}/get-child-shahrestans',
+            url: '{{ url("/") }}/get-child-shahrestans',
             data: JSON.stringify({ostan_id: ostan_id}),
             success: function (data) {
                 var len = data.length;
 
                 $("#child_shahrestans").empty();
                 for (var i = 0; i < len; i++) {
+
                     var id = data[i]['id'];
+                    if (i == 0) {
+                        sharestan_holder = id;
+                        // console.log(id);
+                    }
                     var name = data[i]['name'];
 
                     $("#child_shahrestans").append("<option value='" + id + "'>" + name + "</option>");
 
                 }
-            }
-            // console.log(data);
-
-        });
-    });*/
-
-
-
-    let sharestan_holder=0;
-    $('#ostans').on('change', function() {
-        // alert( this.value );
-        let ostan_id= this.value;
-        // alert( ostan_id);
-
-        $.ajaxSetup({
-            headers : {
-                'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                'Content-Type' : 'application/json'
-            }
-        })
-        $.ajax({
-            type : 'POST',
-            url : '{{ url("/"); }}/get-child-shahrestans',
-            data : JSON.stringify( {ostan_id: ostan_id}),
-            success : function(data) {
-                var len = data.length;
-
-                $("#child_shahrestans").empty();
-                for( var i = 0; i<len; i++){
-
-                    var id = data[i]['id'];
-                    if(i==0){
-                        sharestan_holder=id;
-                        // console.log(id);
-                    }
-                    var name = data[i]['name'];
-
-                    $("#child_shahrestans").append("<option value='"+id+"'>"+name+"</option>");
-
-                }
-                let shahrestan_id= sharestan_holder;
-                // alert( ostan_id);
-                // console.log(shahrestan_id);
+                let shahrestan_id = sharestan_holder;
+                let gender = $('#gender').val();
 
                 $.ajaxSetup({
-                    headers : {
-                        'X-CSRF-TOKEN' : "{{ csrf_token() }}",
-                        'Content-Type' : 'application/json'
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'Content-Type': 'application/json'
                     }
                 })
                 $.ajax({
-                    type : 'POST',
-                    url : '{{ url("/"); }}/get-related-masjeds',
-                    data : JSON.stringify( {shahrestan_id: shahrestan_id}),
-                    success : function(data) {
+                    type: 'POST',
+                    url: '{{ url("/"); }}/get-related-masjeds',
+                    data: JSON.stringify({shahrestan_id: shahrestan_id, gender: gender}),
+                    success: function (data) {
                         // console.log(data);
                         var len = data.length;
 
                         $("#mosque").empty();
-                        for( var i = 0; i<len; i++){
+                        for (var i = 0; i < len; i++) {
                             var id = data[i]['id'];
                             var shahrestan = data[i]['shahrestan'];
                             var hoze = data[i]['hoze'];
                             var masjed = data[i]['masjed'];
-                            // console.log(sharestan_holder);
-                            //  console.log(hoze);
 
-                            $("#mosque").append("<option value='"+id+"'>"+shahrestan+" - مسجد: "+ masjed +"</option>");
+                            $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + " - حوزه: " + hoze +"</option>");
 
                         }
                     }
@@ -420,16 +393,21 @@
             // console.log(data);
 
         });
+    }
 
+    $('#ostans').on('change', function() {
+        loadMasjed.call(this);
+    });
 
-        // alert( this.value );
+    $(window).on('load', function() {
+         loadMasjed.call(this);
     });
 
 
     $('#child_shahrestans').on('change', function() {
         // alert( this.value );
         let shahrestan_id= $('#child_shahrestans').val();
-        // alert( ostan_id);
+        let gender = $('#gender').val();
         // console.log(shahrestan_id);
 
         $.ajaxSetup({
@@ -441,7 +419,7 @@
         $.ajax({
             type : 'POST',
             url : '{{ url("/"); }}/get-related-masjeds',
-            data : JSON.stringify( {shahrestan_id: shahrestan_id}),
+            data : JSON.stringify( {shahrestan_id: shahrestan_id, gender: gender}),
             success : function(data) {
                 // console.log(data);
                 var len = data.length;
@@ -460,6 +438,46 @@
 
         });
     });
+
+
+    $('#gender').on('change', function () {
+
+        $("#mosque").empty();
+
+        let gender = $('#gender').val();
+        let shahrestan_id = $('#child_shahrestans').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ url("/"); }}/get-related-masjeds',
+            data: JSON.stringify({shahrestan_id: shahrestan_id, gender: gender }),
+            success: function (data) {
+
+                // console.log(data);
+                var len = data.length;
+
+                $("#mosque").empty();
+                for (var i = 0; i < len; i++) {
+                    var id = data[i]['id'];
+                    var shahrestan = data[i]['shahrestan'];
+                    var hoze = data[i]['hoze'];
+                    var masjed = data[i]['masjed'];
+
+                    $("#mosque").append("<option value='" + id + "'>" + shahrestan + " - مسجد: " + masjed + " - حوزه: " + hoze +"</option>");
+
+                }
+            }
+        });
+
+    });
+
 
 </script>
 
