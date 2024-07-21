@@ -118,10 +118,10 @@
                                 <input type="text" id="namesGroup" name="group_name" class="form-control"/>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="Township">انتخاب مدل شرکت گروه*</label>
+                                <label class="form-label" for="Township">نوع*</label>
                                 <select name="type" id="" class="form-control">
-                                    <option value="1" {{--selected=selected--}}>شرکت به صورت مدل اول (هر فرد یک تکلیف)</option>
-                                    <option value="2">شرکت به صورت مدل دوم (حفظ گروهی سوره مبارکه الرحمن)</option>
+                                    <option value="1" >نوجوانان (متولدین ۸۸ و مابعد)</option>
+                                    <option value="2" selected>بزرگسالان (متولدین ۸۷ و ما قبل)</option>
                                 </select>
                             </div>
                             <div class="form-outline mb-4">

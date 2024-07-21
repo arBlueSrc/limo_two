@@ -20,14 +20,14 @@ class CompetitionRegistrationFormsController extends Controller
     }
 
     public function groupForm(){
-//        $ostans = Ostan::all();
-        $ostans = Ostan::where('id',8)->get();
+        $ostans = Ostan::all();
+//        $ostans = Ostan::where('id',8)->get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         return view('form.groupForm',compact('ostans','shahrestans'));
     }
     public function familyForm(){
-//        $ostans = Ostan::all();
-        $ostans = Ostan::where('id',8)->get();
+        $ostans = Ostan::all();
+//        $ostans = Ostan::where('id',8)->get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         return view('form.familyForm',compact('ostans','shahrestans'));
     }
