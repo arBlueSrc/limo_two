@@ -106,7 +106,7 @@ class UserFormController extends Controller
 
         $single = SingleResult::where('user_id', Auth()->user()->id)->get();
 
-        if ($check == null && sizeof($single) <= 2) {
+        if ($check == null && sizeof($single) <= 1) {
 
             $single_result = SingleResult::create([
                 'name' => $data['name'],
