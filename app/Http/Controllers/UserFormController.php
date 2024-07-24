@@ -26,12 +26,12 @@ class UserFormController extends Controller
         $group = GroupResult::where('user_id', Auth()->user()->id)->get();
         $family = FamilyResult::where('user_id', Auth()->user()->id)->get();
 
-        if (sizeof($single) <= 3 || sizeof($group) == 0 || sizeof($family) == 0) {
+        if (sizeof($single) <= 2 || sizeof($group) == 0 || sizeof($family) == 0) {
             $deactive_item1 = 0;
             $deactive_item2 = 0;
             $deactive_item3 = 0;
 
-            if (sizeof($single) >= 2) $deactive_item1 = 1;
+            if (sizeof($single) >= 3) $deactive_item1 = 1;
             if (sizeof($group) != 0) $deactive_item2 = 1;
             if (sizeof($family) != 0) $deactive_item3 = 1;
 
@@ -104,8 +104,9 @@ class UserFormController extends Controller
             ]
         )->first();
 
+        $single = SingleResult::where('user_id', Auth()->user()->id)->get();
 
-        if ($check == null) {
+        if ($check == null && sizeof($single) <= 2) {
 
             $single_result = SingleResult::create([
                 'name' => $data['name'],
@@ -186,7 +187,7 @@ rubika.ir/quranbsj_ir",
         $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
 
         $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
-
+        $group = GroupResult::where('user_id', Auth()->user()->id)->get();
 
         $check = GroupResult::where(
             [
@@ -213,7 +214,7 @@ rubika.ir/quranbsj_ir",
         )->first();
 
 
-        if ($check == null) {
+        if ($check == null && sizeof($group) == 0) {
 
             $group_result = GroupResult::create([
                 'name_group' => $data['group_name'],
@@ -297,13 +298,18 @@ rubika.ir/quranbsj_ir",
             'child_year4' => '',
             'moaref_mobile' => '',
         ]);
-//dd($data);
+
         $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
         $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
 
         $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
+
+        $family = FamilyResult::where('user_id', Auth()->user()->id)->get();
+        if(sizeof($family) != 0){
+            return redirect(route('form.complete'));
+        }
 
         $f = FamilyResult::create([
             'name' => $data['family_name'],
@@ -314,7 +320,6 @@ rubika.ir/quranbsj_ir",
             'father_phone' => $data['father_phone'],
             'mother_name' => $data['mother_name'],
             'mother_phone' => $data['mother_phone'],
-//            'child_count'=>$data['child_count'],
             'birthdate' => $birth_date,
             'mosque_id' => $data['mosque'],
             'user_id' => Auth::user()->id
@@ -387,7 +392,7 @@ rubika.ir/quranbsj_ir",
                 'birthdate' => $child_birth_date4,
             ]);
         }
-// send sms to user
+        // send sms to user
         //API Url
         $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
         $dataArray = array(
@@ -405,7 +410,6 @@ rubika.ir/quranbsj_ir",
 //                                dd($getUrl);
         $contents = file_get_contents($getUrl, false);
         return redirect(route('form.complete'));
-//        return view('form.registerComplete');
     }
 
     public function showFormComplete()
