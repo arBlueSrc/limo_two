@@ -31,7 +31,7 @@ class UserFormController extends Controller
             $deactive_item2 = 0;
             $deactive_item3 = 0;
 
-            if (sizeof($single) >= 3) $deactive_item1 = 1;
+            if (sizeof($single) >= 2) $deactive_item1 = 1;
             if (sizeof($group) != 0) $deactive_item2 = 1;
             if (sizeof($family) != 0) $deactive_item3 = 1;
 
