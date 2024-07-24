@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\FamilyForm;
+use App\Http\Middleware\GroupForm;
 use App\Http\Middleware\SingleForm;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,7 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'single-form' => SingleForm::class,
-        'group-form' => SingleForm::class,
-        'family-form' => SingleForm::class,
+        'group-form' => GroupForm::class,
+        'family-form' => FamilyForm::class,
     ];
 }
