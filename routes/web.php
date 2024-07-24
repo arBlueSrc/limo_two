@@ -124,8 +124,8 @@ Route::middleware('auth')->group(function () {
 
     //forms_Competition
     Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->middleware('single-form')->name('single');
-    Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->name("group");
-    Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->name("family");
+    Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->middleware('group-form')->name("group");
+    Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->middleware('family-form')->name("family");
 
     //check response
     Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->middleware('single-form')->name('checkResponseSingle');
