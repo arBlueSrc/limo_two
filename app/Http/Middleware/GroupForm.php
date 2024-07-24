@@ -20,7 +20,7 @@ class GroupForm
     {
         $user=auth()->user();
         $group = GroupResult::where('user_id', Auth()->user()->id)->get()->count();
-        if ($group>=1){
+        if ($group!=0){
             return redirect()->route('home');
         }
         else {

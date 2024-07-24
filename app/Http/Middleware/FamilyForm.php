@@ -21,7 +21,7 @@ class FamilyForm
     {
         $user=auth()->user();
         $family = FamilyResult::where('user_id', Auth()->user()->id)->get()->count();
-        if ($family>=1){
+        if ($family!=0){
             return redirect()->route('home');
         }
         else {
