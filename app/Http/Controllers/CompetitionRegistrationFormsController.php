@@ -79,7 +79,7 @@ class CompetitionRegistrationFormsController extends Controller
                 default:
                     $gender_filter = "برادر";
             }
-            $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "برادر و خواهر"])->get();
+            $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "مشترک"])->get();
         }
 
         return $masjeds;
