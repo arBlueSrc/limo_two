@@ -99,39 +99,66 @@ class AuthenticatedSessionController extends Controller
             }
 
             //send sms sms.ir
-            try {
-
-                // your code
-//                $Code = $otp_code;
+//            try {
 //
-//                // your mobile number
-//                $MobileNumber = $user->mobile;
+//                // your code
+////                $Code = $otp_code;
+////
+////                // your mobile number
+////                $MobileNumber = $user->mobile;
+////
+////                $send = smsir::Send();
+////                $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
+////                $parameters = array($parameter) ;
+////                $send->Verify($MobileNumber, "100000", $parameters);
 //
-//                $send = smsir::Send();
-//                $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
-//                $parameters = array($parameter) ;
-//                $send->Verify($MobileNumber, "100000", $parameters);
+//
+//                // send code to user
+//                //API Url
+//                $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+//                $dataArray = array(
+//                    'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+//                    'number' => "660005",
+//                    'text' => "کد تایید : " . $otp_code,
+//                    'mobiles' => session('register_data')['mobile'],
+//                    'clientIDs' => 1,
+//                );
+//                $data = http_build_query($dataArray);
+//
+//                $getUrl = $url . "?" . $data;
+////                                dd($getUrl);
+//                $contents = file_get_contents($getUrl, false);
+//
+//            } catch (BadFunctionCallException  $e) {
+//                echo 'Error VerificationCode : ' . $e->getMessage();
+//            }
 
 
-                // send code to user
-                //API Url
+            try{
                 $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
                 $dataArray = array(
                     'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
                     'number' => "660005",
-                    'text' => "کد تایید : " . $otp_code,
+                    'text' => "کد تایید " . $otp_code,
+                    'isFlash' => "true",
                     'mobiles' => session('register_data')['mobile'],
                     'clientIDs' => 1,
                 );
                 $data = http_build_query($dataArray);
 
                 $getUrl = $url . "?" . $data;
-//                                dd($getUrl);
                 $contents = file_get_contents($getUrl, false);
 
-            } catch (BadFunctionCallException  $e) {
-                echo 'Error VerificationCode : ' . $e->getMessage();
+                $response = json_decode($contents, true);
+
+                if ($response['Error'] != null){
+                     $this->smsir($otp_code, session('register_data')['mobile']);
+                }
             }
+            catch (\ErrorException  $e) {
+                 $this->smsir($otp_code, session('register_data')['mobile']);
+            }
+
         }
 
         $now = Carbon::now();
@@ -152,6 +179,34 @@ class AuthenticatedSessionController extends Controller
         }
         return view('auth.otp', compact('otp_time_remain'));
     }
+
+
+    public function smsir($Code, $MobileNumber)
+    {
+
+        try {
+
+            // your mobile number
+            $send = smsir::Send();
+            $parameter = new \Cryptommer\Smsir\Objects\Parameters("Code", $Code);
+            $parameters = array($parameter);
+            $send->Verify($MobileNumber, "100000", $parameters);
+
+            return (false);
+
+        } catch (BadFunctionCallException  $e) {
+            echo 'Error VerificationCode : ' . $e->getMessage();
+
+            return (true);
+        }
+
+
+    }
+
+
+
+
+
     public function resendCode(Request $request)
     {
 //        $user=User::where('mobile',session('register_data')['mobile'])->first();
@@ -201,23 +256,48 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
             //send sms sms.ir
-            try {
-                date_default_timezone_set("Asia/Tehran");
-                // your sms.ir panel configuration
-                $APIKey = "755fc457df1274c68b61c457";
-                $SecretKey = "lms.N@sra";
+//            try {
+//                date_default_timezone_set("Asia/Tehran");
+//                // your sms.ir panel configuration
+//                $APIKey = "755fc457df1274c68b61c457";
+//                $SecretKey = "lms.N@sra";
+//
+//                // your code
+//                $Code = $otp_code;
+//                // your mobile number
+//                $MobileNumber = $user->mobile;
+//
+//                $sms_handler = new SmsIR_VerificationCode();
+//                $sms_handler->constructor($APIKey, $SecretKey);
+//                $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+//
+//            } catch (BadFunctionCallException  $e) {
+//                echo 'Error VerificationCode : ' . $e->getMessage();
+//            }
 
-                // your code
-                $Code = $otp_code;
-                // your mobile number
-                $MobileNumber = $user->mobile;
+            try{
+                $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
+                $dataArray = array(
+                    'privateKey' => "67d84858-50c4-4dd1-9ad1-c4f1ae758462",
+                    'number' => "660005",
+                    'text' => "کد تایید " . $otp_code,
+                    'isFlash' => "true",
+                    'mobiles' => session('register_data')['mobile'],
+                    'clientIDs' => 1,
+                );
+                $data = http_build_query($dataArray);
 
-                $sms_handler = new SmsIR_VerificationCode();
-                $sms_handler->constructor($APIKey, $SecretKey);
-                $res=$sms_handler->VerificationCode($Code, $MobileNumber);
+                $getUrl = $url . "?" . $data;
+                $contents = file_get_contents($getUrl, false);
 
-            } catch (BadFunctionCallException  $e) {
-                echo 'Error VerificationCode : ' . $e->getMessage();
+                $response = json_decode($contents, true);
+
+                if ($response['Error'] != null){
+                     $this->smsir($otp_code, session('register_data')['mobile']);
+                }
+            }
+            catch (\ErrorException  $e) {
+                 $this->smsir($otp_code, session('register_data')['mobile']);
             }
 
 //dd('send by');
