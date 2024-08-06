@@ -41,8 +41,6 @@ class OstaniManagerImport implements ToModel
                     'ostan_id' => $ostan->id,
                     'role' => "2"
                 ]);
-
-                return $user;
             }
         } else {
             return null;

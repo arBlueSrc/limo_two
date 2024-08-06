@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\SingleResultExport;
 use App\Imports\MasjedsImport;
 use App\Imports\OstaniManagerImport;
+use App\Imports\ShahrestaniManagerImport;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
@@ -436,15 +437,13 @@ class UserController extends Controller
     }
 
     public function saveManagerOstanFile(Request $request){
-
         Excel::import(new OstaniManagerImport, request()->file('file'));
-        return redirect()->back()->with('message','اطلاعات با موفقیت ذخیره شد');
+        return redirect()->back()->with('message','مدیران استانی با موفقیت ذخیره شدند');
     }
 
     public function saveManagerShahrestanFile(Request $request){
-
-        Excel::import(new MasjedsImport, request()->file('file'));
-        return redirect()->back()->with('message','اطلاعات با موفقیت ذخیره شد');
+        Excel::import(new ShahrestaniManagerImport, request()->file('file2'));
+        return redirect()->back()->with('message','مدیران شهرستانی با موفقیت ذخیره شدند');
     }
 
 }

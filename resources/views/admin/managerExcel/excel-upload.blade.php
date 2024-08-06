@@ -173,7 +173,7 @@
                                 <label for="username">فایل اکسل را وارد کنید</label>
 
                                 <div class="row flex-nowrap">
-                                    <input type="file" name="file" class="form-control" id="username" placeholder="آیین نامه دوره را وارد کنید" value="{{ old('sample_certificate') }}">
+                                    <input type="file" name="file2" class="form-control" id="file2">
                                     <div>
                                         <img id="loading-gif" style="display: none;" src="{{ asset('images/spinner@1x-1.0s-200px-200px.gif') }}" width="40px">
                                     </div>
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         <div>
-                            <a href="{{ asset('files/ghaleb.xlsx') }}" type="button" class="btn btn-success">دانلود قالب اکسل</a>
+                            <a href="{{ asset('files/ghaleb3.xlsx') }}" type="button" class="btn btn-success">دانلود قالب اکسل</a>
                         </div>
                         <div class="alert alert-primary col-md-6 mt-2">
                             <h5 class="" style="margin-right: -1rem;"><i class="icon fa fa-check"></i> راهنما</h5>
