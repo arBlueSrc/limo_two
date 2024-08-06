@@ -46,6 +46,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('manager.upload.excel') }}"
+                                       class="nav-link {{isActive("manager.upload.excel") }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>وارد کردن از طریق اکسل</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a href="{{ route('users.shahrestanUsers') }}"
                                        class="nav-link {{ isActive("users.shahrestanUsers") }}">
                                         <i class="fa fa-circle-o nav-icon"></i>

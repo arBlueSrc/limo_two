@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SingleResultExport;
+use App\Imports\MasjedsImport;
+use App\Imports\OstaniManagerImport;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
@@ -424,6 +426,25 @@ class UserController extends Controller
 //        dd($selected);
 //        return Excel::download(new SingleResultExport($excel_data), 'users.xlsx');
 //        return Excel::download($obj->collection(), 'users.xlsx');
+    }
+
+
+
+
+    public function uploadManagerFile(){
+        return view('admin.managerExcel.excel-upload');
+    }
+
+    public function saveManagerOstanFile(Request $request){
+
+        Excel::import(new OstaniManagerImport, request()->file('file'));
+        return redirect()->back()->with('message','اطلاعات با موفقیت ذخیره شد');
+    }
+
+    public function saveManagerShahrestanFile(Request $request){
+
+        Excel::import(new MasjedsImport, request()->file('file'));
+        return redirect()->back()->with('message','اطلاعات با موفقیت ذخیره شد');
     }
 
 }
