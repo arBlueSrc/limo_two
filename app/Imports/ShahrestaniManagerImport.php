@@ -47,7 +47,7 @@ class ShahrestaniManagerImport implements ToModel
             $user = User::where("mobile", 'LIKE', '%' . $row[4] . '%')->first()->update([
                 'ostan_id' => $ostan->id,
                 'shahrestan_id' => $shahrestan->id,
-                'role' => "3"
+                'role' => "4"
             ]);
 
         } else {
@@ -57,7 +57,7 @@ class ShahrestaniManagerImport implements ToModel
                 'mobile' => $row[4],
                 'ostan_id' => $ostan->id,
                 'shahrestan_id' => $shahrestan->id,
-                'role' => "3"
+                'role' => "4"
             ]);
 
         }

@@ -43,6 +43,7 @@ class UserController extends Controller
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
             $selected['ostan'] = $current_user->ostan_id;
+            $selected['shahrestan'] = $current_user->shahrestan_id;
         } else {
             $users = SingleResult::paginate(10);
             $ostans = Ostan::all();
