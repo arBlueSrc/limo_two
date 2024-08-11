@@ -36,7 +36,9 @@ class FamilyController extends Controller
             $users = FamilyResult::where('shahrestan_id', $current_user->shahrestan_id)->paginate(10);
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
+            $masjeds = Masjed::where('ostan', Ostan::find($current_user->ostan_id)->name)->where('shahrestan', Shahrestan::find($current_user->shahrestan_id)->name)->get();
             $selected['ostan'] = $current_user->ostan_id;
+            return view('admin.family.index', compact('users', 'ostans', 'shahrestans', 'selected','masjeds'));
         }  else {
             $users = FamilyResult::paginate(10);
             $ostans = Ostan::all();

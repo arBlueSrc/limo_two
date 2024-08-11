@@ -38,6 +38,8 @@ class GroupController extends Controller
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
             $selected['ostan'] = $current_user->ostan_id;
+            $masjeds = Masjed::where('ostan', Ostan::find($current_user->ostan_id)->name)->where('shahrestan', Shahrestan::find($current_user->shahrestan_id)->name)->get();
+            return view('admin.group.index', compact('users', 'ostans', 'shahrestans','selected','masjeds'));
         } else{
         $users = GroupResult::paginate(10);
         $ostans = Ostan::all();
