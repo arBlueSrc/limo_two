@@ -79,6 +79,17 @@ class FamilyController extends Controller
         }
         $excel_data = $users->get();
         session()->flash('excel', $excel_data);
+
+        $login_user = auth()->user();
+
+        if ($login_user->isOstaniAdmin() && $request->session()->get('shahrestan') == null) {
+            $users->where('ostan_id', $login_user->ostan_id);
+        }
+
+        if ($login_user->isShahrestanAdmin() && $request->session()->get('mosque') == null) {
+            $users->where('shahrestan_id', $login_user->shahrestan_id);
+        }
+
         $users = $users->paginate(10);
 
         $ostans = Ostan::all();

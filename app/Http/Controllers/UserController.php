@@ -304,7 +304,6 @@ class UserController extends Controller
         if ($login_user->isOstaniAdmin()) {
 
         }
-//        dd($request->session()->get('mosque'));
         if ($request->session()->get('ostan')) {
             $users = SingleResult::where('ostan_id', $request->session()->get('ostan'));
             $selected['ostan'] = $request->session()->get('ostan');
@@ -328,7 +327,22 @@ class UserController extends Controller
                 $selected['mosque'] = $request->session()->get('mosque');
                 $users = $users->where('mosque_id', $request->session()->get('mosque'));
             }
+
         }
+
+
+
+        if ($login_user->isOstaniAdmin() && $request->session()->get('shahrestan') == null) {
+            $users->where('ostan_id', $login_user->ostan_id);
+        }
+
+        if ($login_user->isShahrestanAdmin() && $request->session()->get('mosque') == null) {
+            $users->where('shahrestan_id', $login_user->shahrestan_id);
+        }
+
+
+
+
 //       UserController::$excel_data=$users->get();
         /*$excel_data=$users->get();
         session()->flash('excel',$excel_data);*/
