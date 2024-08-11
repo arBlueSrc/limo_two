@@ -164,12 +164,12 @@
                         </form>
                     </div>
 
-                    @can('is_superadmin')
+                    @can('is_miniadmin')
                         <form action="{{ route('users.search') }}" method="post">
                         @csrf
                         @method('POST')
                     <div class="my-form-container row">
-                        @if(!auth()->user()->isOstaniAdmin())
+                        @if(auth()->user()->isSuperAdmin())
                         <div class="form-group col-md-3">
                             <label>استان</label>
                             <select name="ostan" id="ostans" class="form-control">
@@ -180,6 +180,7 @@
                             </select>
                         </div>
                         @endif
+                        @if(auth()->user()->isSuperAdmin() || auth()->user()->isOstaniAdmin())
                         <div class="form-group col-md-3">
                             <label>شهرستان</label>
                             <select name="shahrestan" id="child_shahrestans" class="form-control">
@@ -189,6 +190,8 @@
                                 @endforeach
                             </select>
                         </div>
+                            @endif
+                            @if(auth()->user()->isSuperAdmin() || auth()->user()->isOstaniAdmin() || auth()->user()->isShahrestanAdmin() )
                         <div class="form-group col-md-3">
                             <label>مسجد</label>
                             <select name="mosque" id="mosque" class="form-control">
@@ -200,6 +203,7 @@
                                 @endisset
                             </select>
                         </div>
+                            @endif
                         <div class="form-group d-flex align-items-end mr-2">
                             <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
                         </div>

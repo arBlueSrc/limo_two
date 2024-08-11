@@ -42,8 +42,10 @@ class UserController extends Controller
             $users = SingleResult::where('shahrestan_id', $current_user->shahrestan_id)->paginate(10);
             $ostans = Ostan::where('id', $current_user->ostan_id)->get();
             $shahrestans = Shahrestan::where('ostan', $current_user->ostan_id)->get();
+            $masjeds = Masjed::where('ostan', Ostan::find($current_user->ostan_id)->name)->where('shahrestan', Shahrestan::find($current_user->shahrestan_id)->name)->get();
             $selected['ostan'] = $current_user->ostan_id;
             $selected['shahrestan'] = $current_user->shahrestan_id;
+            return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected','masjeds'));
         } else {
             $users = SingleResult::paginate(10);
             $ostans = Ostan::all();
@@ -302,7 +304,7 @@ class UserController extends Controller
         if ($login_user->isOstaniAdmin()) {
 
         }
-//        dd($request->session()->get('ostan'));
+//        dd($request->session()->get('mosque'));
         if ($request->session()->get('ostan')) {
             $users = SingleResult::where('ostan_id', $request->session()->get('ostan'));
             $selected['ostan'] = $request->session()->get('ostan');
@@ -316,6 +318,16 @@ class UserController extends Controller
             }
         } else {
             $users = SingleResult::query();
+
+            if ($request->session()->get('shahrestan')) {
+                $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                $selected['shahrestan'] = $request->session()->get('shahrestan');
+            }
+
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
         }
 //       UserController::$excel_data=$users->get();
         /*$excel_data=$users->get();
@@ -336,6 +348,13 @@ class UserController extends Controller
             $shahrestan_name = Shahrestan::where('id', $selected['shahrestan'])->first()->name;
             $masjeds = masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
         }
+
+        $current_user = auth()->user();
+        if ($current_user->isShahrestanAdmin()) {
+            // ostani admin
+            $masjeds = Masjed::where('ostan', Ostan::find($current_user->ostan_id)->name)->where('shahrestan', Shahrestan::find($current_user->shahrestan_id)->name)->get();
+        }
+
         $request->session()->keep(['ostan', 'shahrestan', 'mosque']);
         return view('admin.user.index', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
     }
