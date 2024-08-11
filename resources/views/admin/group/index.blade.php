@@ -167,47 +167,51 @@
                         </form>
                     </div>
 
-                    @can('is_superadmin')
+                    @can('is_miniadmin')
                         <form action="{{ route('group.search') }}" method="post">
                         @csrf
                         @method('POST')
-                        <div class="my-form-container row mt-2">
-                            @if(!auth()->user()->isOstaniAdmin())
-                            <div class="form-group col-md-3">
-                                <label>استان</label>
-                                <select name="ostan" id="ostans" class="form-control">
-                                    <option value="">همه</option>
-                                    @foreach($ostans as $ostan)
-                                        <option value="{{ $ostan->id }}" @if( isset($selected['ostan']) && $selected['ostan'] == $ostan->id ) selected @endif >{{ $ostan->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @endif
-                            <div class="form-group col-md-3">
-                                <label>شهرستان</label>
-                                <select name="shahrestan" id="child_shahrestans" class="form-control">
-                                    <option value="">همه</option>
-                                    @foreach($shahrestans as $shahrestan)
-                                        <option value="{{ $shahrestan->id }}" @if( isset($selected['shahrestan']) && ($selected['shahrestan']== $shahrestan->id) ) selected @endif >{{ $shahrestan->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>مسجد</label>
-                                <select name="mosque" id="mosque" class="form-control">
-                                    <option value="">همه</option>
-                                    @isset($masjeds)
-                                        @foreach($masjeds as $masjed)
-                                            <option value="{{ $masjed->id }}" @if( isset($selected['mosque']) && ($selected['mosque']== $masjed->id) ) selected @endif >{{ 'حوزه :'. $masjed->hoze .' - مسجد : '. $masjed->masjed }}</option>
-                                        @endforeach
-                                    @endisset
-                                </select>
-                            </div>
-                            <div class="form-group d-flex align-items-end mr-2">
-                                <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
-                            </div>
+                            <div class="my-form-container row">
+                                @if(auth()->user()->isSuperAdmin())
+                                    <div class="form-group col-md-3">
+                                        <label>استان</label>
+                                        <select name="ostan" id="ostans" class="form-control">
+                                            <option value="">همه</option>
+                                            @foreach($ostans as $ostan)
+                                                <option value="{{ $ostan->id }}" @if( isset($selected['ostan']) && $selected['ostan'] == $ostan->id ) selected @endif >{{ $ostan->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+                                @if(auth()->user()->isSuperAdmin() || auth()->user()->isOstaniAdmin())
+                                    <div class="form-group col-md-3">
+                                        <label>شهرستان</label>
+                                        <select name="shahrestan" id="child_shahrestans" class="form-control">
+                                            <option value="">همه</option>
+                                            @foreach($shahrestans as $shahrestan)
+                                                <option value="{{ $shahrestan->id }}" @if( isset($selected['shahrestan']) && ($selected['shahrestan']== $shahrestan->id) ) selected @endif >{{ $shahrestan->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+                                @if(auth()->user()->isSuperAdmin() || auth()->user()->isOstaniAdmin() || auth()->user()->isShahrestanAdmin() )
+                                    <div class="form-group col-md-3">
+                                        <label>مسجد</label>
+                                        <select name="mosque" id="mosque" class="form-control">
+                                            <option value="">همه</option>
+                                            @isset($masjeds)
+                                                @foreach($masjeds as $masjed)
+                                                    <option value="{{ $masjed->id }}" @if( isset($selected['mosque']) && ($selected['mosque']== $masjed->id) ) selected @endif >{{ 'حوزه :'. $masjed->hoze .' - مسجد : '. $masjed->masjed }}</option>
+                                                @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
+                                @endif
+                                <div class="form-group d-flex align-items-end mr-2">
+                                    <button class="btn btn-secondary" style="max-height:content-box" type="submit">جستجو</button>
+                                </div>
 
-                        </div>
+                            </div>
 
                     </form>
                     @endcan

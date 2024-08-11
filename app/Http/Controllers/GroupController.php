@@ -56,6 +56,8 @@ class GroupController extends Controller
         if (auth()->user()->isOstaniAdmin()){
             $request->ostan=auth()->user()->ostan_id;
         }
+
+
         return redirect()->route('group.search.show')->with(['ostan'=>$request->ostan,'shahrestan'=>$request->shahrestan,'mosque'=>$request->mosque]);
 //        return view('admin.user.index',compact('users','ostans','shahrestans','selected','masjeds','excel_data'));
 
@@ -128,6 +130,19 @@ class GroupController extends Controller
         //        dd($shahrestans);
 //        $users = User::paginate(15);
 //        return redirect()->back()->with(['users'=>$users,'ostans'=>$ostans,'shahrestans'=>$shahrestans]);
+
+        if (isset($selected['shahrestan'])) {
+            $shahrestan_name = Shahrestan::where('id', $selected['shahrestan'])->first()->name;
+            $masjeds = masjed::where('shahrestan', "LIKE", $shahrestan_name)->get();
+        }
+
+        $current_user = auth()->user();
+        if ($current_user->isShahrestanAdmin()) {
+            // ostani admin
+            $masjeds = Masjed::where('ostan', Ostan::find($current_user->ostan_id)->name)->where('shahrestan', Shahrestan::find($current_user->shahrestan_id)->name)->get();
+        }
+
+
         return view('admin.group.index', compact('users', 'ostans', 'shahrestans', 'selected', 'masjeds', 'excel_data'));
 
     }
