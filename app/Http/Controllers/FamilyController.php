@@ -60,6 +60,7 @@ class FamilyController extends Controller
 
     public function filterFamiliesShow(Request $request)
     {
+
         $selected = [];
         $masjeds = null;
         if ($request->session()->get('ostan')) {
@@ -76,6 +77,16 @@ class FamilyController extends Controller
             }
         } else {
             $users = FamilyResult::query();
+
+            if ($request->session()->get('shahrestan')) {
+                $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                $selected['shahrestan'] = $request->session()->get('shahrestan');
+            }
+
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
         }
         $excel_data = $users->get();
         session()->flash('excel', $excel_data);

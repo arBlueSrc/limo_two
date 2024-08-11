@@ -104,6 +104,16 @@ class GroupController extends Controller
             }
         } else {
             $users = GroupResult::query();
+
+            if ($request->session()->get('shahrestan')) {
+                $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                $selected['shahrestan'] = $request->session()->get('shahrestan');
+            }
+
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
         }
 //        UserController::$excel_data=$users->get();
         $excel_data = $users->get();
