@@ -20,7 +20,7 @@ class FamilyResult extends Model
         return $this->belongsTo(Shahrestan::class);
     }
     public function mosque(){
-        return $this->belongsTo(masjed::class);
+        return $this->belongsTo(Masjed::class);
 }
 public function childs(){
         return $this->hasMany(FamilyResultChildren::class);

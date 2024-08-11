@@ -27,7 +27,7 @@ class SingleResult extends Model
 
     public function mosque()
     {
-        return $this->belongsTo(masjed::class);
+        return $this->belongsTo(Masjed::class);
     }
 
     public function major()
