@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/check', [\App\Http\Controllers\ApiController::class, 'check'])->name('check');
 Route::get('/getMos', [\App\Http\Controllers\ApiController::class, 'getMos'])->name('getMos');
 Route::get('/getMosShahr', [\App\Http\Controllers\ApiController::class, 'getMosShahr'])->name('getMosShahr');
+Route::get('/deleteRep', [\App\Http\Controllers\ApiController::class, 'deleteRep'])->name('deleteRep');

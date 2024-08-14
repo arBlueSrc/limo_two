@@ -143,4 +143,28 @@ class ApiController extends Controller
 
         return Excel::download(new MosShahrExport(collect($mos)), 'mosshahr.xlsx');
     }
+
+
+    public function deleteRep()
+    {
+        $masjeds = Masjed::all();
+        foreach ($masjeds as $ms){
+            $repetitive = Masjed::where("ostan", $ms->ostan)
+                ->where("shahrestan", $ms->shahrestan)
+                ->where("hoze", $ms->hoze)
+                ->where("gender", $ms->gender)
+                ->where("masjed", $ms->masjed)
+                ->get();
+
+            if (sizeof($repetitive) != 0){
+                foreach ($repetitive as $rep){
+                    $rep->delete();
+                }
+            }
+        }
+
+        echo "Done!";
+    }
+
+
 }
