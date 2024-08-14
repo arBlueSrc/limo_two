@@ -149,18 +149,21 @@ class ApiController extends Controller
     {
         $masjeds = Masjed::all();
         foreach ($masjeds as $ms){
+
             $repetitive = Masjed::where("ostan", $ms->ostan)
                 ->where("shahrestan", $ms->shahrestan)
                 ->where("hoze", $ms->hoze)
                 ->where("gender", $ms->gender)
                 ->where("masjed", $ms->masjed)
+                ->where("id" , "!=" , $ms->id)
                 ->get();
 
-            if (sizeof($repetitive) != 0){
+            if (sizeof($repetitive) != 1){
                 foreach ($repetitive as $rep){
                     $rep->delete();
                 }
             }
+
         }
 
         echo "Done!";
