@@ -14,7 +14,7 @@ class CompetitionRegistrationFormsController extends Controller
         $ostans = Ostan::get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         $majors=Major::all();
-        $masjeds = Masjed::all();
+        $masjeds = Masjed::where('ostan', $ostans->get(0)->name)->where('shahrestan', $shahrestans->get(0)->name)->where('gender', "!=", "خواهر")->get();
 
         return view('form.IndividualForm',compact('ostans','shahrestans','majors','masjeds'));
     }
