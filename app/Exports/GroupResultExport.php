@@ -33,8 +33,8 @@ class GroupResultExport implements FromCollection,withHeadings,withMapping
             $row->name_group,
             $row->ostan()->first()->name ?? "",
             $row->shahrestan()->first()->name ?? "",
-            $row->mosque()->first()->hoze,
-            $row->mosque()->first()->Masjed,
+            $row->mosque()->first()->hoze ?? "",
+            $row->mosque()->first()->Masjed ?? "",
             $row->type == 1 ?  "شرکت به صورت مدل اول (هر فرد یک تکلیف)" : "شرکت به صورت مدل دوم (حفظ گروهی سوره مبارکه الرحمن)",
             $row->head_name,
             $row->head_national_code,
@@ -44,6 +44,10 @@ class GroupResultExport implements FromCollection,withHeadings,withMapping
             $row->second_phone,
             $row->third_name,
             $row->third_phone,
+            $row->forth_name,
+            $row->forth_phone,
+            $row->fifth_name,
+            $row->fifth_phone,
             /*Ostan::find($row->ostan_id)->name,
             Shahrestan::find($row->shahrestan_id)->name,
             masjed::find($row->mosque_id)->hoze,
@@ -72,6 +76,10 @@ class GroupResultExport implements FromCollection,withHeadings,withMapping
             'شماره تماس نفر دوم',
             'نام و نام خانوادگی نفر سوم',
             'شماره تماس نفر سوم',
+            'نام و نام خانوادگی نفر چهارم',
+            'شماره تماس نفر چهارم',
+            'نام و نام خانوادگی نفر پنجم',
+            'شماره تماس نفر پنجم',
         ];
     }
 }
