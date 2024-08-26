@@ -28,11 +28,18 @@ class SingleResultExport implements FromCollection, withHeadings, withMapping
 
     public function map($row): array
     {
+
+        $gender = "مرد";
+        if ($row->gender == 0){
+            $gender = "زن";
+        }
+
         return [
             $row->id,
             $row->name,
             $row->national_code,
             $row->phone,
+            $gender,
             Ostan::find($row->ostan_id)->name,
             Shahrestan::find($row->shahrestan_id)->name ?? "",
             Masjed::find($row->mosque_id)->hoze ?? "",
@@ -49,6 +56,7 @@ class SingleResultExport implements FromCollection, withHeadings, withMapping
             'نام و نام خانوادگی',
             'کد ملی',
             'موبایل',
+            'جنسیت',
             'استان',
             'شهرستان',
             'حوزه',

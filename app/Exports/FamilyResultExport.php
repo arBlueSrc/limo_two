@@ -45,12 +45,6 @@ class FamilyResultExport implements FromCollection,withHeadings,withMapping
             isset($row->childs[2]->birthdate)? jdate($row->childs[2]->birthdate)->format('Y-m-d') : "",
             $row->childs[3]->name ?? "",
             isset($row->childs[3]->birthdate)? jdate($row->childs[3]->birthdate)->format('Y-m-d') : ""
-            /*Ostan::find($row->ostan_id)->name,
-            Shahrestan::find($row->shahrestan_id)->name,
-            masjed::find($row->mosque_id)->hoze,
-            masjed::find($row->mosque_id)->masjed,
-            Major::find($row->major)->name,
-            jdate($row->birthday)->format('Y-m-d')*/
         ];
     }
 
