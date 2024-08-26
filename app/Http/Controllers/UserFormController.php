@@ -599,14 +599,12 @@ rubika.ir/quranbsj_ir",
             'type' => 'required'
         ]);
 
-
         $data['month'] = str_pad($data['month'], 2, '0', STR_PAD_LEFT);
         $data['day'] = str_pad($data['day'], 2, '0', STR_PAD_LEFT);
 
         $birth_date = $data['year'] . '/' . $data['month'] . '/' . $data['day'];
 
         $birth_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $birth_date);
-
 
         $group_result = GroupResult::whereId($data["id"])->update([
             'name_group' => $data['group_name'],
