@@ -592,9 +592,9 @@ rubika.ir/quranbsj_ir",
             'second_person_phone' => 'required',
             'third_person_name' => 'required',
             'third_persons_phone' => 'required',
+            'forth_persons_name' => 'required',
             'forth_persons_phone' => 'required',
-            'forth_persons_phone' => 'required',
-            'fifth_persons_phone' => 'required',
+            'fifth_persons_name' => 'required',
             'fifth_persons_phone' => 'required',
             'type' => 'required'
         ]);
