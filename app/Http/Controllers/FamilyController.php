@@ -139,9 +139,10 @@ class FamilyController extends Controller
 
     public function exportAllFamilies(Request $request)
     {
-        if ($request->session()->get('ostan')) {
-            $users = FamilyResult::where('ostan_id', $request->session()->get('ostan'));
-            $selected['ostan'] = $request->session()->get('ostan');
+
+        if (auth()->user()->role == 2){
+            $users = FamilyResult::where('ostan_id', auth()->user()->ostan_id);
+
             if ($request->session()->get('shahrestan')) {
                 $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
                 $selected['shahrestan'] = $request->session()->get('shahrestan');
@@ -150,9 +151,34 @@ class FamilyController extends Controller
                 $selected['mosque'] = $request->session()->get('mosque');
                 $users = $users->where('mosque_id', $request->session()->get('mosque'));
             }
-        } else {
-            $users = FamilyResult::query();
+
+        }elseif(auth()->user()->role == 4){
+            $users = FamilyResult::where('ostan_id', auth()->user()->ostan_id);
+            $users = $users->where('shahrestan_id', auth()->user()->shahrestan_id);
+
+            if ($request->session()->get('mosque')) {
+                $selected['mosque'] = $request->session()->get('mosque');
+                $users = $users->where('mosque_id', $request->session()->get('mosque'));
+            }
+
+        }else{
+            if ($request->session()->get('ostan')) {
+                $users = FamilyResult::where('ostan_id', $request->session()->get('ostan'));
+                $selected['ostan'] = $request->session()->get('ostan');
+                if ($request->session()->get('shahrestan')) {
+                    $users = $users->where('shahrestan_id', $request->session()->get('shahrestan'));
+                    $selected['shahrestan'] = $request->session()->get('shahrestan');
+                }
+                if ($request->session()->get('mosque')) {
+                    $selected['mosque'] = $request->session()->get('mosque');
+                    $users = $users->where('mosque_id', $request->session()->get('mosque'));
+                }
+            } else {
+                $users = FamilyResult::query();
+            }
         }
+
+
         $excel_data = $users->get();
 
         return Excel::download(new FamilyResultExport($excel_data), 'users.xlsx');

@@ -22,7 +22,6 @@ class SingleResultExport implements FromCollection, withHeadings, withMapping
      */
     public function collection()
     {
-//        return SingleResult::all();
         return $this->data;
     }
 
@@ -67,4 +66,6 @@ class SingleResultExport implements FromCollection, withHeadings, withMapping
             'تاریخ تولد',
         ];
     }
+
+
 }
