@@ -252,7 +252,7 @@
                                 <td>{{ $user->name_group }}</td>
                                 <td>{{ $user->ostan()->first()->name }}</td>
                                 <td>{{ $user->shahrestan()->first()->name }}</td>
-                                <td>{{ "حوزه : ". $user->mosque()->first()->hoze . " - مسجد : ". $user->mosque()->first()->masjed }}</td>
+                                <td>{{ "حوزه : ". ($user->mosque()->first()->hoze ?? "") . " - مسجد : ". ($user->mosque()->first()->masjed ?? "") }}</td>
                                 <td>
                                     <a style="margin: 5px" href="{{ route('group.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>

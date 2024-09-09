@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Exports\MosExport;
 use App\Exports\MosShahrExport;
 use App\Exports\SingleResultExport;
+use App\Models\FamilyResult;
+use App\Models\GroupResult;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
+use App\Models\SingleResult;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -158,8 +161,31 @@ class ApiController extends Controller
                 ->where("id" , "!=" , $ms->id)
                 ->get();
 
-            if (sizeof($repetitive) != 1){
+            if (sizeof($repetitive) != 0){
                 foreach ($repetitive as $rep){
+
+
+                    //check in results
+                    $single = SingleResult::where('mosque_id', $rep->id)->first();
+                    if ($single != null){
+                        $single->mosque_id = $ms->id;
+                        $single->save();
+                    }
+
+                    //check in group
+                    $group = GroupResult::where('mosque_id', $rep->id)->first();
+                    if ($group != null){
+                        $group->mosque_id = $ms->id;
+                        $group->save();
+                    }
+
+                    //check in family
+                    $family = FamilyResult::where('mosque_id', $rep->id)->first();
+                    if ($group != null){
+                        $group->mosque_id = $ms->id;
+                        $group->save();
+                    }
+
                     $rep->delete();
                 }
             }
@@ -168,6 +194,7 @@ class ApiController extends Controller
 
         echo "Done!";
     }
+
 
 
 }
