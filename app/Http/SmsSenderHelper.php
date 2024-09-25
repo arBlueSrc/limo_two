@@ -20,7 +20,14 @@ class SmsSenderHelper
         $data = http_build_query($dataArray);
 
         $getUrl = $url . "?" . $data;
-        $contents = file_get_contents($getUrl, false);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
 
         $response = json_decode($contents, true);
 

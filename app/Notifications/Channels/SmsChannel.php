@@ -43,7 +43,14 @@ class SmsChannel
             $data = http_build_query($dataArray);
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-            $contents = file_get_contents($getUrl, false);
+            $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
             if ($error = json_decode($contents)->Error) {
 //                dd($error->ID);
                 if ($error->ID == 1) {

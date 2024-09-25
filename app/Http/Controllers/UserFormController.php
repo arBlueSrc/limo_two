@@ -146,7 +146,14 @@ rubika.ir/quranbsj_ir",
             );
             $data = http_build_query($dataArray);
             $getUrl = $url . "?" . $data;
-            $contents = file_get_contents($getUrl, false);
+            $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
         }
 
 
@@ -259,7 +266,14 @@ rubika.ir/quranbsj_ir",
 
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-            $contents = file_get_contents($getUrl, false);
+            $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
         }
         return redirect(route('form.complete'));
 
@@ -408,7 +422,14 @@ rubika.ir/quranbsj_ir",
 
         $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-        $contents = file_get_contents($getUrl, false);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
         return redirect(route('form.complete'));
     }
 
@@ -566,7 +587,14 @@ rubika.ir/quranbsj_ir",
         );
         $data = http_build_query($dataArray);
         $getUrl = $url . "?" . $data;
-        $contents = file_get_contents($getUrl, false);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
 
 
         return redirect(route('form.complete'));
@@ -645,7 +673,14 @@ rubika.ir/quranbsj_ir",
 
         $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-        $contents = file_get_contents($getUrl, false);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
 
         return redirect(route('form.complete'));
 
@@ -789,7 +824,14 @@ rubika.ir/quranbsj_ir",
 
         $getUrl = $url . "?" . $data;
 
-        $contents = file_get_contents($getUrl, false);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
         return redirect(route('form.complete'));
 
     }
