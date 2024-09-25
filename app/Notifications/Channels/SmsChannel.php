@@ -4,6 +4,7 @@ namespace App\Notifications\Channels;
 
 use Exception;
 use Illuminate\Notifications\Notification;
+
 class SmsChannel
 {
 
@@ -11,7 +12,7 @@ class SmsChannel
     {
 
         $otp_code = $notification->toSms($notifiable)[0];
-        $mobile=$notification->toSms($notifiable)[1];
+        $mobile = $notification->toSms($notifiable)[1];
 
 
         return $this->sendSmsPeyk($otp_code, $mobile, $notifiable);
@@ -43,14 +44,14 @@ class SmsChannel
             $data = http_build_query($dataArray);
             $getUrl = $url . "?" . $data;
 //                                dd($getUrl);
-            $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-            ),
-        );
+            $arrContextOptions = array(
+                "ssl" => array(
+                    "verify_peer" => false,
+                    "verify_peer_name" => false,
+                ),
+            );
 
-        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
+            $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
             if ($error = json_decode($contents)->Error) {
 //                dd($error->ID);
                 if ($error->ID == 1) {

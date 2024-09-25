@@ -128,13 +128,13 @@ class AuthenticatedSessionController extends Controller
 //                $getUrl = $url . "?" . $data;
 ////                                dd($getUrl);
 //                $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-            ),
-        );
+//            "ssl"=>array(
+//                "verify_peer"=>false,
+//                "verify_peer_name"=>false,
+//            ),
+//        );
 
-        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
+//        $contents = file_get_contents($getUrl, false, stream_context_create($arrContextOptions));
 //
 //            } catch (BadFunctionCallException  $e) {
 //                echo 'Error VerificationCode : ' . $e->getMessage();
