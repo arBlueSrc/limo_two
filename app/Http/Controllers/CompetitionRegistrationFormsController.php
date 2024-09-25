@@ -62,9 +62,8 @@ class CompetitionRegistrationFormsController extends Controller
         ]);
 
 
-
-
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
+
 
         if ($request->gender == null){
             $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
@@ -80,7 +79,7 @@ class CompetitionRegistrationFormsController extends Controller
                     $gender_filter = "برادر";
             }
             $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->whereIn('gender',[$gender_filter, "مشترک"])->get();
-        }
+         }
 
         return $masjeds;
     }
