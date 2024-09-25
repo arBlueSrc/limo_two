@@ -157,10 +157,12 @@
                             <input type="hidden" name="shahrestan" value="{{ $selected['shahrestan'] ?? ""  }}">
                             <input type="hidden" name="mosque" value="{{ $selected['mosque']  ?? "" }}" >
                             @endisset
+                                @if(!auth()->user()->can('is_masjed_admin'))
                             <div class="row">
                                 <a  href="#" onclick="document.getElementById('excel_form').submit()"  class="btn btn-outline-success" style="border-radius: 25px"
                                 > خروجی اکسل <i class="fa fa-file-excel-o" ></i></a>
                             </div>
+                                @endif
                         </form>
                     </div>
 
@@ -238,18 +240,26 @@
                         <tr>
                             <th style="width: 5%; alignment: center">ردیف</th>
                             <th>نام و خانوادگی</th>
-                            <th>شماره تماس</th>
+                            @if(!auth()->user()->can('is_masjed_admin'))
+                                <th>شماره تماس</th>
+                            @endif
                             <th>استان</th>
                             <th>شهرستان</th>
+                            @if(!auth()->user()->can('is_masjed_admin'))
                             <th style="width: 20%; alignment: center">عملیات</th>
+                            @endif
                         </tr>
                         @foreach ($users as $key => $user)
                             <tr>
                                 <td style="width: 5%; alignment: center" class="text-center">{{ $users->firstItem()+$key }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone }}</td>
+                                @if(!auth()->user()->can('is_masjed_admin'))
+                                    <td>{{ $user->phone }}</td>
+                                @endif
                                 <td>{{ $user->ostan()->first()->name }}</td>
                                 <td>{{ $user->shahrestan()->first()->name ?? "" }}</td>
+
+                                @if(!auth()->user()->can('is_masjed_admin'))
                                 <td>
                                     <a style="margin: 5px" href="{{ route('user.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>
@@ -262,6 +272,7 @@
                                         <ion-icon name="trash"></ion-icon>
                                     </a>--}}
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

@@ -157,6 +157,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">لیست کاربران</h3>
+                        @if(!auth()->user()->can('is_masjed_admin'))
                         <form action="{{ route( Route::currentRouteName() == 'user.index' ? 'excel.allgroups.download' : 'excel.allgroups.download') }}" method="get" id="excel_form" enctype="multipart/form-data">
                             <div class="row">
 
@@ -165,6 +166,7 @@
                                 </a>
                             </div>
                         </form>
+                        @endif
                     </div>
 
                     @can('is_miniadmin')
@@ -244,7 +246,9 @@
                             <th>استان</th>
                             <th>شهرستان</th>
                             <th>مسجد</th>
+                            @if(!auth()->user()->can('is_masjed_admin'))
                             <th style="width: 20%; alignment: center">عملیات</th>
+                            @endif
                         </tr>
                         @foreach ($users as $key => $user)
                             <tr>
@@ -253,6 +257,7 @@
                                 <td>{{ $user->ostan()->first()->name }}</td>
                                 <td>{{ $user->shahrestan()->first()->name }}</td>
                                 <td>{{ "حوزه : ". ($user->mosque()->first()->hoze ?? "") . " - مسجد : ". ($user->mosque()->first()->masjed ?? "") }}</td>
+                                @if(!auth()->user()->can('is_masjed_admin'))
                                 <td>
                                     <a style="margin: 5px" href="{{ route('group.show', ['user' => $user->id]) }}">
                                         <ion-icon name="eye"></ion-icon>
@@ -265,6 +270,7 @@
                                         <ion-icon name="trash"></ion-icon>
                                     </a>--}}
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
