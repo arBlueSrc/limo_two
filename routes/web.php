@@ -127,9 +127,11 @@ Route::middleware('auth')->group(function () {
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 
     //forms_Competition
-    Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->middleware('single-form')->name('single');
-    Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->middleware('group-form')->name("group");
-    Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->middleware('family-form')->name("family");
+    Route::middleware('active-form')->group(function () {
+        Route::get('/singleForm', [CompetitionRegistrationFormsController::class, 'individualForm'])->middleware('single-form')->name('single');
+        Route::get('/groupForm', [CompetitionRegistrationFormsController::class, 'groupForm'])->middleware('group-form')->name("group");
+        Route::get('/familyForm', [CompetitionRegistrationFormsController::class, 'familyForm'])->middleware('family-form')->name("family");
+    });
 
     //check response
     Route::post('checkResponseSingle', [UserFormController::class, 'checkResponseSingle'])->middleware('single-form')->name('checkResponseSingle');

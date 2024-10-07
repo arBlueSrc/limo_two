@@ -116,6 +116,7 @@
                 <button class="btn btn-danger btn-sm text-white ml-3">خروج </button>
             </form>
 
+
             @if(auth()->user()->role == 0)
             <a href="{{ route('participate') }}"
                class="btn btn-primary btn-sm text-white col-3" style="font-family: Shabnam">حساب کاربری</a>
@@ -127,7 +128,7 @@
             @endif
 
 
-            @if(auth()->user()->role == 1  || auth()->user()->role == 2   || auth()->user()->role == 3 || auth()->user()->role == 4)
+            @if(auth()->user()->role == 1  || auth()->user()->role == 2 || auth()->user()->role == 3 || auth()->user()->role == 4)
                 <a href="{{ route('admin') }}"
                    class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
             @endif
@@ -151,28 +152,33 @@
                     <div class="alert" role="alert">
                         <br>
                         <img src="{{ asset('images/logo.png') }} " data-aos="fade-up" width="20%">
-                        <br><br>
-                            <h4 data-aos="fade-down" class="text-muted">بخش مورد نظر برای ثبت نام را انتخاب کنید. توجه داشته باشید که می توانید در دو رشته از رشته های زیر شرکت کنید. </h4ُ>
+{{--                        <br><br>--}}
+{{--                            <h4 data-aos="fade-down" class="text-muted">بخش مورد نظر برای ثبت نام را انتخاب کنید. توجه داشته باشید که می توانید در دو رشته از رشته های زیر شرکت کنید. </h4ُ>--}}
+{{--                        <br>--}}
+                        <br>
+                        <br>
+                        <br>
+                            <h4 data-aos="fade-down" class="text-muted">برای مشاهده اطلاعات روی دکمه حساب کاربری کلیک کنید</h4ُ>
                         <br>
 {{--                        @if(auth()->user()->isSuperAdmin())--}}
 {{--                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"--}}
 {{--                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>--}}
 {{--                        <br>--}}
 {{--                        @endif--}}
-                        @if($deactive_item1 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started mt-5" style="font-family: Shabnam">فردی</a>
-                            <br>
-                        @endif
-                        @if($deactive_item2 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"
-                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>
-                            <br>
-                        @endif
-                        @if($deactive_item3 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"
-                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
-                        @endif
+{{--                        @if($deactive_item1 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"--}}
+{{--                               class="btn-get-started mt-5" style="font-family: Shabnam">فردی</a>--}}
+{{--                            <br>--}}
+{{--                        @endif--}}
+{{--                        @if($deactive_item2 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"--}}
+{{--                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>--}}
+{{--                            <br>--}}
+{{--                        @endif--}}
+{{--                        @if($deactive_item3 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"--}}
+{{--                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>--}}
+{{--                        @endif--}}
                     </div>
                 </div>
             </div>

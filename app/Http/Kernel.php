@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ActiveForm;
 use App\Http\Middleware\FamilyForm;
 use App\Http\Middleware\GroupForm;
 use App\Http\Middleware\SingleForm;
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'single-form' => SingleForm::class,
         'group-form' => GroupForm::class,
         'family-form' => FamilyForm::class,
+        'active-form' => ActiveForm::class,
     ];
 }
