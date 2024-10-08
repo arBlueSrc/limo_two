@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class CompetitionRegistrationFormsController extends Controller
 {
     public function individualForm(){
-        $ostans = Ostan::get();
+        $ostans = Ostan::where('id',8)->get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         $majors=Major::all();
         $masjeds = Masjed::where('ostan', $ostans->get(0)->name)->where('shahrestan', $shahrestans->get(0)->name)->where('gender', "!=", "خواهر")->get();
@@ -20,17 +20,19 @@ class CompetitionRegistrationFormsController extends Controller
     }
 
     public function groupForm(){
-        $ostans = Ostan::all();
+        $ostans = Ostan::where('id',8)->get();
 //        $ostans = Ostan::where('id',8)->get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         return view('form.groupForm',compact('ostans','shahrestans'));
     }
+
     public function familyForm(){
-        $ostans = Ostan::all();
+        $ostans = Ostan::where('id',8)->get();
 //        $ostans = Ostan::where('id',8)->get();
         $shahrestans = Shahrestan::where('ostan',$ostans->first()->id)->get();
         return view('form.familyForm',compact('ostans','shahrestans'));
     }
+
     public function getChildShahrestans(Request $request)
     {
         //geting shahrestans by ajax request
@@ -46,8 +48,6 @@ class CompetitionRegistrationFormsController extends Controller
         return $childShahrestans;
     }
 
-
-
     public function getRelatedMasjeds(Request $request)
     {
 
@@ -61,9 +61,7 @@ class CompetitionRegistrationFormsController extends Controller
             'gender'=>''
         ]);
 
-
         $shahrestan_name=Shahrestan::where('id',$data['shahrestan_id'])->first()->name;
-
 
         if ($request->gender == null){
             $masjeds=Masjed::where('shahrestan',"LIKE",$shahrestan_name)->get();
@@ -82,6 +80,7 @@ class CompetitionRegistrationFormsController extends Controller
          }
 
         return $masjeds;
+
     }
 
 
@@ -102,6 +101,7 @@ class CompetitionRegistrationFormsController extends Controller
         $majors=Major::where('from_year',"<=",$data['year'])->Where('to_year',">=",$data['year'])->whereIn('gender',[$data['gender'], 2])->get();
 
         return $majors;
+
     }
 
 

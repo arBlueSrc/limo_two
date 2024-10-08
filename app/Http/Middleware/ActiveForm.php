@@ -17,7 +17,7 @@ class ActiveForm
      */
     public function handle(Request $request, Closure $next)
     {
-        $active = false;
+        $active = true;
         if ($active){
             return $next($request);
         } else {
