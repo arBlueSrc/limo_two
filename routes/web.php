@@ -114,6 +114,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('result', 'App\Http\Controllers\ResultController');
     Route::get('results/exportExcel', 'App\Http\Controllers\ResultController@exportExcel')->name('azmoons.exportExcel');
 
+    //updaload file
+    Route::post('uploadFile',[CompetitionRegistrationFormsController::class, 'uploadFile'])->name('uploadFile');
+
 });
 
 

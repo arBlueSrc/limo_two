@@ -8,19 +8,23 @@
                 color-adjust: exact;
             }
         }
+
         @font-face {
             font-family: 'Shekasteh_beta';
             src: url({{ asset('fonts/Shekasteh_beta.eot') }});
             src: url({{ asset('fonts/Shekasteh_beta.eot?#iefix') }}) format('embedded-opentype'), url({{ asset('fonts/Shekasteh_beta.woff') }}) format('woff'), url({{ asset('fonts/Shekasteh_beta.woff2') }}) format('woff2');
         }
+
         @font-face {
             font-family: 'BNaznnBd';
             src: url({{ asset('fonts/BNaznnBd.eot') }});
             src: url({{ asset('fonts/BNaznnBd.eot?#iefix') }}) format('embedded-opentype'), url({{ asset('fonts/BNaznnBd.woff2') }}) format('woff2'), url({{ asset('fonts/BNaznnBd.woff') }}) format('woff');
         }
+
         body {
             font-family: 'BNaznnBd';
         }
+
         .over {
             width: 21cm;
             height: 29.7cm;
@@ -29,16 +33,19 @@
             top: 0;
             left: 0;
         }
+
         .main {
             width: 21cm;
             height: 29.7cm;
             position: relative;
         }
+
         .bg img {
             direction: rtl;
             width: 21cm;
             height: 29.7cm;
         }
+
         .main .name {
             font-family: 'Shekasteh_beta';
             position: absolute;
@@ -50,21 +57,26 @@
             width: 15cm;
             color: #000;
         }
+
         .msg_hide {
             display: none;
         }
+
         @media screen and (min-width: 10px) and (max-width: 1130px) {
             .msg_hide {
                 display: block;
             }
+
             .side_left {
                 width: 100%;
                 z-index: 1;
             }
+
             .main, .side_left .txt .btn-group .btn {
                 display: none;
             }
         }
+
         @media screen and (min-width: 1130px) and (max-width: 1494px) {
             .side_left {
                 opacity: 0.85;
@@ -150,12 +162,39 @@
 
                                 <ul class="list-group  mb-3">
                                     <li class="list-group-item">
-                                        <a class="float-right"><b>فردی : </b>{{ $single_count }}</a>
+                                        <div><b>فردی : </b>{{ $single_count }}</div>
                                         @foreach($single_forms as $item)
-                                            <br>
-                                            <span class="badge badge-danger">{{ $item->name . " - " . \App\Models\Major::find($item->major)->name }}</span>
+                                            <div class=" card mt-3 p-3">
+                                                @php
+                                                    $major = \App\Models\Major::find($item->major);
+                                                @endphp
+                                                <p>{{ $item->name . " - " . $major->name }}</p>
+                                                @if($major->id == 54 || $major->id == 55 || $major->id == 56)
+                                                    @if(\App\Models\UploadFile::where('single_result_id', $item->id)->get()->count() == 0)
+                                                        <form method="POST" action="{{ route('uploadFile') }}" id="form"
+                                                              enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="row mt-3">
+                                                                <div class="col-6">
+                                                                    <a class="btn btn-primary w-100" style="color: white"
+                                                                       onclick="document.getElementById('getFile').click()">
+                                                                        انتخاب فایل
+                                                                    </a>
+                                                                    <input type='file' name="getFile" id="getFile" style="display:none">
+                                                                </div>
+                                                                <input value="{{ $item->id }}" name="id" hidden>
+                                                                <div class="col-6">
+                                                                    <button type="submit" class="btn btn-success w-100">ارسال
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <button class="btn btn-danger">فایل بارگزاری شده</button>
+                                                    @endif
+                                                @endif
+                                            </div>
                                         @endforeach
-
                                     </li>
 
                                     <li class="list-group-item">
@@ -201,7 +240,8 @@
                                             ها</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">زمان
                                             بندی مسابقه</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">تقدیرنامه</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">تقدیرنامه</a>
+                                    </li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -231,14 +271,14 @@
                                                     {{ $msg->message }}
                                                 </p>
 
-                                               {{-- <p>--}}
-                                                    <a href="https://eitaa.com/quran_120" class="link-black text-sm mr-2"><i
-                                                            class="fa fa-share mr-1"></i> پیام به پشتیبانی در ایتا </a>
+                                                {{-- <p>--}}
+                                                <a href="https://eitaa.com/quran_120" class="link-black text-sm mr-2"><i
+                                                        class="fa fa-share mr-1"></i> پیام به پشتیبانی در ایتا </a>
                                             </div>
                                             <!-- /.post -->
                                         </div>
                                         <!-- /.tab-pane -->
-                                    @endforeach
+                                        @endforeach
 
 
                                         <div class="tab-pane" id="timeline">
@@ -291,40 +331,47 @@
 
                                         <div class="tab-pane" id="settings">
 
-                                        @foreach($single_results as $single_result)
-                                            <div class="mt-2" style="font-weight: bold !important;">
-                                                <form action="{{ route('printLoh') }}" id="loh-print" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="name" value="{{$single_result->name}}">
-                                                    <input type="hidden" name="identifier" value="{{$single_result->id}}">
-                                                    <button type="submit" class="btn btn-primary btn-sm text-white col-4">چاپ تقدیرنامه {{ $single_result->name }}</button>
-                                                {{--<a href="{{ route('printLoh',['single_result' => $single_result->id ]) }}"
-                                                   class="btn btn-primary btn-sm text-white col-4" style=" font-weight: bold"> چاپ تقدیرنامه {{ $single_result->name }}</a>--}}
-                                                </form>
-                                            </div>
-                                            {{--<a href="{{ route('printLoh',['name' => $single_result ]) }}"
-                                               class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>
+                                            @foreach($single_results as $single_result)
+                                                <div class="mt-2" style="font-weight: bold !important;">
+                                                    <form action="{{ route('printLoh') }}" id="loh-print" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="name"
+                                                               value="{{$single_result->name}}">
+                                                        <input type="hidden" name="identifier"
+                                                               value="{{$single_result->id}}">
+                                                        <button type="submit"
+                                                                class="btn btn-primary btn-sm text-white col-4">چاپ
+                                                            تقدیرنامه {{ $single_result->name }}</button>
+                                                        {{--<a href="{{ route('printLoh',['single_result' => $single_result->id ]) }}"
+                                                           class="btn btn-primary btn-sm text-white col-4" style=" font-weight: bold"> چاپ تقدیرنامه {{ $single_result->name }}</a>--}}
+                                                    </form>
+                                                </div>
+                                                {{--<a href="{{ route('printLoh',['name' => $single_result ]) }}"
+                                                   class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>
 
-                                            <a href="{{ route('printLoh',['name' => $name ]) }}"
-                                               class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>--}}
-                                        @endforeach
+                                                <a href="{{ route('printLoh',['name' => $name ]) }}"
+                                                   class="btn btn-primary btn-sm text-white col-4" style="font-family: Shabnam">پرینت تقدیرنامه</a>--}}
+                                            @endforeach
                                             <br>
 
-                                            <div class="msg_hide"> برای مشاهده لوح سپاس باید از طریق کامپیوتر وارد شوید </div>
+                                            <div class="msg_hide"> برای مشاهده لوح سپاس باید از طریق کامپیوتر وارد
+                                                شوید
+                                            </div>
 
                                             <form class="main">
 
-                                                <div class="bg"> <img src="{{ asset("images/loh.jpg") }}"> </div>
+                                                <div class="bg"><img src="{{ asset("images/loh.jpg") }}"></div>
                                                 <div class="name"> {{ $name }} </div>
 
                                             </form>
                                             <div class="alert alert-info alert-dismissible">
-{{--                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
+                                                {{--                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
                                                 <h5><i class="icon fa fa-info"></i> توجه!</h5>
-                                                در صورت شرکت در مسابقات میتوانید با مراجعه به سایت لوح تقدیر خود را دریافت کنید.
+                                                در صورت شرکت در مسابقات میتوانید با مراجعه به سایت لوح تقدیر خود را
+                                                دریافت کنید.
                                             </div>
 
-{{--        <div class="alert alert-info"> </div>--}}
+                                            {{--        <div class="alert alert-info"> </div>--}}
 
 
                                         </div>
@@ -332,9 +379,9 @@
 
                                     </div>
 
-{{--                                @endforeach--}}
+                                    {{--                                @endforeach--}}
 
-                                <!-- /.tab-content -->
+                                    <!-- /.tab-content -->
                             </div><!-- /.card-body -->
                         </div>
                         <!-- /.nav-tabs-custom -->
@@ -348,6 +395,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-{{--    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
+    {{--    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
 
 @endsection

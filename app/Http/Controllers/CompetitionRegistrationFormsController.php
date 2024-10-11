@@ -6,6 +6,7 @@ use App\Models\Major;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
+use App\Models\UploadFile;
 use Illuminate\Http\Request;
 
 class CompetitionRegistrationFormsController extends Controller
@@ -104,6 +105,27 @@ class CompetitionRegistrationFormsController extends Controller
 
     }
 
+    public function uploadFile(Request $request)
+    {
+         $request->validate([
+            'id'=>'required',
+            'getFile'=>'required|file|max:102400',
+        ]);
+
+        if ($request->file('getFile')->isValid()) {
+            // Store the file in the 'uploads' directory on the 'public' disk
+            $file = $request->file('getFile');
+            $fileName = auth()->id() . '_' . time() . '.'. $file->extension();
+            $filePath = $request->file('getFile')->storeAs('fileUploads', $fileName,'public');
+        }
+
+        UploadFile::create([
+            'single_result_id' => $request->get('id'),
+            'path'         => $filePath
+        ]);
+
+        return redirect()->back();
+    }
 
 
 }
