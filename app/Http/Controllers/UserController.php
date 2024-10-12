@@ -503,7 +503,7 @@ class UserController extends Controller
 
         echo implode(",", array_values($heading)) . "\n";
 
-        $hozes = Masjed::groupBy('hoze')->get();
+        $hozes = Masjed::get();
 
         foreach ($hozes as $h) {
 
@@ -513,17 +513,11 @@ class UserController extends Controller
                 array_push($masjed_array, $m->id);
             }
 
-            $single_count = SingleResult::whereIn('mosque_id', $masjed_array)->get()->count();
+            $single_count = SingleResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
 
-            $group_count  = GroupResult::whereIn('mosque_id', $masjed_array)->get()->count();
+            $group_count  = GroupResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
 
-            $family_count = FamilyResult::whereIn('mosque_id', $masjed_array)->get()->count();
-
-            $gender = "مرد";
-            if ($result->gender == 0) {
-                $gender = "زن";
-            }
-            $edu = "";
+            $family_count = FamilyResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
 
             $data1 = $h->id;
             $data2 = $h->hoze;
@@ -543,6 +537,7 @@ class UserController extends Controller
                 $data7
             ];
             echo implode(",", array_values($rows)) . "\n";
+
         }
 
         mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
