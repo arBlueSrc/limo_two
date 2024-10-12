@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\SingleResultExport;
 use App\Imports\OstaniManagerImport;
 use App\Imports\ShahrestaniManagerImport;
+use App\Models\FamilyResult;
+use App\Models\GroupResult;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
@@ -385,7 +387,7 @@ class UserController extends Controller
 
         $users = SingleResult::query();
 
-        if ($login_user->isOstaniAdmin() ) {
+        if ($login_user->isOstaniAdmin()) {
             $users->where('ostan_id', $login_user->ostan_id);
         }
 
@@ -473,6 +475,78 @@ class UserController extends Controller
     {
         Excel::import(new ShahrestaniManagerImport, request()->file('file2'));
         return redirect()->back()->with('message', 'مدیران شهرستانی با موفقیت ذخیره شدند');
+    }
+
+
+    public function exportExcelByHoze()
+    {
+
+        // Submission form
+        $filename = "result_" . date('Ymd') . ".csv";
+        header('Content-Encoding: UTF-8');
+        header('Content-type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+
+
+
+        //create heading
+        $heading = array(
+            'ردیف',
+            'نام حوزه',
+            'شهر',
+            'شهرستان',
+            'تعداد فرم فردی',
+            'تعداد فرم گروهی',
+            'تعداد فرم خانوادگی'
+        );
+
+        echo implode(",", array_values($heading)) . "\n";
+
+        $hozes = Masjed::groupBy('hoze')->get();
+
+        foreach ($hozes as $h) {
+
+            $masjeds = Masjed::where('ostan', $h->ostan)->where('shahrestan', $h->shahrestan)->where('hoze', $h->hoze)->get();
+            $masjed_array = [];
+            foreach ($masjeds as $m) {
+                array_push($masjed_array, $m->id);
+            }
+
+            $single_count = SingleResult::whereIn('mosque_id', $masjed_array)->get()->count();
+
+            $group_count  = GroupResult::whereIn('mosque_id', $masjed_array)->get()->count();
+
+            $family_count = FamilyResult::whereIn('mosque_id', $masjed_array)->get()->count();
+
+            $gender = "مرد";
+            if ($result->gender == 0) {
+                $gender = "زن";
+            }
+            $edu = "";
+
+            $data1 = $h->id;
+            $data2 = $h->hoze;
+            $data3 = $h->ostan;
+            $data4 = $h->shahrestan;
+            $data5 = $single_count;
+            $data6 = $group_count;
+            $data7 = $family_count;
+
+            $rows = [
+                $data1,
+                $data2,
+                $data3,
+                $data4,
+                $data5,
+                $data6,
+                $data7
+            ];
+            echo implode(",", array_values($rows)) . "\n";
+        }
+
+        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
+        exit();
     }
 
 }

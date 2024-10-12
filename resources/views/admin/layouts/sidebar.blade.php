@@ -127,6 +127,14 @@
                                     <p>لیست کاربران خانوادگی</p>
                                 </a>
                             </li>
+                            @can('is_superadmin')
+                            <li class="nav-item">
+                                <a href="{{ route('exportExcelByHoze') }}" class="nav-link {{ isActive("exportExcelByHoze") }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>خروجی حوزه ها</p>
+                                </a>
+                            </li>
+                            @endcanany
                             {{--<li class="nav-item">
                                 <a href="{{ route('darolghorans.create') }}" class="nav-link {{isActive("darolghorans.create") }}">
                                     <i class="fa fa-circle-o nav-icon"></i>

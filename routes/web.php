@@ -117,6 +117,8 @@ Route::prefix('admin')->group(function () {
     //updaload file
     Route::post('uploadFile',[CompetitionRegistrationFormsController::class, 'uploadFile'])->name('uploadFile');
 
+    Route::get('exportExcelByHoze',[UserController::class, 'exportExcelByHoze'])->name('exportExcelByHoze');
+
 });
 
 
