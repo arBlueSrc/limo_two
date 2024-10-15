@@ -482,11 +482,11 @@ class UserController extends Controller
     {
 
         // Submission form
-//        $filename = "result_" . date('Ymd') . ".csv";
-//        header('Content-Encoding: UTF-8');
-//        header('Content-type: text/csv; charset=UTF-8');
-//        header("Content-Disposition: attachment; filename=\"$filename\"");
-//        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+        $filename = "result_" . date('Ymd') . ".csv";
+        header('Content-Encoding: UTF-8');
+        header('Content-type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
 
 
@@ -533,8 +533,8 @@ class UserController extends Controller
 
         }
 
-//        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
-//        exit();
+        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
+        exit();
     }
 
 }
