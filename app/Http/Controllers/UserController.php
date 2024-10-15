@@ -507,7 +507,7 @@ class UserController extends Controller
         foreach ($shahrestans as $h) {
 
             $shahrestans_id = Shahrestan::where('name', $h->shahrestan)->first()->id ?? 0;
-            if($shahrestans_id == 0){
+            if($shahrestans_id != 0){
 
 
 
