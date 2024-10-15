@@ -482,11 +482,11 @@ class UserController extends Controller
     {
 
         // Submission form
-        $filename = "result_" . date('Ymd') . ".csv";
-        header('Content-Encoding: UTF-8');
-        header('Content-type: text/csv; charset=UTF-8');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+//        $filename = "result_" . date('Ymd') . ".csv";
+//        header('Content-Encoding: UTF-8');
+//        header('Content-type: text/csv; charset=UTF-8');
+//        header("Content-Disposition: attachment; filename=\"$filename\"");
+//        echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
 
 
@@ -502,15 +502,17 @@ class UserController extends Controller
 
         echo implode(",", array_values($heading)) . "\n";
 
-        $shahrestans = Masjed::get()->groupBy('shahrestan_id');
+        $shahrestans = Masjed::groupBy('shahrestan')->get();
 
         foreach ($shahrestans as $h) {
 
-            $single_count = SingleResult::whereIn('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
+            $shahrestans_id = Shahrestan::where('name', $h->shahrestan)->first()->id;
 
-            $group_count  = GroupResult::whereIn ('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
+            $single_count = SingleResult::where('shahrestan_id', $shahrestans_id)->get()->count() ?? 0;
 
-            $family_count = FamilyResult::whereIn('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
+            $group_count  = GroupResult::where ('shahrestan_id', $shahrestans_id)->get()->count() ?? 0;
+
+            $family_count = FamilyResult::where('shahrestan_id', $shahrestans_id)->get()->count() ?? 0;
 
             $data1 = $h->id;
             $data3 = $h->ostan;
@@ -531,8 +533,8 @@ class UserController extends Controller
 
         }
 
-        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
-        exit();
+//        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
+//        exit();
     }
 
 }
