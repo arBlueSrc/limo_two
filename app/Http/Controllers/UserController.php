@@ -502,7 +502,7 @@ class UserController extends Controller
 
         echo implode(",", array_values($heading)) . "\n";
 
-        $shahrestans = Masjed::groupBy('shahrestan')->get();
+        $shahrestans = Masjed::get()->groupBy('shahrestan_id');
 
         foreach ($shahrestans as $h) {
 
