@@ -493,7 +493,6 @@ class UserController extends Controller
         //create heading
         $heading = array(
             'ردیف',
-            'نام حوزه',
             'شهر',
             'شهرستان',
             'تعداد فرم فردی',
@@ -503,24 +502,17 @@ class UserController extends Controller
 
         echo implode(",", array_values($heading)) . "\n";
 
-        $hozes = Masjed::get();
+        $shahrestans = Masjed::groupBy('shahrestan')->get();
 
-        foreach ($hozes as $h) {
+        foreach ($shahrestans as $h) {
 
-            $masjeds = Masjed::where('ostan', $h->ostan)->where('shahrestan', $h->shahrestan)->where('hoze', $h->hoze)->get();
-            $masjed_array = [];
-            foreach ($masjeds as $m) {
-                array_push($masjed_array, $m->id);
-            }
+            $single_count = SingleResult::whereIn('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
 
-            $single_count = SingleResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
+            $group_count  = GroupResult::whereIn ('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
 
-            $group_count  = GroupResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
-
-            $family_count = FamilyResult::whereIn('mosque_id', $masjed_array)->get()->count() ?? 0;
+            $family_count = FamilyResult::whereIn('shahrestan_id', $h->ostan_id)->get()->count() ?? 0;
 
             $data1 = $h->id;
-            $data2 = $h->hoze;
             $data3 = $h->ostan;
             $data4 = $h->shahrestan;
             $data5 = $single_count;
@@ -529,7 +521,6 @@ class UserController extends Controller
 
             $rows = [
                 $data1,
-                $data2,
                 $data3,
                 $data4,
                 $data5,
