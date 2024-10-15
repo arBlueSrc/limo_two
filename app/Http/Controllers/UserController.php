@@ -482,11 +482,11 @@ class UserController extends Controller
     {
 
         // Submission form
-//        $filename = "result_" . date('Ymd') . ".csv";
-//        header('Content-Encoding: UTF-8');
-//        header('Content-type: text/csv; charset=UTF-8');
-//        header("Content-Disposition: attachment; filename=\"$filename\"");
-//        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+        $filename = "result_" . date('Ymd') . ".csv";
+        header('Content-Encoding: UTF-8');
+        header('Content-type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
 
 
@@ -506,7 +506,10 @@ class UserController extends Controller
 
         foreach ($shahrestans as $h) {
 
-            $shahrestans_id = Shahrestan::where('name', $h->shahrestan)->first()->id;
+            $shahrestans_id = Shahrestan::where('name', $h->shahrestan)->first()->id ?? 0;
+            if($shahrestans_id == 0){
+
+
 
             $single_count = SingleResult::where('shahrestan_id', $shahrestans_id)->get()->count() ?? 0;
 
@@ -530,11 +533,11 @@ class UserController extends Controller
                 $data7
             ];
             echo implode(",", array_values($rows)) . "\n";
-
+            }
         }
 
-//        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
-//        exit();
+        mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
+        exit();
     }
 
 }
