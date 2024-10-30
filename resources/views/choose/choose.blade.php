@@ -158,7 +158,7 @@
                         <br>
                         <br>
                         <br>
-                            <h4 data-aos="fade-down" class="text-muted">برای مشاهده اطلاعات روی دکمه حساب کاربری کلیک کنید. ثبت نام فقط برای شهر تهران بزرگ در دسترس است.</h4ُ>
+                            <h4 data-aos="fade-down" class="text-muted">برای مشاهده اطلاعات روی دکمه حساب کاربری کلیک کنید.</h4ُ>
                         <br>
 {{--                        @if(auth()->user()->isSuperAdmin())--}}
 {{--                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"--}}
