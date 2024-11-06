@@ -158,27 +158,27 @@
                         <br>
                         <br>
                         <br>
-                            <h4 data-aos="fade-down" class="text-muted">برای مشاهده اطلاعات روی دکمه حساب کاربری کلیک کنید. ثبت نام فقط برای شهر تهران بزرگ در دسترس است.</h4ُ>
+                            <h4 data-aos="fade-down" class="text-muted">برای مشاهده اطلاعات روی دکمه حساب کاربری کلیک کنید.</h4ُ>
                         <br>
 {{--                        @if(auth()->user()->isSuperAdmin())--}}
 {{--                        <a data-aos="fade-up" data-aos-delay="200" href="{{ route('azmoons.index') }}"--}}
 {{--                           class="btn-get-started" style="font-family: Shabnam">آزمون ها</a>--}}
 {{--                        <br>--}}
 {{--                        @endif--}}
-                        @if($deactive_item1 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"
-                               class="btn-get-started mt-5" style="font-family: Shabnam">فردی</a>
-                            <br>
-                        @endif
-                        @if($deactive_item2 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"
-                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>
-                            <br>
-                        @endif
-                        @if($deactive_item3 == 0)
-                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"
-                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>
-                        @endif
+{{--                        @if($deactive_item1 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('single') }}"--}}
+{{--                               class="btn-get-started mt-5" style="font-family: Shabnam">فردی</a>--}}
+{{--                            <br>--}}
+{{--                        @endif--}}
+{{--                        @if($deactive_item2 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('group') }}"--}}
+{{--                               class="btn-get-started" style="font-family: Shabnam">گروهی</a>--}}
+{{--                            <br>--}}
+{{--                        @endif--}}
+{{--                        @if($deactive_item3 == 0)--}}
+{{--                            <a data-aos="fade-up" data-aos-delay="200" href="{{ route('family') }}"--}}
+{{--                               class="btn-get-started" style="font-family: Shabnam">خانوادگی</a>--}}
+{{--                        @endif--}}
                     </div>
                 </div>
             </div>
