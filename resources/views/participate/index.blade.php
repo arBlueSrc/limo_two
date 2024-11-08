@@ -167,31 +167,36 @@
                                             <div class=" card mt-3 p-3">
                                                 @php
                                                     $major = \App\Models\Major::find($item->major);
+                                                    $files = \App\Models\UploadFile::where('single_result_id', $item->id)->get();
                                                 @endphp
                                                 <p>{{ $item->name . " - " . $major->name }}</p>
                                                 @if($major->id == 54 || $major->id == 55 || $major->id == 56)
-                                                    @if(\App\Models\UploadFile::where('single_result_id', $item->id)->get()->count() == 0)
+                                                    @if($files->count() <= 5)
+                                                        <p> توجه داشته باشید که حداکثر اجازه بارگزاری 5 فایل دارید.</p>
                                                         <form method="POST" action="{{ route('uploadFile') }}" id="form"
                                                               enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="row mt-3">
-                                                                <div class="col-6">
-                                                                    <a class="btn btn-primary w-100" style="color: white"
+                                                                <div class="col-12">
+                                                                    <a class="btn btn-primary w-100" style="color: white"  id="fileName"
                                                                        onclick="document.getElementById('getFile').click()">
                                                                         انتخاب فایل
                                                                     </a>
                                                                     <input type='file' name="getFile" id="getFile" style="display:none">
                                                                 </div>
                                                                 <input value="{{ $item->id }}" name="id" hidden>
-                                                                <div class="col-6">
-                                                                    <button type="submit" class="btn btn-success w-100">ارسال
+                                                                <div class="col-12 mt-2" >
+                                                                    <button type="submit" class="btn btn-success w-100" disabled id="sendFile">ارسال فایل انتخاب شده
                                                                     </button>
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                    @else
-                                                        <button class="btn btn-danger">فایل بارگزاری شده</button>
+
                                                     @endif
+                                                        <p class="mt-4">فایل های ارسال شده</p>
+                                                        @foreach($files as $file)
+                                                            <a class="btn btn-danger mt-1" href="{{ storage_path($file->path) }}">مشاهده فایل شماره {{ $file->id }}</a>
+                                                        @endforeach
                                                 @endif
                                             </div>
                                         @endforeach
@@ -397,4 +402,26 @@
 
     {{--    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
 
+
+
+    <script>
+        // Get the file input and display elements
+        const fileInput = document.getElementById('getFile');
+        const fileNameDisplay = document.getElementById('fileName');
+        const btn = document.getElementById('sendFile');
+
+        // Listen for file selection
+        fileInput.addEventListener('change', function() {
+            // Check if a file was selected
+            if (fileInput.files.length > 0) {
+                // Display the selected file name
+                fileNameDisplay.textContent = `فایل انتخاب شده: ${fileInput.files[0].name}`;
+                btn.disabled = false;
+            } else {
+                // Reset if no file is selected
+                fileNameDisplay.textContent = 'هیچ فایلی انتخاب نشده';
+                btn.disabled = true;
+            }
+        });
+    </script>
 @endsection

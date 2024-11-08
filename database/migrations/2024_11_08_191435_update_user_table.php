@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('masjeds', function($table) {
-            //$table->string('gender')->after('hoze')->nullable();
+        Schema::table('users', function($table) {
+            $table->string('otp')->after('mobile')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('masjeds', function($table) {
-            //$table->dropColumn('gender');
+        Schema::table('single_result', function($table) {
+            $table->dropColumn('otp');
         });
     }
 };

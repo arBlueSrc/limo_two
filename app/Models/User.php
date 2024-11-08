@@ -29,6 +29,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $fillable = ["otp"];
+
     /**
      * The attributes that should be cast.
      *

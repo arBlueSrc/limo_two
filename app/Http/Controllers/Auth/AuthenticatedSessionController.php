@@ -53,13 +53,12 @@ class AuthenticatedSessionController extends Controller
 
     public function handleLogin(Request $request)
     {
-        /*$valid_data = $request->validate([
-            'mobile' => 'required|min:11|max:11'
-        ]);*/
+
         if(session('register_data.mobile') && session('register_data.mobile') != $request->mobile){
             session()->forget(['otp','register_data']);
             session()->forget('register_data');
         };
+
         //redirect to login otp page
         session(['register_data' => [
             'mobile' => $request->mobile,
@@ -140,6 +139,9 @@ class AuthenticatedSessionController extends Controller
 //                echo 'Error VerificationCode : ' . $e->getMessage();
 //            }
 
+            $user->update([
+                "otp" => $otp_code
+            ]);
 
             try{
                 $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
@@ -295,7 +297,9 @@ class AuthenticatedSessionController extends Controller
 //            } catch (BadFunctionCallException  $e) {
 //                echo 'Error VerificationCode : ' . $e->getMessage();
 //            }
-
+            $user->update([
+                "otp" => $otp_code
+            ]);
             try{
                 $url = 'https://peyk313.ir/API/V1.0.0/Send.ashx';
                 $dataArray = array(
