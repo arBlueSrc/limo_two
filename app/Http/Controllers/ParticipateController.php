@@ -40,8 +40,7 @@ class ParticipateController extends Controller
         }
 
         $single_results=SingleResult::where('phone',auth()->user()->mobile)->get();
-
-        return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name',
+         return view('participate.index', compact('single_count','family_count','group_count','moaref_count','messages','name',
         'single_forms', 'family_forms', 'group_forms','single_results'));
     }
     public function printLoh(Request $request)

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table) {
-            $table->string('otp')->after('mobile')->nullable();
+        Schema::table('upload_file', function($table) {
+            $table->string('type')->before('path')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function($table) {
-            $table->dropColumn('otp');
+        Schema::table('upload_file', function($table) {
+            $table->dropColumn('type');
         });
     }
 };

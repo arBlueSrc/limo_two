@@ -9,5 +9,5 @@ class UploadFile extends Model
 {
     use HasFactory;
     protected $table = 'upload_file';
-    protected $fillable = ['single_result_id', 'path'];
+    protected $fillable = ['single_result_id', 'path', 'type'];
 }

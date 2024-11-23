@@ -82,6 +82,34 @@
                 opacity: 0.85;
             }
         }
+
+
+        /* Hide the native file input */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Style the custom file input wrapper */
+        .file-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-file-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-file-name {
+            font-style: italic;
+            color: #555;
+        }
+
     </style>
 
     @if(false)
@@ -163,40 +191,106 @@
                                 <ul class="list-group  mb-3">
                                     <li class="list-group-item">
                                         <div><b>فردی : </b>{{ $single_count }}</div>
-                                        @foreach($single_forms as $item)
+                                        @foreach($single_forms as $index => $item)
                                             <div class=" card mt-3 p-3">
                                                 @php
                                                     $major = \App\Models\Major::find($item->major);
-                                                    $files = \App\Models\UploadFile::where('single_result_id', $item->id)->get();
+                                                    $files = \App\Models\UploadFile::where('single_result_id', $item->id);
+                                                    $card_meli   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',1)->first();
+                                                    $madrak      = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',2)->first();
+                                                    $tarh_dars   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',3)->first();
+                                                    $tadrisVideo = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',4)->first();
                                                 @endphp
+
+                                                {{--                                                @dd($tarh_dars)--}}
                                                 <p>{{ $item->name . " - " . $major->name }}</p>
                                                 @if($major->id == 54 || $major->id == 55 || $major->id == 56)
-                                                    @if($files->count() <= 5)
-                                                        <p> توجه داشته باشید که حداکثر اجازه بارگزاری 5 فایل دارید.</p>
-                                                        <form method="POST" action="{{ route('uploadFile') }}" id="form"
-                                                              enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="row mt-3">
-                                                                <div class="col-12">
-                                                                    <a class="btn btn-primary w-100" style="color: white"  id="fileName"
-                                                                       onclick="document.getElementById('getFile').click()">
-                                                                        انتخاب فایل
-                                                                    </a>
-                                                                    <input type='file' name="getFile" id="getFile" style="display:none">
-                                                                </div>
-                                                                <input value="{{ $item->id }}" name="id" hidden>
-                                                                <div class="col-12 mt-2" >
-                                                                    <button type="submit" class="btn btn-success w-100" disabled id="sendFile">ارسال فایل انتخاب شده
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
 
-                                                    @endif
-                                                        <p class="mt-4">فایل های ارسال شده</p>
-                                                        @foreach($files as $file)
-                                                            <a class="btn btn-danger mt-1" href="{{ storage_path($file->path) }}">مشاهده فایل شماره {{ $file->id }}</a>
-                                                        @endforeach
+                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"
+                                                          enctype="multipart/form-data">
+                                                        @csrf
+
+                                                        <input value="{{ $item->id }}" name="id" hidden>
+
+                                                        <div class="form-outline mb-4">
+                                                            <div class="d-flex justify-content-between">
+                                                                <label class="form-label btn btn-info"
+                                                                       for="meliCard{{ $index }}">بارگذاری تصویر کارت
+                                                                    ملی</label>
+                                                                @if($card_meli != null)
+                                                                    <a href="{{ storage_path($card_meli->path) }}"
+                                                                       class="btn btn-warning">مشاهده فایل</a>
+                                                                @endif
+                                                            </div>
+
+                                                            <input type='file' name="meliCard{{ $index }}"
+                                                                   id="meliCard{{ $index }}">
+
+                                                            <span class="custom-file-name"
+                                                                  id="file-name1{{ $index }}">فایل انتخابی : </span>
+                                                        </div>
+
+                                                        <div class="form-outline mb-4">
+                                                            <div class="d-flex justify-content-between">
+                                                                <label class="form-label btn btn-info"
+                                                                       for="madrak{{ $index }}">بارگذاری مدرک تربیت
+                                                                    مربی</label>
+                                                                @if($madrak != null)
+                                                                    <a href="{{ storage_path($madrak->path) }}"
+                                                                       class="btn btn-warning">مشاهده فایل</a>
+                                                                @endif
+                                                            </div>
+                                                            <input type='file' name="madrak{{ $index }}"
+                                                                   id="madrak{{ $index }}">
+
+                                                            <span class="custom-file-name"
+                                                                  id="file-name2{{ $index }}">فایل انتخابی : </span>
+
+                                                        </div>
+
+                                                        <div class="form-outline mb-4">
+                                                            <div class="d-flex justify-content-between">
+                                                                <label class="form-label btn btn-info"
+                                                                       for="tarh_dars{{ $index }}">بارگذاری طرح درس pdf
+                                                                </label>
+                                                                @if($tarh_dars != null)
+                                                                    <a href="{{ storage_path($tarh_dars->path) }}"
+                                                                       class="btn btn-warning"> مشاهده فایل</a>
+                                                                @endif
+                                                            </div>
+                                                            <input type='file' name="tarh_dars{{ $index }}"
+                                                                   id="tarh_dars{{ $index }}">
+                                                            <span class="custom-file-name"
+                                                                  id="file-name3{{ $index }}">فایل انتخابی : </span>
+                                                        </div>
+
+                                                        <div class="form-outline mb-4">
+                                                            <div class="d-flex justify-content-between">
+                                                                <label class="form-label btn btn-info"
+                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل
+                                                                    ویدئویی
+                                                                    تدریس
+                                                                </label>
+                                                                @if($tadrisVideo != null)
+                                                                    <a href="{{ storage_path($tadrisVideo->path) }}"
+                                                                       class="btn btn-warning"
+                                                                       @if($card_meli == null) hidden @endif>مشاهده
+                                                                        فایل</a>
+                                                                @endif
+                                                            </div>
+                                                            <input type='file' name="tadrisVideo{{ $index }}"
+                                                                   id="tadrisVideo{{ $index }}">
+                                                            <span class="custom-file-name"
+                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>
+                                                        </div>
+
+                                                        <div class="col-12 mt-2">
+                                                            <button type="submit" class="btn btn-success w-100"
+                                                                    id="sendFile">ارسال فایل انتخاب شده
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
                                                 @endif
                                             </div>
                                         @endforeach
@@ -402,26 +496,58 @@
 
     {{--    <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>--}}
 
+@endsection
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-    <script>
-        // Get the file input and display elements
-        const fileInput = document.getElementById('getFile');
-        const fileNameDisplay = document.getElementById('fileName');
-        const btn = document.getElementById('sendFile');
+        @foreach ($single_forms as $index => $item)
+        const meliCard{{ $index }}    = document.getElementById("meliCard{{ $index }}");
+        const madrak{{ $index }}      = document.getElementById("madrak{{ $index }}");
+        const tarh_dars{{ $index }}   = document.getElementById("tarh_dars{{ $index }}");
+        const tadrisVideo{{ $index }} = document.getElementById("tadrisVideo{{ $index }}");
 
-        // Listen for file selection
-        fileInput.addEventListener('change', function() {
-            // Check if a file was selected
-            if (fileInput.files.length > 0) {
-                // Display the selected file name
-                fileNameDisplay.textContent = `فایل انتخاب شده: ${fileInput.files[0].name}`;
-                btn.disabled = false;
+        const fileName1{{ $index }} = document.getElementById("file-name1{{ $index }}");
+        const fileName2{{ $index }} = document.getElementById("file-name2{{ $index }}");
+        const fileName3{{ $index }} = document.getElementById("file-name3{{ $index }}");
+        const fileName4{{ $index }} = document.getElementById("file-name4{{ $index }}");
+
+        tadrisVideo{{ $index }}.addEventListener("change", function () {
+            if (tadrisVideo{{ $index }}.files.length > 0) {
+                fileName4{{ $index }}.textContent = 'فایل انتخابی : ' + tadrisVideo{{ $index }}.files[0].name; // Show the selected file name
             } else {
-                // Reset if no file is selected
-                fileNameDisplay.textContent = 'هیچ فایلی انتخاب نشده';
-                btn.disabled = true;
+                fileName4{{ $index }}.textContent = "فایل انتخابی : "; // Reset if no file is selected
             }
         });
-    </script>
-@endsection
+
+        tarh_dars{{ $index }}.addEventListener("change", function () {
+
+            if (tarh_dars{{ $index }}.files.length > 0) {
+                fileName3{{ $index }}.textContent = 'فایل انتخابی : ' + tarh_dars{{ $index }}.files[0].name; // Show the selected file name
+            } else {
+                fileName3{{ $index }}.textContent = "فایل انتخابی : "; // Reset if no file is selected
+            }
+        });
+
+        madrak{{ $index }}.addEventListener("change", function () {
+
+            if (madrak{{ $index }}.files.length > 0) {
+                fileName2{{ $index }}.textContent = 'فایل انتخابی : ' + madrak{{ $index }}.files[0].name; // Show the selected file name
+            } else {
+                fileName2{{ $index }}.textContent = "فایل انتخابی : "; // Reset if no file is selected
+            }
+        });
+
+        meliCard{{ $index }}.addEventListener("change", function () {
+
+            if (meliCard{{ $index }}.files.length > 0) {
+                fileName1{{ $index }}.textContent = 'فایل انتخابی : ' + meliCard{{ $index }}.files[0].name; // Show the selected file name
+            } else {
+                fileName1{{ $index }}.textContent = "فایل انتخابی : "; // Reset if no file is selected
+            }
+        });
+
+        @endforeach
+
+    });
+</script>
