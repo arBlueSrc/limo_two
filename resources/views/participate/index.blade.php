@@ -218,7 +218,7 @@
                                                                        for="meliCard{{ $index }}">بارگذاری تصویر کارت
                                                                     ملی</label>
                                                                 @if($card_meli != null)
-                                                                    <a href="{{ storage_path($card_meli->path) }}"
+                                                                    <a href="{{ url('storage/'.$card_meli->path) }}"
                                                                        class="btn btn-warning">مشاهده فایل</a>
                                                                 @endif
                                                             </div>
@@ -236,7 +236,7 @@
                                                                        for="madrak{{ $index }}">بارگذاری مدرک تربیت
                                                                     مربی</label>
                                                                 @if($madrak != null)
-                                                                    <a href="{{ storage_path($madrak->path) }}"
+                                                                    <a href="{{ url('storage/'.$madrak->path) }}"
                                                                        class="btn btn-warning">مشاهده فایل</a>
                                                                 @endif
                                                             </div>
@@ -254,7 +254,7 @@
                                                                        for="tarh_dars{{ $index }}">بارگذاری طرح درس pdf
                                                                 </label>
                                                                 @if($tarh_dars != null)
-                                                                    <a href="{{ storage_path($tarh_dars->path) }}"
+                                                                    <a href="{{ url('storage/'.$tarh_dars->path) }}"
                                                                        class="btn btn-warning"> مشاهده فایل</a>
                                                                 @endif
                                                             </div>
@@ -272,7 +272,7 @@
                                                                     تدریس
                                                                 </label>
                                                                 @if($tadrisVideo != null)
-                                                                    <a href="{{ storage_path($tadrisVideo->path) }}"
+                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"
                                                                        class="btn btn-warning"
                                                                        @if($card_meli == null) hidden @endif>مشاهده
                                                                         فایل</a>
