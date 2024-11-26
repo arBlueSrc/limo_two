@@ -204,7 +204,7 @@
 
                                                 {{--                                                @dd($tarh_dars)--}}
                                                 <p>{{ $item->name . " - " . $major->name }}</p>
-                                                @if($major->id == 54 || $major->id == 55 || $major->id == 56)
+                                                @if($major->id == 55 || $major->id == 56)
 
                                                     <form method="POST" action="{{ route('uploadFile') }}" id="form"
                                                           enctype="multipart/form-data">
@@ -292,6 +292,45 @@
                                                     </form>
 
                                                 @endif
+
+
+                                                @if($major->id == 54)
+
+                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"
+                                                          enctype="multipart/form-data">
+                                                        @csrf
+
+                                                        <input value="{{ $item->id }}" name="id" hidden>
+
+                                                        <div class="form-outline mb-4">
+                                                            <div class="d-flex justify-content-between">
+                                                                <label class="form-label btn btn-info"
+                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل
+                                                                    ویدئویی
+                                                                    تدریس
+                                                                </label>
+                                                                @if($tadrisVideo != null)
+                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"
+                                                                       class="btn btn-warning"
+                                                                       @if($card_meli == null) hidden @endif>مشاهده
+                                                                        فایل</a>
+                                                                @endif
+                                                            </div>
+                                                            <input type='file' name="tadrisVideo{{ $index }}"
+                                                                   id="tadrisVideo{{ $index }}">
+                                                            <span class="custom-file-name"
+                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>
+                                                        </div>
+
+                                                        <div class="col-12 mt-2">
+                                                            <button type="submit" class="btn btn-success w-100"
+                                                                    id="sendFile">ارسال فایل انتخاب شده
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                @endif
+
                                             </div>
                                         @endforeach
                                     </li>

@@ -118,6 +118,7 @@ class CompetitionRegistrationFormsController extends Controller
         foreach ($single_forms as $index => $item) {
 
         }
+        
         $request->validate([
             'id' => 'required',
             'meliCard' => 'file|max:102400',
