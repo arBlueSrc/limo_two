@@ -111,14 +111,14 @@ class CompetitionRegistrationFormsController extends Controller
 
     public function uploadFile(Request $request)
     {
-
+          dd($request->all());
 
         $single_forms = SingleResult::where('user_id', $request->get('id'))->get();
 
         foreach ($single_forms as $index => $item) {
 
         }
-        
+
         $request->validate([
             'id' => 'required',
             'meliCard' => 'file|max:102400',

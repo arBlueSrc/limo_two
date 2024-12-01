@@ -202,6 +202,7 @@
                                                     $tadrisVideo = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',4)->first();
                                                 @endphp
 
+
                                                 {{--                                                @dd($tarh_dars)--}}
                                                 <p>{{ $item->name . " - " . $major->name }}</p>
                                                 @if($major->id == 55 || $major->id == 56)
@@ -309,10 +310,11 @@
                                                                     ویدئویی
                                                                     تدریس
                                                                 </label>
+
                                                                 @if($tadrisVideo != null)
                                                                     <a href="{{ url('storage/'.$tadrisVideo->path) }}"
                                                                        class="btn btn-warning"
-                                                                       @if($card_meli == null) hidden @endif>مشاهده
+                                                                    >مشاهده
                                                                         فایل</a>
                                                                 @endif
                                                             </div>
@@ -328,7 +330,6 @@
                                                             </button>
                                                         </div>
                                                     </form>
-
                                                 @endif
 
                                             </div>
