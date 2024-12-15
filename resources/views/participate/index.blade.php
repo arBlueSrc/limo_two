@@ -277,7 +277,7 @@
                                                                 @if($tadrisVideo != null)
                                                                     <a href="{{ url('storage/'.$tadrisVideo->path) }}"
                                                                        class="btn btn-warning"
-                                                                       @if($card_meli == null) hidden @endif>مشاهده
+                                                                       @if($tadrisVideo == null) hidden @endif>مشاهده
                                                                         فایل</a>
                                                                 @endif
                                                             </div>
