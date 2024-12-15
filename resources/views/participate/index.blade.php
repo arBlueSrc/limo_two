@@ -232,6 +232,7 @@
                                                         </div>
 
                                                         <div class="form-outline mb-4">
+
                                                             <div class="d-flex justify-content-between">
                                                                 <label class="form-label btn btn-info"
                                                                        for="madrak{{ $index }}">بارگذاری مدرک تربیت
@@ -241,6 +242,7 @@
                                                                        class="btn btn-warning">مشاهده فایل</a>
                                                                 @endif
                                                             </div>
+
                                                             <input type='file' name="madrak{{ $index }}"
                                                                    id="madrak{{ $index }}">
 
@@ -287,7 +289,7 @@
 
                                                         <div class="col-12 mt-2">
                                                             <button type="submit" class="btn btn-success w-100"
-                                                                    id="sendFile">ارسال فایل انتخاب شده
+                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )
                                                             </button>
                                                         </div>
                                                     </form>
@@ -326,7 +328,7 @@
 
                                                         <div class="col-12 mt-2">
                                                             <button type="submit" class="btn btn-success w-100"
-                                                                    id="sendFile">ارسال فایل انتخاب شده
+                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )
                                                             </button>
                                                         </div>
                                                     </form>
