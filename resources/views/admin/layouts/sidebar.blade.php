@@ -197,7 +197,16 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('uploadedFiles') }}"
+                           class="nav-link {{ isActive("uploadedFiles") }}">
+                            <p>فایل های تدریس</p>
+                        </a>
+                    </li>
+
                 </ul>
+
+
             </nav>
             <!-- /.sidebar-menu -->
         </div>

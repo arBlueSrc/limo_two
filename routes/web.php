@@ -129,6 +129,7 @@ Route::prefix('admin')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('users/export', [UserController::class, 'export'])->name('excel.download');
+    Route::get('users/uploadedFiles', [UserController::class, 'uploadedFiles'])->name('uploadedFiles');
     Route::get('users/export/allusers', [UserController::class, 'exportAllUsers'])->name('excel.allusers.download');
 
     //forms_Competition

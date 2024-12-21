@@ -11,6 +11,7 @@ use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\SingleResult;
+use App\Models\UploadFile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -538,6 +539,13 @@ class UserController extends Controller
 
         mb_convert_encoding($filename, 'UTF-16LE', 'UTF-8');
         exit();
+    }
+
+
+    public function uploadedFiles()
+    {
+        $files = UploadFile::paginate(10);
+        return view('admin.fileUploads.index',compact('files'));
     }
 
 }
