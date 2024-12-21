@@ -33,7 +33,7 @@
                             <tr>
                                 <td style="width: 5%; alignment: center" class="text-center">{{ $file->id }}</td>
                                 <td>
-                                    <a href="{{ asset($file->path) }}" class="btn btn-primary">دانلود فایل</a>
+                                    <a href="{{ asset('storage/'.$file->path) }}" class="btn btn-primary">دانلود فایل</a>
                                 </td>
                                 <td>
                                     {{ $file->singleResultItem()->name ?? "خطا" }}
@@ -45,6 +45,7 @@
                                 <td>
                                     {{ $file->singleResultItem()->phone ?? "خطا" }}
                                 </td>
+
 
                             </tr>
                         @endforeach
