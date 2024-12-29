@@ -7,6 +7,7 @@ use App\Imports\OstaniManagerImport;
 use App\Imports\ShahrestaniManagerImport;
 use App\Models\FamilyResult;
 use App\Models\GroupResult;
+use App\Models\Major;
 use App\Models\Masjed;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
@@ -542,10 +543,33 @@ class UserController extends Controller
     }
 
 
-    public function uploadedFiles()
+    public function uploadedFiles(Request $request)
     {
-        $files = UploadFile::paginate(10);
-        return view('admin.fileUploads.index',compact('files'));
+
+        $files = UploadFile::query();
+        $selected = [];
+
+        if ($request->get("type") != 0 and $request->get("type") != null ) {
+            $files = $files->where("type", $request->get("type"));
+            $selected['type'] = $request->get("type");
+        }
+
+        if ($request->get("major") != 0 and $request->get("major") != null ) {
+            $files = $files->leftJoin('single_result', function($join) {
+                $join->on('single_result.id', '=', 'upload_file.single_result_id');
+            })->where("single_result.major",$request->get("major"));
+            $selected['major'] = $request->get("major");
+        }
+
+        if ($request->get("code_meli") != 0 and $request->get("type") != null ) {
+            $files = $files->where("single_result.national_code", $request->get("code_meli"));
+            $selected['code_meli'] = $request->get("code_meli");
+        }
+
+        $files =  $files->paginate(10);
+
+        $majors = Major::whereIn('id',[54,55,56])->get();
+         return view('admin.fileUploads.index',compact('files','majors','selected'));
     }
 
 }
