@@ -559,9 +559,7 @@ class UserController extends Controller
                 $join->on('single_result.id', '=', 'upload_file.single_result_id');
             })->where("single_result.major",54);
             $selected['major'] = $request->get("major");
-        }
-
-        if ($request->get("major") != 0 and $request->get("major") != null ) {
+        } elseif ($request->get("major") != 0 and $request->get("major") != null ) {
             $files = $files->leftJoin('single_result', function($join) {
                 $join->on('single_result.id', '=', 'upload_file.single_result_id');
             })->where("single_result.major",$request->get("major"));
