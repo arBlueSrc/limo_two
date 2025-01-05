@@ -188,151 +188,152 @@
 
                                 <hr>
 
-                                <ul class="list-group  mb-3">
+                                <ul class="list-group  mb-3" >
                                     <li class="list-group-item">
                                         <div><b>فردی : </b>{{ $single_count }}</div>
                                         @foreach($single_forms as $index => $item)
                                             <div class=" card mt-3 p-3">
+
                                                 @php
                                                     $major = \App\Models\Major::find($item->major);
-                                                    $files = \App\Models\UploadFile::where('single_result_id', $item->id);
-                                                    $card_meli   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',1)->first();
-                                                    $madrak      = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',2)->first();
-                                                    $tarh_dars   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',3)->first();
-                                                    $tadrisVideo = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',4)->first();
+//                                                    $files = \App\Models\UploadFile::where('single_result_id', $item->id);
+//                                                    $card_meli   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',1)->first();
+//                                                    $madrak      = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',2)->first();
+//                                                    $tarh_dars   = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',3)->first();
+//                                                    $tadrisVideo = \App\Models\UploadFile::where('single_result_id', $item->id)->where('type',4)->first();
                                                 @endphp
 
 
                                                 {{--                                                @dd($tarh_dars)--}}
                                                 <p>{{ $item->name . " - " . $major->name }}</p>
-                                                @if($major->id == 55 || $major->id == 56)
+{{--                                                @if($major->id == 55 || $major->id == 56)--}}
 
-                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"
-                                                          enctype="multipart/form-data">
-                                                        @csrf
+{{--                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"--}}
+{{--                                                          enctype="multipart/form-data">--}}
+{{--                                                        @csrf--}}
 
-                                                        <input value="{{ $item->id }}" name="id" hidden>
+{{--                                                        <input value="{{ $item->id }}" name="id" hidden>--}}
 
-                                                        <div class="form-outline mb-4">
-                                                            <div class="d-flex justify-content-between">
-                                                                <label class="form-label btn btn-info"
-                                                                       for="meliCard{{ $index }}">بارگذاری تصویر کارت
-                                                                    ملی</label>
-                                                                @if($card_meli != null)
-                                                                    <a href="{{ url('storage/'.$card_meli->path) }}"
-                                                                       class="btn btn-warning">مشاهده فایل</a>
-                                                                @endif
-                                                            </div>
+{{--                                                        <div class="form-outline mb-4">--}}
+{{--                                                            <div class="d-flex justify-content-between">--}}
+{{--                                                                <label class="form-label btn btn-info"--}}
+{{--                                                                       for="meliCard{{ $index }}">بارگذاری تصویر کارت--}}
+{{--                                                                    ملی</label>--}}
+{{--                                                                @if($card_meli != null)--}}
+{{--                                                                    <a href="{{ url('storage/'.$card_meli->path) }}"--}}
+{{--                                                                       class="btn btn-warning">مشاهده فایل</a>--}}
+{{--                                                                @endif--}}
+{{--                                                            </div>--}}
 
-                                                            <input type='file' name="meliCard{{ $index }}"
-                                                                   id="meliCard{{ $index }}">
+{{--                                                            <input type='file' name="meliCard{{ $index }}"--}}
+{{--                                                                   id="meliCard{{ $index }}">--}}
 
-                                                            <span class="custom-file-name"
-                                                                  id="file-name1{{ $index }}">فایل انتخابی : </span>
-                                                        </div>
+{{--                                                            <span class="custom-file-name"--}}
+{{--                                                                  id="file-name1{{ $index }}">فایل انتخابی : </span>--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="form-outline mb-4">
+{{--                                                        <div class="form-outline mb-4">--}}
 
-                                                            <div class="d-flex justify-content-between">
-                                                                <label class="form-label btn btn-info"
-                                                                       for="madrak{{ $index }}">بارگذاری مدرک تربیت
-                                                                    مربی</label>
-                                                                @if($madrak != null)
-                                                                    <a href="{{ url('storage/'.$madrak->path) }}"
-                                                                       class="btn btn-warning">مشاهده فایل</a>
-                                                                @endif
-                                                            </div>
+{{--                                                            <div class="d-flex justify-content-between">--}}
+{{--                                                                <label class="form-label btn btn-info"--}}
+{{--                                                                       for="madrak{{ $index }}">بارگذاری مدرک تربیت--}}
+{{--                                                                    مربی</label>--}}
+{{--                                                                @if($madrak != null)--}}
+{{--                                                                    <a href="{{ url('storage/'.$madrak->path) }}"--}}
+{{--                                                                       class="btn btn-warning">مشاهده فایل</a>--}}
+{{--                                                                @endif--}}
+{{--                                                            </div>--}}
 
-                                                            <input type='file' name="madrak{{ $index }}"
-                                                                   id="madrak{{ $index }}">
+{{--                                                            <input type='file' name="madrak{{ $index }}"--}}
+{{--                                                                   id="madrak{{ $index }}">--}}
 
-                                                            <span class="custom-file-name"
-                                                                  id="file-name2{{ $index }}">فایل انتخابی : </span>
+{{--                                                            <span class="custom-file-name"--}}
+{{--                                                                  id="file-name2{{ $index }}">فایل انتخابی : </span>--}}
 
-                                                        </div>
+{{--                                                        </div>--}}
 
-                                                        <div class="form-outline mb-4">
-                                                            <div class="d-flex justify-content-between">
-                                                                <label class="form-label btn btn-info"
-                                                                       for="tarh_dars{{ $index }}">بارگذاری طرح درس pdf
-                                                                </label>
-                                                                @if($tarh_dars != null)
-                                                                    <a href="{{ url('storage/'.$tarh_dars->path) }}"
-                                                                       class="btn btn-warning"> مشاهده فایل</a>
-                                                                @endif
-                                                            </div>
-                                                            <input type='file' name="tarh_dars{{ $index }}"
-                                                                   id="tarh_dars{{ $index }}">
-                                                            <span class="custom-file-name"
-                                                                  id="file-name3{{ $index }}">فایل انتخابی : </span>
-                                                        </div>
+{{--                                                        <div class="form-outline mb-4">--}}
+{{--                                                            <div class="d-flex justify-content-between">--}}
+{{--                                                                <label class="form-label btn btn-info"--}}
+{{--                                                                       for="tarh_dars{{ $index }}">بارگذاری طرح درس pdf--}}
+{{--                                                                </label>--}}
+{{--                                                                @if($tarh_dars != null)--}}
+{{--                                                                    <a href="{{ url('storage/'.$tarh_dars->path) }}"--}}
+{{--                                                                       class="btn btn-warning"> مشاهده فایل</a>--}}
+{{--                                                                @endif--}}
+{{--                                                            </div>--}}
+{{--                                                            <input type='file' name="tarh_dars{{ $index }}"--}}
+{{--                                                                   id="tarh_dars{{ $index }}">--}}
+{{--                                                            <span class="custom-file-name"--}}
+{{--                                                                  id="file-name3{{ $index }}">فایل انتخابی : </span>--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="form-outline mb-4">
-                                                            <div class="d-flex justify-content-between">
-                                                                <label class="form-label btn btn-info"
-                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل
-                                                                    ویدئویی
-                                                                    تدریس
-                                                                </label>
-                                                                @if($tadrisVideo != null)
-                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"
-                                                                       class="btn btn-warning"
-                                                                       @if($tadrisVideo == null) hidden @endif>مشاهده
-                                                                        فایل</a>
-                                                                @endif
-                                                            </div>
-                                                            <input type='file' name="tadrisVideo{{ $index }}"
-                                                                   id="tadrisVideo{{ $index }}">
-                                                            <span class="custom-file-name"
-                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>
-                                                        </div>
+{{--                                                        <div class="form-outline mb-4">--}}
+{{--                                                            <div class="d-flex justify-content-between">--}}
+{{--                                                                <label class="form-label btn btn-info"--}}
+{{--                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل--}}
+{{--                                                                    ویدئویی--}}
+{{--                                                                    تدریس--}}
+{{--                                                                </label>--}}
+{{--                                                                @if($tadrisVideo != null)--}}
+{{--                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"--}}
+{{--                                                                       class="btn btn-warning"--}}
+{{--                                                                       @if($tadrisVideo == null) hidden @endif>مشاهده--}}
+{{--                                                                        فایل</a>--}}
+{{--                                                                @endif--}}
+{{--                                                            </div>--}}
+{{--                                                            <input type='file' name="tadrisVideo{{ $index }}"--}}
+{{--                                                                   id="tadrisVideo{{ $index }}">--}}
+{{--                                                            <span class="custom-file-name"--}}
+{{--                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="col-12 mt-2">
-                                                            <button type="submit" class="btn btn-success w-100"
-                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )
-                                                            </button>
-                                                        </div>
-                                                    </form>
+{{--                                                        <div class="col-12 mt-2">--}}
+{{--                                                            <button type="submit" class="btn btn-success w-100"--}}
+{{--                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
+{{--                                                    </form>--}}
 
-                                                @endif
+{{--                                                @endif--}}
 
 
-                                                @if($major->id == 54)
+{{--                                                @if($major->id == 54)--}}
 
-                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"
-                                                          enctype="multipart/form-data">
-                                                        @csrf
+{{--                                                    <form method="POST" action="{{ route('uploadFile') }}" id="form"--}}
+{{--                                                          enctype="multipart/form-data">--}}
+{{--                                                        @csrf--}}
 
-                                                        <input value="{{ $item->id }}" name="id" hidden>
+{{--                                                        <input value="{{ $item->id }}" name="id" hidden>--}}
 
-                                                        <div class="form-outline mb-4">
-                                                            <div class="d-flex justify-content-between">
-                                                                <label class="form-label btn btn-info"
-                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل
-                                                                    ویدئویی
-                                                                    تدریس
-                                                                </label>
+{{--                                                        <div class="form-outline mb-4">--}}
+{{--                                                            <div class="d-flex justify-content-between">--}}
+{{--                                                                <label class="form-label btn btn-info"--}}
+{{--                                                                       for="tadrisVideo{{ $index }}">بارگذاری فایل--}}
+{{--                                                                    ویدئویی--}}
+{{--                                                                    تدریس--}}
+{{--                                                                </label>--}}
 
-                                                                @if($tadrisVideo != null)
-                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"
-                                                                       class="btn btn-warning"
-                                                                    >مشاهده
-                                                                        فایل</a>
-                                                                @endif
-                                                            </div>
-                                                            <input type='file' name="tadrisVideo{{ $index }}"
-                                                                   id="tadrisVideo{{ $index }}">
-                                                            <span class="custom-file-name"
-                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>
-                                                        </div>
+{{--                                                                @if($tadrisVideo != null)--}}
+{{--                                                                    <a href="{{ url('storage/'.$tadrisVideo->path) }}"--}}
+{{--                                                                       class="btn btn-warning"--}}
+{{--                                                                    >مشاهده--}}
+{{--                                                                        فایل</a>--}}
+{{--                                                                @endif--}}
+{{--                                                            </div>--}}
+{{--                                                            <input type='file' name="tadrisVideo{{ $index }}"--}}
+{{--                                                                   id="tadrisVideo{{ $index }}">--}}
+{{--                                                            <span class="custom-file-name"--}}
+{{--                                                                  id="file-name4{{ $index }}">فایل انتخابی : </span>--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="col-12 mt-2">
-                                                            <button type="submit" class="btn btn-success w-100"
-                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                @endif
+{{--                                                        <div class="col-12 mt-2">--}}
+{{--                                                            <button type="submit" class="btn btn-success w-100"--}}
+{{--                                                                    id="sendFile">ارسال ( حداکثر حجم 50 مگابایت )--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
+{{--                                                    </form>--}}
+{{--                                                @endif--}}
 
                                             </div>
                                         @endforeach

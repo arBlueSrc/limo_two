@@ -21,7 +21,7 @@ class UserAzmoonController extends Controller
         $azmoons = Azmoon::all();
         $user=SingleResult::where('phone',auth()->user()->mobile)->get();
         $user_majors=$user->pluck('major');
-//        dd($user_majors);
+//        dd($user);
 //        dd($user_majors->contains('144'));
 //        dd($user->pluck('major'));
         $index = 0;

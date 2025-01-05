@@ -327,7 +327,7 @@
 
 
 
-            {{--<div class="card">
+            <div class="card">
                 <div class="card-body p-0">
                     <table class="table table-striped">
                         <tbody><tr>
@@ -335,8 +335,8 @@
                             <th>نام آزمون</th>
                             <th>نمره منفی</th>
                             <th>شرکت در ازمون</th>
-                            --}}{{--<th>پیشرفت</th>
-                            <th style="width: 40px">درصد</th>--}}{{--
+                            <th>پیشرفت</th>
+                            <th style="width: 40px">درصد</th>
                         </tr>
                         @foreach($azmoons as $azmoon)
                         <tr>
@@ -344,18 +344,18 @@
                             <td>{{ $azmoon->name }}</td>
                             <td> @if($azmoon->negative_point)  <span class="badge badge-danger p-2" style="font-size: .9rem">دارد</span> @else <span class="badge badge-info p-2" style="font-size: .9rem">ندارد</span> @endif</td>
                             <td>    <a href="">لینک آزمون</a> </td>
-                            --}}{{--<td>
+                            <td>
                                 <div class="progress progress-xs">
                                     <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
                                 </div>
                             </td>
-                            <td><span class="badge bg-danger">۵۵%</span></td>--}}{{--
+                            <td><span class="badge bg-danger">۵۵%</span></td>
                         </tr>
                         @endforeach
                         </tbody></table>
                 </div>
                 <!-- /.card-body -->
-            </div>--}}
+            </div>
 
             {{--@foreach($azmoons as $azmoon)
                 <div class="card mt-2" style="border-radius: 10px">
