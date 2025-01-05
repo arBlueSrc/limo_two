@@ -69,11 +69,11 @@
                             <div class="form-group col-md-3">
                                 <label>رشته</label>
                                 <select name="major" id="major" class="form-control">
-                                    @if(auth()->user()->mobile != "09116937218")
+                                    @if(auth()->user()->mobile != "09122533077")
                                     <option value="0">همه</option>
                                     @endif
                                     @foreach($majors as $major)
-                                        @if(auth()->user()->mobile == "09116937218")
+                                        @if(auth()->user()->mobile == "09122533077")
                                             @if($major->id == "54")
                                                 <option value="{{ $major->id }}"
                                                         @if( isset($selected['major']) && ($selected['major']== $major->id) ) selected @endif >{{ $major->name }}</option>

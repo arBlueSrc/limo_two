@@ -554,7 +554,7 @@ class UserController extends Controller
             $selected['type'] = $request->get("type");
         }
 
-        if (auth()->user()->mobile == "09116937218"){
+        if (auth()->user()->mobile == "09122533077"){
              $files = $files->leftJoin('single_result', function($join) {
                 $join->on('single_result.id', '=', 'upload_file.single_result_id');
             })->where("single_result.major",54);
