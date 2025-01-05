@@ -128,7 +128,7 @@
             @endif
 
 
-            @if(auth()->user()->role == 1  || auth()->user()->role == 2 || auth()->user()->role == 3 || auth()->user()->role == 4)
+            @if(auth()->user()->role == 1  || auth()->user()->role == 2 || auth()->user()->role == 3 || auth()->user()->role == 4 || auth()->user()->role == 5)
                 <a href="{{ route('admin') }}"
                    class="btn btn-primary btn-sm text-white col-7" style="font-family: Shabnam">پنل مدیریت</a>
             @endif

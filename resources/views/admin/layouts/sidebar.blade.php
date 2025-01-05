@@ -101,6 +101,9 @@
                             </ul>
                         </li>
                     @endcan
+
+
+                    @can("access_users")
                     <li class="nav-item has-treeview {{ isActive(["user.index","group.index",'family.index'],'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(["user.index","group.index",'family.index']) }}">
                             <p>
@@ -143,7 +146,7 @@
                             </li>--}}
                         </ul>
                     </li>
-
+                    @endcan
 
 
 
@@ -180,6 +183,7 @@
                     @endcan
 
 
+                    @can('is_superadmin')
                     <li class="nav-item has-treeview {{ isActive(["users.filter.sms","group.index",'family.index'],'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(["users.filter.sms","group.index",'family.index']) }}">
                             <p>
@@ -196,6 +200,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endcan
 
                     <li class="nav-item">
                         <a href="{{ route('uploadedFiles') }}"

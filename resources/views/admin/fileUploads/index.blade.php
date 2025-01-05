@@ -35,51 +35,75 @@
                         {{--                        </form>--}}
                     </div>
 
-                    @can('is_superadmin')
-                        <form action="{{ route('uploadedFiles') }}" method="get" class="mt-3">
-                            @csrf
-                            @method('POST')
-                            <div class="my-form-container row">
+                    <form action="{{ route('uploadedFiles') }}" method="get" class="mt-3">
+                        @csrf
+                        @method('POST')
+                        <div class="my-form-container row">
 
-                                <div class="form-group col-md-3">
-                                    <label>نوع فایل</label>
-                                    <select name="type" id="type" class="form-control">
-                                        <option value="0" @if( isset($selected['type']) && ($selected['type']== 0) ) selected @endif>همه</option>
-                                        <option value="1" @if( isset($selected['type']) && ($selected['type']== 1) ) selected @endif>کارت ملی</option>
-                                        <option value="2" @if( isset($selected['type']) && ($selected['type']== 2) ) selected @endif>مدرک تخصصی</option>
-                                        <option value="3" @if( isset($selected['type']) && ($selected['type']== 3) ) selected @endif>طرح درس</option>
-                                        <option value="4" @if( isset($selected['type']) && ($selected['type']== 4) ) selected @endif>ویدئوی تدریس</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label>رشته</label>
-                                    <select name="major" id="major" class="form-control">
-                                        <option value="0">همه</option>
-                                        @foreach($majors as $major)
-                                            <option value="{{ $major->id }}"
-                                                    @if( isset($selected['major']) && ($selected['major']== $major->id) ) selected @endif >{{ $major->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label for="code_meli">کدملی</label>
-                                    <input type="text" name="code_meli" class="form-control" id="code_meli"
-                                           @if( isset($selected['code_meli'])) ) value="{{ $selected['code_meli'] }}" @endif
-                                           placeholder="کدملی کاربر را وارد کنید">
-                                </div>
-
-                                <div class="form-group d-flex align-items-end mr-2">
-                                    <button class="btn btn-secondary" style="max-height:content-box" type="submit">
-                                        جستجو
-                                    </button>
-                                </div>
-
+                            <div class="form-group col-md-3">
+                                <label>نوع فایل</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="0"
+                                            @if( isset($selected['type']) && ($selected['type']== 0) ) selected @endif>
+                                        همه
+                                    </option>
+                                    <option value="1"
+                                            @if( isset($selected['type']) && ($selected['type']== 1) ) selected @endif>
+                                        کارت ملی
+                                    </option>
+                                    <option value="2"
+                                            @if( isset($selected['type']) && ($selected['type']== 2) ) selected @endif>
+                                        مدرک تخصصی
+                                    </option>
+                                    <option value="3"
+                                            @if( isset($selected['type']) && ($selected['type']== 3) ) selected @endif>
+                                        طرح درس
+                                    </option>
+                                    <option value="4"
+                                            @if( isset($selected['type']) && ($selected['type']== 4) ) selected @endif>
+                                        ویدئوی تدریس
+                                    </option>
+                                </select>
                             </div>
 
-                        </form>
-                    @endcan
+                            <div class="form-group col-md-3">
+                                <label>رشته</label>
+                                <select name="major" id="major" class="form-control">
+                                    @if(auth()->user()->mobile != "09116937218")
+                                    <option value="0">همه</option>
+                                    @endif
+                                    @foreach($majors as $major)
+                                        @if(auth()->user()->mobile == "09116937218")
+                                            @if($major->id == "54")
+                                                <option value="{{ $major->id }}"
+                                                        @if( isset($selected['major']) && ($selected['major']== $major->id) ) selected @endif >{{ $major->name }}</option>
+                                            @endif
+                                        @else
+
+                                            <option value="{{ $major->id }}"
+                                                    @if( isset($selected['major']) && ($selected['major']== $major->id) ) selected @endif >{{ $major->name }}</option>
+
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="code_meli">کدملی</label>
+                                <input type="text" name="code_meli" class="form-control" id="code_meli"
+                                       @if( isset($selected['code_meli'])) ) value="{{ $selected['code_meli'] }}" @endif
+                                       placeholder="کدملی کاربر را وارد کنید">
+                            </div>
+
+                            <div class="form-group d-flex align-items-end mr-2">
+                                <button class="btn btn-secondary" style="max-height:content-box" type="submit">
+                                    جستجو
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
 
                     <div class="filter-result-container py-3">
                         @isset($selected['ostan'])
